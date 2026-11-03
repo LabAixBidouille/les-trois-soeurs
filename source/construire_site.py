@@ -382,7 +382,6 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   height: 1.9em;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 68 38'%3E%3Cg fill='%231d2b4f'%3E%3Cellipse cx='34' cy='27' rx='7.5' ry='6.5'/%3E%3Cellipse cx='25.5' cy='17' rx='2.8' ry='3.8' transform='rotate(-20 25.5 17)'/%3E%3Cellipse cx='31' cy='12.5' rx='2.8' ry='3.9'/%3E%3Cellipse cx='37' cy='12.5' rx='2.8' ry='3.9'/%3E%3Cellipse cx='42.5' cy='17' rx='2.8' ry='3.8' transform='rotate(20 42.5 17)'/%3E%3C/g%3E%3Cg fill='%23d99a2b'%3E%3Cpath d='M9 15 l1.6 3.4 3.7.4-2.8 2.5.8 3.6L9 23l-3.3 1.9.8-3.6-2.8-2.5 3.7-.4z'/%3E%3Cpath d='M34 0 l1.3 2.7 3 .3-2.2 2 .6 2.9L34 6.4l-2.7 1.5.6-2.9-2.2-2 3-.3z'/%3E%3Cpath d='M59 15 l1.6 3.4 3.7.4-2.8 2.5.8 3.6L59 23l-3.3 1.9.8-3.6-2.8-2.5 3.7-.4z'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain;
 }
-.garde .separateur { margin: 0; }
 
 /* Bouton de renvoi, quand il n'y a qu'une suite possible : la même étiquette que Commencer, en plus petit */
 .elan {
@@ -743,7 +742,7 @@ def passage_garde():
         f'<span class="nom-auteur">{AUTRICES}</span></div>'
         '<div class="garde-corps"><div class="garde-image"><img src="images/couverture.jpg" '
         'alt="Rose, les mains lumineuses, dans la forêt au crépuscule, entre un chat et un pigeon"></div>'
-        f'<div class="garde-texte"><div class="synopsis">{SYNOPSIS}</div>{SEPARATEUR}'
+        f'<div class="garde-texte"><div class="synopsis">{SYNOPSIS}</div>'
         f'<div class="commencer">{lien("Commencer l'histoire", "Prologue")}</div>'
         f'<div class="secondaires">{lien("Comment est née cette histoire", "Comment est née cette histoire")} '
         f'{lien("L\'arbre de l\'histoire", "L\'arbre de l\'histoire")}</div>'
