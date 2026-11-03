@@ -413,141 +413,91 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 /* plus spécifique que les liens de choix, qui sont en gras et soulignés */
 .choix.elan tw-link, .choix.elan .enchantment-link { font-size: 1.15em; font-weight: 400; border-bottom: 1px solid var(--or); }
 
-/* Dé à lancer sur le site : un dé magique, face de nuit et points d'or qui brillent comme les mains
-   de Rose ; il montre une face au repos et ne choisit jamais à la place du lecteur */
+/* Sur le site, le dé devient une carte, comme celles que reçoivent les trois sœurs : un dos bleu nuit à
+   la patte de loup ; touchée, elle tourne sur elle-même et révèle des points d'or disposés comme sur
+   un dé. Elle ne choisit jamais à la place du lecteur */
 .de {
   display: flex;
   align-items: center;
   gap: 1.6em;
 }
 .de-texte { flex: 1; min-width: 0; }
-/* Traînée d'étoiles dorées qui mène au dé */
-.fleche-de { flex: none; width: 4em; height: auto; margin-right: -0.4em; transform: translateY(-0.3em); overflow: visible; }
-/* Le résultat s'affiche sous le dé sans compter dans la hauteur : le dé reste fixe,
-   exactement au milieu du bloc consigne et choix */
 .lancer {
   flex: none;
   position: relative;
   display: flex;
-  isolation: isolate;
+  perspective: 30em;
 }
-/* Une brume bleutée et dorée qui respire sous le dé, comme s'il flottait au-dessus de la forêt */
-.lancer::before, .lancer::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  z-index: -1;
-  pointer-events: none;
-  border-radius: 50%;
-}
-.lancer::before {
-  bottom: -1.1em;
-  width: 8.5em;
-  height: 2.2em;
-  margin-left: -4.25em;
-  background: radial-gradient(ellipse at center, rgba(110, 125, 200, 0.7) 0%, rgba(150, 160, 220, 0.38) 42%, transparent 72%);
-  filter: blur(7px);
-  animation: brume 6s ease-in-out infinite alternate;
-}
-.lancer::after {
-  bottom: -0.6em;
-  width: 5.5em;
-  height: 1.3em;
-  margin-left: -2.75em;
-  background: radial-gradient(ellipse at center, rgba(247, 227, 176, 0.75) 0%, rgba(217, 154, 43, 0.3) 45%, transparent 75%);
-  filter: blur(5px);
-  animation: brume 4.5s ease-in-out infinite alternate-reverse;
-}
-@keyframes brume {
-  from { translate: -0.5em 0; scale: 0.92; opacity: 0.75; }
-  to { translate: 0.5em 0.1em; scale: 1.08; opacity: 1; }
-}
-/* Le dé flotte doucement (« translate » s'ajoute à la rotation sans la remplacer) */
-@keyframes flotte {
-  from { translate: 0 0; }
-  to { translate: 0 -6px; }
-}
-.de-virtuel {
+.carte {
   position: relative;
-  animation: flotte 2.8s ease-in-out infinite alternate;
-  width: 4.6em;
-  height: 4.6em;
-  padding: 0.55em;
-  display: grid;
+  width: 4.4em;
+  height: 6em;
+  padding: 0;
+  border-radius: 0.5em;
+  background: radial-gradient(circle at 50% 30%, #2c3d6b, var(--nuit) 60%, var(--nuit-fonce));
+  border: 1px solid var(--or);
+  outline: 1px solid var(--or);
+  outline-offset: -5px;
+  box-shadow: 0 6px 16px rgba(19, 28, 51, 0.28);
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+.carte:hover { box-shadow: 0 0 22px 4px rgba(217, 154, 43, 0.45); }
+.carte.tourne { animation: tourne 0.9s ease-in-out; }
+@keyframes tourne { from { transform: rotateY(0); } to { transform: rotateY(1080deg); } }
+.carte .dos {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.carte .dos img { width: 58%; }
+.carte .dos::before, .carte .dos::after { content: "✦"; position: absolute; color: var(--or); font-size: 0.6em; }
+.carte .dos::before { top: 1em; }
+.carte .dos::after { bottom: 1em; }
+.carte .devant {
+  position: absolute;
+  inset: 22% 16%;
+  display: none;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  background: radial-gradient(circle at 30% 25%, #34477a 0%, var(--nuit) 55%, var(--nuit-fonce) 100%);
-  border: 1.5px solid var(--or);
-  border-radius: 0.9em;
-  box-shadow: 0 0 0 3px rgba(217, 154, 43, 0.18), 0 0 18px 2px rgba(217, 154, 43, 0.35), inset 0 0 12px rgba(0, 0, 0, 0.35);
-  cursor: pointer;
-  transform: rotate(-6deg);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.de-virtuel:hover {
-  transform: rotate(4deg) scale(1.05);
-  box-shadow: 0 0 0 3px rgba(217, 154, 43, 0.3), 0 0 28px 6px rgba(217, 154, 43, 0.55), inset 0 0 12px rgba(0, 0, 0, 0.35);
-}
-.de-virtuel.roule { animation: roule 0.35s linear infinite, lueur 0.7s ease-in-out infinite alternate, flotte 2.8s ease-in-out infinite alternate; }
-@keyframes roule {
-  0% { transform: rotate(0deg) translateY(0); }
-  50% { transform: rotate(180deg) translateY(-4px); }
-  100% { transform: rotate(360deg) translateY(0); }
-}
-@keyframes lueur {
-  from { box-shadow: 0 0 0 3px rgba(217, 154, 43, 0.2), 0 0 14px 2px rgba(217, 154, 43, 0.35); }
-  to { box-shadow: 0 0 0 3px rgba(217, 154, 43, 0.4), 0 0 34px 10px rgba(247, 227, 176, 0.7); }
-}
-.de-virtuel i {
-  width: 0.72em;
-  height: 0.72em;
+.carte.montre .dos { display: none; }
+.carte.montre .devant { display: grid; }
+.carte .devant i {
+  width: 0.7em;
+  height: 0.7em;
   border-radius: 50%;
   background: radial-gradient(circle at 35% 35%, #fff6d8 0%, var(--or-clair) 35%, var(--or) 100%);
   box-shadow: 0 0 6px 1px rgba(247, 227, 176, 0.8);
   place-self: center;
   visibility: hidden;
 }
-/* Avant le premier lancer : un point d'interrogation doré qui luit */
-.de-virtuel[data-face="0"]::after {
-  content: "?";
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "IM Fell English", Georgia, serif;
-  font-size: 2.8em;
-  line-height: 1;
-  color: var(--or-clair);
-  text-shadow: 0 0 10px rgba(247, 227, 176, 0.9);
-}
-.de-virtuel[data-face="1"] i:nth-child(5),
-.de-virtuel[data-face="2"] i:is(:nth-child(1), :nth-child(9)),
-.de-virtuel[data-face="3"] i:is(:nth-child(1), :nth-child(5), :nth-child(9)),
-.de-virtuel[data-face="4"] i:is(:nth-child(1), :nth-child(3), :nth-child(7), :nth-child(9)),
-.de-virtuel[data-face="5"] i:is(:nth-child(1), :nth-child(3), :nth-child(5), :nth-child(7), :nth-child(9)),
-.de-virtuel[data-face="6"] i:is(:nth-child(1), :nth-child(3), :nth-child(4), :nth-child(6), :nth-child(7), :nth-child(9)) {
+.carte[data-face="1"] i:nth-child(5),
+.carte[data-face="2"] i:is(:nth-child(1), :nth-child(9)),
+.carte[data-face="3"] i:is(:nth-child(1), :nth-child(5), :nth-child(9)),
+.carte[data-face="4"] i:is(:nth-child(1), :nth-child(3), :nth-child(7), :nth-child(9)),
+.carte[data-face="5"] i:is(:nth-child(1), :nth-child(3), :nth-child(5), :nth-child(7), :nth-child(9)),
+.carte[data-face="6"] i:is(:nth-child(1), :nth-child(3), :nth-child(4), :nth-child(6), :nth-child(7), :nth-child(9)) {
   visibility: visible;
 }
 .resultat {
   position: absolute;
-  z-index: 1;
-  top: calc(100% + 0.9em);
+  top: calc(100% + 0.6em);
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
   font-family: "IM Fell English", Georgia, serif;
   font-style: italic;
-  font-size: 1.1em;
+  font-size: 1.05em;
   color: var(--or-fonce);
   text-align: center;
 }
 @media (max-width: 600px) {
-  .de { gap: 0.6em; }
-  .fleche-de { width: 2.6em; }
-  .de-virtuel { width: 3.6em; height: 3.6em; padding: 0.45em; }
-  .de-virtuel i { width: 0.55em; height: 0.55em; }
-  .de-virtuel[data-face="0"]::after { font-size: 2.1em; }
+  .de { gap: 0.8em; }
+  .carte { width: 3.5em; height: 4.8em; }
+  .carte .devant i { width: 0.55em; height: 0.55em; }
 }
 
 /* Fin */
@@ -804,38 +754,30 @@ SEPARATEUR = '<div class="separateur"><span class="embleme"></span></div>'
 
 
 DE_VIRTUEL = (
-    # Une traînée de poussière d'or, qui part d'une petite étoile et finit en pointe vers le dé
-    '<svg class="fleche-de" viewBox="0 0 70 40" aria-hidden="true">'
-    '<path d="M8 30 C22 36 40 32 56 17" fill="none" stroke="#d99a2b" stroke-width="2.4" '
-    'stroke-linecap="round" stroke-dasharray="0.1 6"/>'
-    '<path d="M50 12 L59 15 L55 24" fill="none" stroke="#d99a2b" stroke-width="2" stroke-linecap="round" '
-    'stroke-linejoin="round"/>'
-    '<path d="M6 24 l1.3 3.4 3.4 1.3-3.4 1.3L6 33.4l-1.3-3.4L1.3 28.7l3.4-1.3z" fill="#d99a2b"/></svg>'
-    '<div class="lancer"><button class="de-virtuel" type="button" data-face="0" '
-    'aria-label="Lancer le dé">' + "<i></i>" * 9 + '</button>'
+    '<div class="lancer"><button class="carte" type="button" data-face="0" aria-label="Retourner la carte">'
+    '<span class="dos"><img src="images/embleme.png" alt=""></span>'
+    '<span class="devant">' + "<i></i>" * 9 + '</span></button>'
     '<span class="resultat" aria-live="polite"></span></div>'
 )
 
 # Script commun à toutes les pages : fait rouler le dé puis affiche la face tirée, sans choisir
 SCRIPT_DE = """
+// La carte tourne sur elle-même ; à mi-tour, elle montre la face tirée. Elle ne choisit pas la suite
 document.addEventListener('click', function (evenement) {
-  var de = evenement.target.closest('.de-virtuel');
-  if (!de || de.classList.contains('roule')) return;
-  var resultat = de.parentNode.querySelector('.resultat');
+  var carte = evenement.target.closest('.carte');
+  if (!carte || carte.classList.contains('tourne')) return;
+  var resultat = carte.parentNode.querySelector('.resultat');
   var face = 1 + Math.floor(Math.random() * 6);
-  var etapes = 0;
-  de.classList.add('roule');
   resultat.textContent = '';
-  var minuterie = setInterval(function () {
-    de.setAttribute('data-face', 1 + Math.floor(Math.random() * 6));
-    etapes += 1;
-    if (etapes >= 8) {
-      clearInterval(minuterie);
-      de.setAttribute('data-face', face);
-      de.classList.remove('roule');
-      resultat.textContent = 'Le dé affiche ' + face + '.';
-    }
-  }, 75);
+  carte.classList.add('tourne');
+  setTimeout(function () {
+    carte.setAttribute('data-face', face);
+    carte.classList.add('montre');
+  }, 450);
+  setTimeout(function () {
+    carte.classList.remove('tourne');
+    resultat.textContent = 'La carte montre ' + face + '.';
+  }, 900);
 });
 
 // Page de contexte : une miniature s'ouvre en grand, un clic referme
@@ -893,8 +835,8 @@ def passage_chapitre(ch):
         # Sur les vrais tirages, un dé à lancer à droite du bloc consigne et choix ; il montre la face sans choisir
         lancer = DE_VIRTUEL if tirage else ""
         if tirage:
-            # Sur le site, on lance le dé en cliquant dessus : la consigne le dit, une flèche le montre
-            consigne = consigne.replace("Lance le dé", "Clique sur le dé", 1)
+            # Sur le site, le dé devient une carte à toucher, sans flèche
+            consigne = consigne.replace("Lance le dé", "Touche la carte", 1)
         suite.append(f'<div class="de"><div class="de-texte"><span class="consigne">{consigne}</span>'
                      f'<div class="choix">{"".join(choix)}</div></div>{lancer}</div>')
     elif len(choix) == 1:
