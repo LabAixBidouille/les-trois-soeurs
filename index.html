@@ -43,6 +43,8 @@
 
 
 
+
+
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta content="width=device-width, initial-scale=1" name="viewport">
 <title>Les trois sœurs</title>
@@ -507,19 +509,10 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   color: var(--gris);
 }
 
-.couverture-arbre { margin-top: 1.4em; }
+.arbre .lien-retour { display: block; font-size: 0.86em; }
 
-/* Page de l'arbre : le texte à gauche, l'arbre très vertical à droite */
-.arbre {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr);
-  gap: 3.5em;
-  align-items: start;
-}
-.arbre-texte {
-  position: sticky;
-  top: 2em;
-}
+/* Page de l'arbre : le titre centré en haut, l'arbre dessous */
+.arbre-tete { text-align: center; margin-bottom: 1.5em; }
 .arbre h1 {
   font-family: "IM Fell English", Georgia, serif;
   font-weight: 400;
@@ -539,11 +532,9 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 .arbre img {
   display: block;
   width: 100%;
+  max-width: 760px;
   height: auto;
-}
-@media (max-width: 800px) {
-  .arbre { grid-template-columns: minmax(0, 1fr); gap: 1.5em; }
-  .arbre-texte { position: static; }
+  margin: 0 auto;
 }
 
 /* Page de contexte : les trois sœurs dessinées par les autrices, un texte court au centre, une phrase
@@ -771,7 +762,7 @@ Les enfants ont ainsi exploré, sans écran, des notions liées à la pensée co
 
 Agathe et Alyssa ont choisi d’inventer un mystère. Un défi pour une histoire à embranchements, puisque les indices doivent garder leur sens et la révélation fonctionner, quel que soit le chemin emprunté.&lt;div class=&quot;citation&quot;&gt;« Les loups se rappellent et ils ne bougent pas. Elles parlent aux loups, qui leur disent qu&#x27;ils étaient gentils et qu&#x27;ils les protégeaient d&#x27;un homme qui les cherchait. »&lt;span class=&quot;source&quot;&gt;Agathe, sur sa fiche récit&lt;/span&gt;&lt;/div&gt;Pour donner naissance à ce livre, le L.A.B a prolongé et mis en forme leur récit à l’aide d’outils numériques. L’intelligence artificielle a notamment contribué à produire, dans le temps imparti, une histoire complète et agréable à lire. À son origine, il y a avant tout les idées, les personnages et les dessins d’Agathe et d’Alyssa.&lt;/div&gt;&lt;div class=&quot;table-fiches&quot;&gt;&lt;span class=&quot;titre-table&quot;&gt;Les fiches de l’atelier&lt;/span&gt;&lt;div class=&quot;miniatures&quot;&gt;&lt;figure&gt;&lt;button class=&quot;miniature&quot; type=&quot;button&quot; aria-label=&quot;Agrandir la fiche récit, par Agathe&quot;&gt;&lt;img src=&quot;images/fiches/fiche_recit.jpg&quot; alt=&quot;la fiche récit, par Agathe&quot;&gt;&lt;/button&gt;&lt;figcaption&gt;Le récit&lt;/figcaption&gt;&lt;/figure&gt;&lt;figure&gt;&lt;button class=&quot;miniature&quot; type=&quot;button&quot; aria-label=&quot;Agrandir la fiche personnage de Rose, par Alyssa&quot;&gt;&lt;img src=&quot;images/fiches/fiche_personnage_rose.jpg&quot; alt=&quot;la fiche personnage de Rose, par Alyssa&quot;&gt;&lt;/button&gt;&lt;figcaption&gt;Une fiche personnage&lt;/figcaption&gt;&lt;/figure&gt;&lt;figure&gt;&lt;button class=&quot;miniature&quot; type=&quot;button&quot; aria-label=&quot;Agrandir la fiche situation n° 1, avec ses choix au dé&quot;&gt;&lt;img src=&quot;images/fiches/fiche_situation_1.jpg&quot; alt=&quot;la fiche situation n° 1, avec ses choix au dé&quot;&gt;&lt;/button&gt;&lt;figcaption&gt;Une fiche à embranchement&lt;/figcaption&gt;&lt;/figure&gt;&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;credits&quot;&gt;Une histoire d’Agathe et d’Alyssa.
 Réalisation du livre : Laboratoire d’Aix-périmentation et de Bidouille.&lt;/span&gt;&lt;div class=&quot;commencer&quot;&gt;[[Commencer le livre-&gt;Prologue]]&lt;/div&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="4" name="L&#x27;arbre de l&#x27;histoire" tags="" position="600,0" size="100,100">&lt;div class=&quot;arbre&quot;&gt;&lt;div class=&quot;arbre-texte&quot;&gt;&lt;h1&gt;Les trois sœurs&lt;/h1&gt;&lt;span class=&quot;arbre-sous-titre&quot;&gt;Tous les chemins de l&#x27;histoire imaginée par Agathe et Alyssa&lt;/span&gt;&lt;div class=&quot;intro-arbre&quot;&gt;Un arbre de décision est un schéma qui montre toutes les suites possibles d&#x27;une histoire, ou d&#x27;un programme informatique. Chaque case est une étape, ici un chapitre, et chaque flèche part d&#x27;une condition : le résultat du dé, ou ce que le lecteur a déjà lu. En suivant les flèches, on vérifie qu&#x27;aucun chemin ne mène nulle part : c&#x27;est grâce à cet outil que chaque parcours de //Les trois sœurs// conduit bien à la fin. Les trois épreuves de la route forment une boucle : on en sort seulement quand on les a toutes vécues.&lt;/div&gt;&lt;div class=&quot;lien-retour couverture-arbre&quot;&gt;[[Couverture-&gt;Page de garde]]&lt;/div&gt;&lt;/div&gt;&lt;img src=&quot;images/arbre.svg&quot; alt=&quot;L&#x27;arbre de toutes les branches de l&#x27;histoire&quot;&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="5" name="Prologue" tags="" position="750,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Prologue&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;La nuit des loups&lt;/span&gt;&lt;/h1&gt;C&#x27;était une nuit sans lune, au fond d&#x27;une forêt où personne n&#x27;osait s&#x27;aventurer. Sous un grand sapin, trois bébés dormaient dans un panier d&#x27;osier : trois petites filles d&#x27;un an, serrées les unes contre les autres. Quelqu&#x27;un les avait laissées là, enveloppées dans une seule couverture, et n&#x27;était pas revenu.
+&lt;/div&gt;</tw-passagedata><tw-passagedata pid="4" name="L&#x27;arbre de l&#x27;histoire" tags="" position="600,0" size="100,100">&lt;div class=&quot;arbre&quot;&gt;&lt;span class=&quot;lien-retour&quot;&gt;[[Couverture-&gt;Page de garde]]&lt;/span&gt;&lt;div class=&quot;arbre-tete&quot;&gt;&lt;h1&gt;Les trois sœurs&lt;/h1&gt;&lt;span class=&quot;arbre-sous-titre&quot;&gt;Tous les chemins de l&#x27;histoire imaginée par Agathe et Alyssa&lt;/span&gt;&lt;/div&gt;&lt;img src=&quot;images/arbre.svg&quot; alt=&quot;L&#x27;arbre de toutes les branches de l&#x27;histoire&quot;&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="5" name="Prologue" tags="" position="750,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Prologue&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;La nuit des loups&lt;/span&gt;&lt;/h1&gt;C&#x27;était une nuit sans lune, au fond d&#x27;une forêt où personne n&#x27;osait s&#x27;aventurer. Sous un grand sapin, trois bébés dormaient dans un panier d&#x27;osier : trois petites filles d&#x27;un an, serrées les unes contre les autres. Quelqu&#x27;un les avait laissées là, enveloppées dans une seule couverture, et n&#x27;était pas revenu.
 
 Vers minuit, les branches craquèrent tout près du panier. Des yeux jaunes s&#x27;allumèrent entre les troncs, puis d&#x27;autres encore. Les loups approchaient sans bruit.
 

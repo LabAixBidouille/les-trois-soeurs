@@ -513,19 +513,10 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   color: var(--gris);
 }
 
-.couverture-arbre { margin-top: 1.4em; }
+.arbre .lien-retour { display: block; font-size: 0.86em; }
 
-/* Page de l'arbre : le texte à gauche, l'arbre très vertical à droite */
-.arbre {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr);
-  gap: 3.5em;
-  align-items: start;
-}
-.arbre-texte {
-  position: sticky;
-  top: 2em;
-}
+/* Page de l'arbre : le titre centré en haut, l'arbre dessous */
+.arbre-tete { text-align: center; margin-bottom: 1.5em; }
 .arbre h1 {
   font-family: "IM Fell English", Georgia, serif;
   font-weight: 400;
@@ -545,11 +536,9 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 .arbre img {
   display: block;
   width: 100%;
+  max-width: 760px;
   height: auto;
-}
-@media (max-width: 800px) {
-  .arbre { grid-template-columns: minmax(0, 1fr); gap: 1.5em; }
-  .arbre-texte { position: static; }
+  margin: 0 auto;
 }
 
 /* Page de contexte : les trois sœurs dessinées par les autrices, un texte court au centre, une phrase
@@ -921,16 +910,11 @@ def passage_contexte():
 
 
 def passage_arbre():
+    # Page simple : le titre centré en haut, l'arbre dessous
     return (
-        f'<div class="arbre"><div class="arbre-texte"><h1>{TITRE}</h1>'
-        f'<span class="arbre-sous-titre">Tous les chemins de l\'histoire imaginée par {AUTRICES}</span>'
-        '<div class="intro-arbre">Un arbre de décision est un schéma qui montre toutes les suites possibles '
-        "d'une histoire, ou d'un programme informatique. Chaque case est une étape, ici un chapitre, et chaque "
-        "flèche part d'une condition : le résultat du dé, ou ce que le lecteur a déjà lu. En suivant les "
-        "flèches, on vérifie qu'aucun chemin ne mène nulle part : c'est grâce à cet outil que chaque parcours "
-        f"de //{TITRE}// conduit bien à la fin. Les trois épreuves de la route forment une boucle : on en sort "
-        "seulement quand on les a toutes vécues.</div>"
-        f'<div class="lien-retour couverture-arbre">{lien("Couverture", "Page de garde")}</div></div>'
+        f'<div class="arbre"><span class="lien-retour">{lien("Couverture", "Page de garde")}</span>'
+        f'<div class="arbre-tete"><h1>{TITRE}</h1>'
+        f'<span class="arbre-sous-titre">Tous les chemins de l\'histoire imaginée par {AUTRICES}</span></div>'
         '<img src="images/arbre.svg" alt="L\'arbre de toutes les branches de l\'histoire"></div>'
     )
 
