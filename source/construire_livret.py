@@ -71,6 +71,10 @@ h1 {{ font-family: "IM Fell English"; font-weight: 400; font-size: 19pt; line-he
 .illus img {{ display: block; width: 100%; height: 62mm; object-fit: cover; margin: 0 auto 4mm;
   border: 0.8mm solid #d99a2b; border-radius: 3.5mm; }}
 
+.serre .illus img {{ height: 40mm; }}
+.serre .separateur {{ margin: 2mm 0 2mm; }}
+.serre .elan {{ margin-top: 1.5mm; }}
+
 /* Séparateur, choix, fin */
 .separateur {{ display: flex; align-items: center; justify-content: center; gap: 3mm; margin: 4mm 0 3mm; break-after: avoid; }}
 .separateur::before, .separateur::after {{ content: ""; width: 20mm; height: 0.3mm; background: linear-gradient(to right, transparent, #d99a2b); }}
@@ -123,9 +127,15 @@ def avec_page(texte, pages):
     return texte[: m.end()] + f" (page {page})" + texte[m.end():]
 
 
+# Chapitres resserrés pour tenir sur deux pages au lieu de déborder de quelques lignes sur une troisième :
+# image moins haute, séparateur plus proche
+SERRES = {1}
+
+
 def chapitre(ch, pages):
     cle = 0 if ch["nom"] == "Prologue" else int(ch["nom"].split()[-1])
-    morceaux = [f'<section class="page-seule"><span class="marque">@@CH{cle}@@</span>']
+    classe = "page-seule serre" if cle in SERRES else "page-seule"
+    morceaux = [f'<section class="{classe}"><span class="marque">@@CH{cle}@@</span>']
     image = RACINE / "images" / "chapitres" / f"{illustration(ch['nom'])}.jpg"
     if image.exists():
         morceaux.append(f'<div class="illus"><img src="{image.as_uri()}" alt=""></div>')
