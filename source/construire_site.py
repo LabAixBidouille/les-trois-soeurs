@@ -225,9 +225,39 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   font-size: 1.05em;
   line-height: 1.65;
 }
-/* Bouton Commencer : une étiquette de vieux livre, cernée d'un double filet doré, sans aplat ;
+/* Commencer : en gras, entre deux fioritures dorées terminées par une étoile, sans cadre de bouton ;
+   au survol, le texte prend une lueur dorée */
+.garde .commencer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9em;
+}
+.garde .commencer::before, .garde .commencer::after {
+  content: "";
+  flex: 0 1 7.5em;
+  height: 1.2em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 20' preserveAspectRatio='none'%3E%3Cpath d='M14 10 C40 10 52 4 70 7 C86 10 96 14 118 10' fill='none' stroke='%23d99a2b' stroke-width='1.4' stroke-linecap='round'/%3E%3Cpath d='M7 3 l1.7 4.3 4.3 .4-3.3 2.9 1 4.3L7 12.6l-3.7 2.3 1-4.3L1 7.7l4.3-.4z' fill='%23d99a2b'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+}
+.garde .commencer::after { transform: scaleX(-1); }
+.garde .commencer tw-link, .garde .commencer .enchantment-link {
+  font-family: "IM Fell English", Georgia, serif;
+  font-weight: 700;
+  font-size: 1.6em;
+  letter-spacing: 0.02em;
+  color: var(--nuit);
+  border: none;
+  background: none;
+  white-space: nowrap;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+.garde .commencer tw-link:hover, .garde .commencer .enchantment-link:hover {
+  color: var(--nuit);
+  text-shadow: 0 0 12px rgba(217, 154, 43, 0.75);
+}
+
+/* Boutons de renvoi : une étiquette de vieux livre, cernée d'un double filet doré, sans aplat ;
    au survol, elle se remplit de nuit et l'or s'allume */
-.garde .commencer tw-link, .garde .commencer .enchantment-link,
 .elan tw-link, .elan .enchantment-link {
   display: inline-block;
   font-family: "IM Fell English", Georgia, serif;
@@ -243,18 +273,18 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   padding: 0.3em 1.3em 0.35em;
   transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
 }
-.garde .commencer tw-link::before, .garde .commencer tw-link::after,
 .elan tw-link::before, .elan tw-link::after {
   content: "✦";
   font-size: 0.55em;
   color: var(--or);
   vertical-align: middle;
 }
-.garde .commencer tw-link::before, .elan tw-link::before { margin-right: 0.9em; }
-.garde .commencer tw-link::after, .elan tw-link::after { margin-left: 0.9em; }
-.garde .commencer tw-link:hover, .garde .commencer .enchantment-link:hover,
-.elan tw-link:hover, .elan .enchantment-link:hover {
-  color: var(--or-clair);
+.elan tw-link::before { margin-right: 0.9em; }
+.elan tw-link::after { margin-left: 0.9em; }
+/* Au survol, le texte passe en blanc : le doré foncé des liens de choix disparaissait sur le bleu.
+   « .choix.elan » est plus spécifique que la règle des liens de choix, qui l'emportait */
+.choix.elan tw-link:hover, .choix.elan .enchantment-link:hover {
+  color: #ffffff;
   background-color: var(--nuit);
   box-shadow: 0 0 16px 3px rgba(217, 154, 43, 0.4);
 }
