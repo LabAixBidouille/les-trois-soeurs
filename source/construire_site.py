@@ -33,18 +33,25 @@ SYNOPSIS = (
     "la forêt, un homme à la bague étrange ne cesse de croiser leur chemin…"
 )
 
+# Texte écrit par Manon le 03/11/2026, modèle commun aux livres de l'atelier : seuls les noms changent
 CONTEXTE = [
-    "En octobre 2026, le L.A.B a animé l'atelier « Le livre dont tu es le héros » dans les "
-    "bibliothèques Méjanes d'Aix-en-Provence. Les enfants y inventaient une histoire qui change selon "
-    "les choix du lecteur, et découvraient au passage, sans écran, ce qui fait tenir un programme "
-    "informatique : chaque lancer de dé est une condition, chaque choix ouvre une branche, et il faut "
-    "que tous les chemins mènent quelque part.",
-    "Agathe et Alyssa ont choisi le genre du mystère, un pari exigeant pour une histoire à "
-    "embranchements : un indice doit rester un indice quel que soit le chemin du lecteur, et la "
-    "révélation doit tomber juste quel que soit le résultat du dé.",
-    "Pour en faire un livre achevé, le L.A.B a prolongé leur récit et l'a mis en forme, en s'aidant "
-    "d'outils numériques, dont l'intelligence artificielle. Ce travail ne retire rien au leur : tout "
-    "part de leurs idées, de leurs personnages et de leurs dessins.",
+    "En octobre 2026, le L.A.B a animé l’atelier « La quête du curry, une histoire dont tu es le héros » "
+    "dans les bibliothèques Méjanes d’Aix-en-Provence. Les enfants ont été accompagnés dans la création "
+    "d’un récit complet, depuis l’invention des personnages jusqu’à la construction d’une intrigue "
+    "reliant les différentes étapes de leur aventure.",
+    "Nous leur avons proposé d’introduire une part de hasard dans leur récit. Le résultat d’un lancer de "
+    "dé pouvait modifier le déroulement de certains passages et conduire le lecteur vers un chapitre ou "
+    "un autre.",
+    "Les enfants ont ainsi exploré, sans écran, des notions liées à la pensée computationnelle, une "
+    "manière de décomposer un problème et d’organiser les étapes pour le résoudre. Ils ont formulé des "
+    "règles de type « si… alors… », créé des embranchements et réfléchi à la façon dont les chemins se "
+    "rejoignent pour former une histoire cohérente.",
+    f"{AUTRICES} ont choisi d’inventer un mystère. Un défi pour une histoire à embranchements, puisque "
+    "les indices doivent garder leur sens et la révélation fonctionner, quel que soit le chemin emprunté.",
+    "Pour donner naissance à ce livre, le L.A.B a prolongé et mis en forme leur récit à l’aide d’outils "
+    "numériques. L’intelligence artificielle a notamment contribué à produire, dans le temps imparti, une "
+    "histoire complète et agréable à lire. À son origine, il y a avant tout les idées, les personnages et "
+    "les dessins d’Agathe et d’Alyssa.",
 ]
 # Les mots d'Agathe sur sa fiche récit, à peine remis au propre
 CITATION = ("Les loups se rappellent et ils ne bougent pas. Elles parlent aux loups, qui leur disent "
@@ -897,17 +904,18 @@ def passage_contexte():
         + f'</div><h1>Comment est née cette histoire</h1>{SEPARATEUR}</div>'
         '<div class="contexte-texte">'
         # Lettrine dorée sur la première lettre ; Harlowe ne fait pas de <p>, d'où le span
-        + f'<span class="lettrine">{CONTEXTE[0][0]}</span>{CONTEXTE[0][1:]}\n\n{CONTEXTE[1]}'
+        + f'<span class="lettrine">{CONTEXTE[0][0]}</span>{CONTEXTE[0][1:]}\n\n'
+        + "\n\n".join(CONTEXTE[1:4])
         + f'<div class="citation">« {CITATION} »<span class="source">Agathe, sur sa fiche récit</span></div>'
-        + CONTEXTE[2]
-        + '</div><div class="table-fiches"><span class="titre-table">Les fiches remplies pendant l\'atelier</span>'
+        + CONTEXTE[4]
+        + '</div><div class="table-fiches"><span class="titre-table">Les fiches de l’atelier</span>'
         '<div class="miniatures">'
-        + miniature("fiche_personnage_sofia.jpg", "Sofia, par Agathe", "la fiche personnage de Sofia, par Agathe")
-        + miniature("fiche_recit.jpg", "Le récit, par Agathe", "la fiche récit, par Agathe")
-        + miniature("fiche_personnage_rose.jpg", "Rose, par Alyssa", "la fiche personnage de Rose, par Alyssa")
-        + '</div><span class="indication">Clique sur une fiche pour l\'agrandir.</span></div>'
-        + f'<span class="credits">Une histoire d\'{AUTRICES}. Réalisation du livre : L.A.B, '
-        "Laboratoire d'Aix-périmentation et de Bidouille.</span>"
+        + miniature("fiche_recit.jpg", "Le récit", "la fiche récit, par Agathe")
+        + miniature("fiche_personnage_rose.jpg", "Une fiche personnage", "la fiche personnage de Rose, par Alyssa")
+        + miniature("fiche_situation_1.jpg", "Une fiche à embranchement", "la fiche situation n° 1, avec ses choix au dé")
+        + '</div></div>'
+        + '<span class="credits">Une histoire d’Agathe et d’Alyssa.\nRéalisation du livre : '
+        "Laboratoire d’Aix-périmentation et de Bidouille.</span>"
         + f'<div class="commencer">{lien("Commencer le livre", "Prologue")}</div>\n</div>'
     )
 
