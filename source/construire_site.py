@@ -112,40 +112,16 @@ tw-passage {
   margin-top: 2.5em;
 }
 .illustration { display: flex; flex-direction: column; }
-/* Les illustrations ne sont pas posées en bloc : leurs bords se fondent dans un halo de nuit, qui
-   lui-même s'efface dans le blanc de la page */
-.halo { position: relative; display: block; isolation: isolate; }
-.halo::before {
-  /* une nuée de taches sombres qui se chevauchent : le halo n'a ni coins ni bords droits */
-  content: "";
-  position: absolute;
-  inset: -7% -6%;
-  z-index: -1;
-  background:
-    radial-gradient(ellipse 38% 46% at 18% 30%, var(--nuit-fonce) 0%, rgba(19, 28, 51, 0.85) 45%, transparent 75%),
-    radial-gradient(ellipse 34% 40% at 82% 22%, var(--nuit) 0%, rgba(29, 43, 79, 0.8) 45%, transparent 75%),
-    radial-gradient(ellipse 42% 38% at 70% 82%, var(--nuit-fonce) 0%, rgba(19, 28, 51, 0.85) 45%, transparent 75%),
-    radial-gradient(ellipse 36% 44% at 24% 78%, var(--nuit) 0%, rgba(29, 43, 79, 0.75) 40%, transparent 75%),
-    radial-gradient(ellipse 48% 42% at 50% 50%, var(--nuit-fonce) 0%, rgba(19, 28, 51, 0.9) 55%, transparent 80%),
-    radial-gradient(ellipse 22% 26% at 50% 8%, rgba(29, 43, 79, 0.7) 0%, transparent 75%),
-    radial-gradient(ellipse 20% 30% at 96% 55%, rgba(19, 28, 51, 0.65) 0%, transparent 75%),
-    radial-gradient(ellipse 18% 28% at 3% 55%, rgba(29, 43, 79, 0.6) 0%, transparent 75%);
-  filter: blur(10px);
-}
-/* Une image sur deux a sa nuée retournée, pour que les halos ne se ressemblent pas */
-.halo:nth-child(2n)::before { transform: scale(-1, 1); }
-.cote:nth-child(odd) .halo:first-child::before { transform: scale(1, -1); }
+.halo { display: block; }
 .illustration img {
   display: block;
   width: 100%;
   max-height: 85vh;
   object-fit: contain;
-  /* bord irrégulier : plusieurs ovales qui se chevauchent, sans coins ni lignes droites */
-  -webkit-mask-image: radial-gradient(ellipse 47% 49% at 50% 50%, #000 58%, transparent 100%), radial-gradient(ellipse 30% 36% at 26% 32%, #000 45%, transparent 100%), radial-gradient(ellipse 32% 32% at 74% 70%, #000 45%, transparent 100%), radial-gradient(ellipse 28% 34% at 76% 30%, #000 40%, transparent 100%), radial-gradient(ellipse 30% 30% at 24% 72%, #000 40%, transparent 100%);
-  mask-image: radial-gradient(ellipse 47% 49% at 50% 50%, #000 58%, transparent 100%), radial-gradient(ellipse 30% 36% at 26% 32%, #000 45%, transparent 100%), radial-gradient(ellipse 32% 32% at 74% 70%, #000 45%, transparent 100%), radial-gradient(ellipse 28% 34% at 76% 30%, #000 40%, transparent 100%), radial-gradient(ellipse 30% 30% at 24% 72%, #000 40%, transparent 100%);
+  border-radius: 10px;
+  box-shadow: 0 6px 24px rgba(19, 28, 51, 0.25);
 }
-/* Deux illustrations : un peu d'air entre leurs halos */
-.illustration .halo + .halo { margin-top: 1.4em; }
+.illustration .halo + .halo { margin-top: 1.2em; }
 /* Tant qu'un chapitre n'a pas d'illustration, son texte reste en une colonne centrée */
 .page:not(:has(.cote)) { grid-template-columns: minmax(0, 38em); justify-content: center; }
 @media (max-width: 800px) {
@@ -201,7 +177,7 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 .garde-corps {
   display: grid;
   /* Le triptyque des trois sœurs est en paysage : il prend la plus large des deux colonnes */
-  grid-template-columns: minmax(0, 1.2fr) minmax(22em, 1fr);
+  grid-template-columns: minmax(0, 1.1fr) minmax(26em, 1fr);
   gap: 3.5em;
   align-items: center;
   width: 100%;
@@ -229,15 +205,16 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 .garde .surtitre {
   font-family: "IM Fell English", Georgia, serif;
   font-style: italic;
-  font-size: 1.3em;
+  font-size: 1.05em;
   color: var(--gris);
 }
 .garde .grand-titre {
   font-family: "IM Fell English", Georgia, serif;
   font-size: clamp(2.4em, 8vh, 4.6em);
-  line-height: 1;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
   color: var(--nuit);
-  margin: 0.15em 0 0.15em;
+  margin: 0.05em 0 0.05em;
 }
 .garde .nom-auteur {
   font-family: "IM Fell English", Georgia, serif;
@@ -247,7 +224,7 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 }
 .garde .synopsis {
   margin: 0 auto;
-  max-width: 34em;
+  max-width: 40em;
   font-size: 1.05em;
   line-height: 1.65;
 }
