@@ -49,6 +49,9 @@
 
 
 
+
+
+
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta content="width=device-width, initial-scale=1" name="viewport">
 <title>Les trois sœurs</title>
@@ -106,6 +109,7 @@ tw-passage {
   top: 1.5em;
   margin-top: 2.5em;
 }
+.illustration { display: flex; flex-direction: column; gap: 1.2em; }
 .illustration img {
   display: block;
   width: 100%;
@@ -389,55 +393,101 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 /* plus spécifique que les liens de choix, qui sont en gras et soulignés */
 .choix.elan tw-link, .choix.elan .enchantment-link { font-size: 1.15em; font-weight: 400; border-bottom: 1px solid var(--or); }
 
-/* Dé à lancer sur le site : à droite du bloc consigne et choix, face blanche, contour bleu nuit,
-   points dorés ; il montre une face au repos et ne choisit jamais à la place du lecteur */
+/* Dé à lancer sur le site : un dé magique, face de nuit et points d'or qui brillent comme les mains
+   de Rose ; il montre une face au repos et ne choisit jamais à la place du lecteur */
 .de {
   display: flex;
   align-items: center;
   gap: 1.6em;
 }
 .de-texte { flex: 1; min-width: 0; }
-/* Flèche tracée à la main qui montre le dé */
-.fleche-de { flex: none; width: 3.2em; height: auto; margin-right: -0.6em; transform: translateY(-0.4em); }
+/* Traînée d'étoiles dorées qui mène au dé */
+.fleche-de { flex: none; width: 4em; height: auto; margin-right: -0.4em; transform: translateY(-0.3em); overflow: visible; }
 /* Le résultat s'affiche sous le dé sans compter dans la hauteur : le dé reste fixe,
    exactement au milieu du bloc consigne et choix */
 .lancer {
   flex: none;
   position: relative;
   display: flex;
+  isolation: isolate;
+}
+/* Une brume bleutée et dorée qui respire sous le dé, comme s'il flottait au-dessus de la forêt */
+.lancer::before, .lancer::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 50%;
+}
+.lancer::before {
+  bottom: -1.1em;
+  width: 8.5em;
+  height: 2.2em;
+  margin-left: -4.25em;
+  background: radial-gradient(ellipse at center, rgba(110, 125, 200, 0.7) 0%, rgba(150, 160, 220, 0.38) 42%, transparent 72%);
+  filter: blur(7px);
+  animation: brume 6s ease-in-out infinite alternate;
+}
+.lancer::after {
+  bottom: -0.6em;
+  width: 5.5em;
+  height: 1.3em;
+  margin-left: -2.75em;
+  background: radial-gradient(ellipse at center, rgba(247, 227, 176, 0.75) 0%, rgba(217, 154, 43, 0.3) 45%, transparent 75%);
+  filter: blur(5px);
+  animation: brume 4.5s ease-in-out infinite alternate-reverse;
+}
+@keyframes brume {
+  from { translate: -0.5em 0; scale: 0.92; opacity: 0.75; }
+  to { translate: 0.5em 0.1em; scale: 1.08; opacity: 1; }
+}
+/* Le dé flotte doucement (« translate » s'ajoute à la rotation sans la remplacer) */
+@keyframes flotte {
+  from { translate: 0 0; }
+  to { translate: 0 -6px; }
 }
 .de-virtuel {
+  position: relative;
+  animation: flotte 2.8s ease-in-out infinite alternate;
   width: 4.6em;
   height: 4.6em;
-  padding: 0.5em;
+  padding: 0.55em;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  background: #ffffff;
-  border: 3px solid var(--nuit);
-  border-radius: 0.8em;
-  box-shadow: 0 4px 0 var(--or);
+  background: radial-gradient(circle at 30% 25%, #34477a 0%, var(--nuit) 55%, var(--nuit-fonce) 100%);
+  border: 1.5px solid var(--or);
+  border-radius: 0.9em;
+  box-shadow: 0 0 0 3px rgba(217, 154, 43, 0.18), 0 0 18px 2px rgba(217, 154, 43, 0.35), inset 0 0 12px rgba(0, 0, 0, 0.35);
   cursor: pointer;
-  transform: rotate(-5deg);
-  transition: transform 0.15s ease;
+  transform: rotate(-6deg);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.de-virtuel:hover { transform: rotate(5deg); }
-.de-virtuel.roule { animation: roule 0.3s linear infinite; }
+.de-virtuel:hover {
+  transform: rotate(4deg) scale(1.05);
+  box-shadow: 0 0 0 3px rgba(217, 154, 43, 0.3), 0 0 28px 6px rgba(217, 154, 43, 0.55), inset 0 0 12px rgba(0, 0, 0, 0.35);
+}
+.de-virtuel.roule { animation: roule 0.35s linear infinite, lueur 0.7s ease-in-out infinite alternate, flotte 2.8s ease-in-out infinite alternate; }
 @keyframes roule {
   0% { transform: rotate(0deg) translateY(0); }
-  50% { transform: rotate(180deg) translateY(-3px); }
+  50% { transform: rotate(180deg) translateY(-4px); }
   100% { transform: rotate(360deg) translateY(0); }
 }
+@keyframes lueur {
+  from { box-shadow: 0 0 0 3px rgba(217, 154, 43, 0.2), 0 0 14px 2px rgba(217, 154, 43, 0.35); }
+  to { box-shadow: 0 0 0 3px rgba(217, 154, 43, 0.4), 0 0 34px 10px rgba(247, 227, 176, 0.7); }
+}
 .de-virtuel i {
-  width: 0.8em;
-  height: 0.8em;
+  width: 0.72em;
+  height: 0.72em;
   border-radius: 50%;
-  background: var(--or);
+  background: radial-gradient(circle at 35% 35%, #fff6d8 0%, var(--or-clair) 35%, var(--or) 100%);
+  box-shadow: 0 0 6px 1px rgba(247, 227, 176, 0.8);
   place-self: center;
   visibility: hidden;
 }
-/* Avant le premier lancer : un point d'interrogation, centré comme les points */
-.de-virtuel { position: relative; }
+/* Avant le premier lancer : un point d'interrogation doré qui luit */
 .de-virtuel[data-face="0"]::after {
   content: "?";
   position: absolute;
@@ -448,7 +498,8 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   font-family: "IM Fell English", Georgia, serif;
   font-size: 2.8em;
   line-height: 1;
-  color: var(--or);
+  color: var(--or-clair);
+  text-shadow: 0 0 10px rgba(247, 227, 176, 0.9);
 }
 .de-virtuel[data-face="1"] i:nth-child(5),
 .de-virtuel[data-face="2"] i:is(:nth-child(1), :nth-child(9)),
@@ -460,21 +511,22 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 }
 .resultat {
   position: absolute;
-  top: calc(100% + 0.6em);
+  z-index: 1;
+  top: calc(100% + 0.9em);
   left: 50%;
   transform: translateX(-50%);
   white-space: nowrap;
   font-family: "IM Fell English", Georgia, serif;
   font-style: italic;
   font-size: 1.1em;
-  color: var(--gris);
+  color: var(--or-fonce);
   text-align: center;
 }
 @media (max-width: 600px) {
   .de { gap: 0.6em; }
-  .fleche-de { width: 2.2em; }
-  .de-virtuel { width: 3.6em; height: 3.6em; padding: 0.4em; }
-  .de-virtuel i { width: 0.6em; height: 0.6em; }
+  .fleche-de { width: 2.6em; }
+  .de-virtuel { width: 3.6em; height: 3.6em; padding: 0.45em; }
+  .de-virtuel i { width: 0.55em; height: 0.55em; }
   .de-virtuel[data-face="0"]::after { font-size: 2.1em; }
 }
 
@@ -768,7 +820,7 @@ Vers minuit, les branches craquèrent tout près du panier. Des yeux jaunes s&#x
 
 La plus petite des trois ouvrit les yeux et se mit à pleurer. Ses sœurs se réveillèrent à leur tour. Alors il se passa une chose étrange : l&#x27;air se plia autour du panier, comme une feuille qu&#x27;on froisse, et les trois bébés disparurent.
 
-Dans la forêt, les loups restèrent un long moment assis, à contempler le panier vide.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite elan&quot;&gt;[[Poursuis au chapitre 1.-&gt;Chapitre 1]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="6" name="Chapitre 1" tags="" position="900,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 1&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le bébé du banc&lt;/span&gt;&lt;/h1&gt;Ce soir-là, à New York, Grace sortait de sa garde à l&#x27;hôpital. En France, de l&#x27;autre côté de l&#x27;Atlantique, il était déjà près de minuit. Elle traversa le parc pour rentrer chez elle, comme d&#x27;habitude. Sur un banc, sous un érable, quelque chose bougeait dans une couverture. C&#x27;était un bébé, une petite fille aux cheveux noirs, qui ne pleurait pas. Elle regardait les pigeons.
+Dans la forêt, les loups restèrent un long moment assis, à contempler le panier vide.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite elan&quot;&gt;[[Poursuis au chapitre 1.-&gt;Chapitre 1]]&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;cote&quot;&gt;&lt;div class=&quot;illustration&quot;&gt;&lt;img src=&quot;images/chapitres/prologue.jpg&quot; alt=&quot;La nuit des loups&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="6" name="Chapitre 1" tags="" position="900,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 1&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le bébé du banc&lt;/span&gt;&lt;/h1&gt;Ce soir-là, à New York, Grace sortait de sa garde à l&#x27;hôpital. En France, de l&#x27;autre côté de l&#x27;Atlantique, il était déjà près de minuit. Elle traversa le parc pour rentrer chez elle, comme d&#x27;habitude. Sur un banc, sous un érable, quelque chose bougeait dans une couverture. C&#x27;était un bébé, une petite fille aux cheveux noirs, qui ne pleurait pas. Elle regardait les pigeons.
 
 Grace l&#x27;emmena à l&#x27;hôpital. Personne ne vint la réclamer. Les semaines passèrent, puis les mois. Grace allait la voir tous les jours. Un matin d&#x27;hiver, elle signa les papiers de l&#x27;adoption. Elle appela la petite Rose, se rappelant ses joues roses de froid le jour où elle l&#x27;avait trouvée.
 
@@ -778,7 +830,7 @@ Ce que Grace ne savait pas, c&#x27;est que Rose comprenait les pigeons du toit. 
 
 « Pourquoi moi ? Et d&#x27;où viennent ces pouvoirs ? » se demandait-elle.
 
-Un soir d&#x27;automne, elle trouva une carte sous son oreiller. Elle portait une empreinte de loup entourée de trois étoiles, et quelques mots écrits à l&#x27;encre violette : « Si tu veux comprendre ton don, touche cette carte quand ses étoiles brilleront. »&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite elan&quot;&gt;[[Poursuis au chapitre 2.-&gt;Chapitre 2]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="7" name="Chapitre 2" tags="" position="1050,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 2&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le bébé de la roseraie&lt;/span&gt;&lt;/h1&gt;Au même instant, dans un village d&#x27;Italie accroché à une colline, un bruit réveilla Clara. La nuit était bien avancée lorsqu&#x27;elle descendit dans son jardin. Elle cultivait des roses depuis cinquante ans et connaissait chacune d&#x27;elles. Pourtant, cette nuit-là, au milieu des rosiers, elle découvrit une fleur qu&#x27;elle n&#x27;avait pas plantée : un bébé endormi, une petite fille aux cheveux clairs, avec des pétales sur sa couverture.
+Un soir d&#x27;automne, elle trouva une carte sous son oreiller. Elle portait une empreinte de loup entourée de trois étoiles, et quelques mots écrits à l&#x27;encre violette : « Si tu veux comprendre ton don, touche cette carte quand ses étoiles brilleront. »&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite elan&quot;&gt;[[Poursuis au chapitre 2.-&gt;Chapitre 2]]&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;cote&quot;&gt;&lt;div class=&quot;illustration&quot;&gt;&lt;img src=&quot;images/chapitres/chapitre-01.jpg&quot; alt=&quot;Le bébé du banc&quot;&gt;&lt;img src=&quot;images/chapitres/chapitre-01b.jpg&quot; alt=&quot;Le bébé du banc&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="7" name="Chapitre 2" tags="" position="1050,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 2&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le bébé de la roseraie&lt;/span&gt;&lt;/h1&gt;Au même instant, dans un village d&#x27;Italie accroché à une colline, un bruit réveilla Clara. La nuit était bien avancée lorsqu&#x27;elle descendit dans son jardin. Elle cultivait des roses depuis cinquante ans et connaissait chacune d&#x27;elles. Pourtant, cette nuit-là, au milieu des rosiers, elle découvrit une fleur qu&#x27;elle n&#x27;avait pas plantée : un bébé endormi, une petite fille aux cheveux clairs, avec des pétales sur sa couverture.
 
 Clara était seule depuis longtemps. Les gens du village lui dirent qu&#x27;elle était trop vieille pour élever un enfant. Clara répondit qu&#x27;elle était surtout trop têtue pour les écouter. Elle garda la petite et l&#x27;appela Rosi, à cause des roses.
 
@@ -786,7 +838,7 @@ Quatorze ans plus tard, Rosi connaissait toutes les ruelles du village et tous l
 
 Certains soirs, Rosi s&#x27;élevait doucement au-dessus des toits, puis redescendait, un peu effrayée. Une fois, prise de peur là-haut, elle s&#x27;était retrouvée dans le jardin de Clara sans comprendre comment. Elle aurait voulu comprendre d&#x27;où venaient ses pouvoirs. Clara n&#x27;en savait rien.
 
-Un soir d&#x27;automne, Rosi trouva une carte sous son oreiller. Une empreinte de loup, trois étoiles, et des mots à l&#x27;encre violette : « Si tu veux comprendre ton don, touche cette carte quand ses étoiles brilleront. »&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite elan&quot;&gt;[[Poursuis au chapitre 3.-&gt;Chapitre 3]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="8" name="Chapitre 3" tags="" position="1200,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 3&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le bébé du laboratoire&lt;/span&gt;&lt;/h1&gt;À la même heure, dans une ville d&#x27;Espagne, Lucía et Andrés travaillaient tard dans leur laboratoire. Ils étudiaient la mémoire des animaux. Derrière la porte, ils entendirent pleurer. Dans une couverture, sur le paillasson, il y avait un bébé qui les fixait de ses grands yeux noirs, comme s&#x27;il savait déjà ce qu&#x27;ils pensaient.
+Un soir d&#x27;automne, Rosi trouva une carte sous son oreiller. Une empreinte de loup, trois étoiles, et des mots à l&#x27;encre violette : « Si tu veux comprendre ton don, touche cette carte quand ses étoiles brilleront. »&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite elan&quot;&gt;[[Poursuis au chapitre 3.-&gt;Chapitre 3]]&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;cote&quot;&gt;&lt;div class=&quot;illustration&quot;&gt;&lt;img src=&quot;images/chapitres/chapitre-02.jpg&quot; alt=&quot;Le bébé de la roseraie&quot;&gt;&lt;img src=&quot;images/chapitres/chapitre-02b.jpg&quot; alt=&quot;Le bébé de la roseraie&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="8" name="Chapitre 3" tags="" position="1200,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 3&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le bébé du laboratoire&lt;/span&gt;&lt;/h1&gt;À la même heure, dans une ville d&#x27;Espagne, Lucía et Andrés travaillaient tard dans leur laboratoire. Ils étudiaient la mémoire des animaux. Derrière la porte, ils entendirent pleurer. Dans une couverture, sur le paillasson, il y avait un bébé qui les fixait de ses grands yeux noirs, comme s&#x27;il savait déjà ce qu&#x27;ils pensaient.
 
 Ils cherchèrent sa famille pendant des mois. Ils ne trouvèrent rien. Alors ils l&#x27;adoptèrent et l&#x27;appelèrent Sofia, parce qu&#x27;elle avait l&#x27;air de tout comprendre.
 
@@ -796,7 +848,7 @@ Toutes les nuits, elle faisait le même rêve : une forêt noire, un panier d&#
 
 Un soir d&#x27;automne, elle trouva à son tour une carte sous son oreiller. Elle portait une empreinte de loup entourée de trois étoiles et un message à l&#x27;encre violette : « Si tu veux comprendre ton don, touche cette carte quand ses étoiles brilleront. »
 
-Sofia retourna la carte entre ses doigts. Qui l&#x27;avait déposée là ? Et comment cette personne connaissait-elle son secret ?&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite elan&quot;&gt;[[Poursuis au chapitre 4.-&gt;Chapitre 4]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="9" name="Chapitre 4" tags="" position="1350,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 4&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Les trois cartes&lt;/span&gt;&lt;/h1&gt;Au même instant, les étoiles des trois cartes s&#x27;illuminèrent. Rose, Rosi et Sofia posèrent chacune la main sur leur carte. La magie plissa l&#x27;air autour des filles et les emporta.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite elan&quot;&gt;[[Poursuis au chapitre 5.-&gt;Chapitre 5]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="10" name="Chapitre 5" tags="" position="1500,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 5&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;La Nuit des dons&lt;/span&gt;&lt;/h1&gt;Rose rouvrit les yeux dans une grande serre de verre, au milieu de plantes qu&#x27;elle n&#x27;avait jamais vues. Des lanternes flottaient sous la verrière. Autour d&#x27;elle, une trentaine d&#x27;enfants regardaient partout, aussi étonnés qu&#x27;elle.
+Sofia retourna la carte entre ses doigts. Qui l&#x27;avait déposée là ? Et comment cette personne connaissait-elle son secret ?&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite elan&quot;&gt;[[Poursuis au chapitre 4.-&gt;Chapitre 4]]&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;cote&quot;&gt;&lt;div class=&quot;illustration&quot;&gt;&lt;img src=&quot;images/chapitres/chapitre-03.jpg&quot; alt=&quot;Le bébé du laboratoire&quot;&gt;&lt;img src=&quot;images/chapitres/chapitre-03b.jpg&quot; alt=&quot;Le bébé du laboratoire&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="9" name="Chapitre 4" tags="" position="1350,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 4&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Les trois cartes&lt;/span&gt;&lt;/h1&gt;Au même instant, les étoiles des trois cartes s&#x27;illuminèrent. Rose, Rosi et Sofia posèrent chacune la main sur leur carte. La magie plissa l&#x27;air autour des filles et les emporta.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite elan&quot;&gt;[[Poursuis au chapitre 5.-&gt;Chapitre 5]]&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;cote&quot;&gt;&lt;div class=&quot;illustration&quot;&gt;&lt;img src=&quot;images/chapitres/chapitre-04.jpg&quot; alt=&quot;Les trois cartes&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="10" name="Chapitre 5" tags="" position="1500,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 5&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;La Nuit des dons&lt;/span&gt;&lt;/h1&gt;Rose rouvrit les yeux dans une grande serre de verre, au milieu de plantes qu&#x27;elle n&#x27;avait jamais vues. Des lanternes flottaient sous la verrière. Autour d&#x27;elle, une trentaine d&#x27;enfants regardaient partout, aussi étonnés qu&#x27;elle.
 
 Un garçon faisait léviter son sac à dos sans le faire exprès. Une fille avait les cheveux qui changeaient de couleur à chaque fois qu&#x27;elle avait peur. Un autre parlait tout seul, ou peut-être à quelqu&#x27;un que personne ne voyait.
 
@@ -806,7 +858,7 @@ Une vieille femme s&#x27;avança au milieu de la serre. Elle portait un long man
 
 Rose remarqua deux filles de son âge, un peu à l&#x27;écart. L&#x27;une avait des fleurs prises dans les cheveux. L&#x27;autre tenait un carnet et fronçait les sourcils, comme si elle écoutait quelque chose de très loin. Rose eut l&#x27;étrange impression de les avoir déjà vues. Peut-être dans un rêve ?
 
-Le chat roux sauta de l&#x27;épaule de la vieille femme et vint se frotter contre ses jambes. « Toi, tu n&#x27;es pas arrivée ici par hasard, murmura-t-il. Ouvre bien les yeux. »&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Clique sur le dé pour savoir si les trois filles vont se reconnaître :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;[[Un nombre pair : poursuis au chapitre 6.-&gt;Chapitre 6]][[Un nombre impair : poursuis au chapitre 7.-&gt;Chapitre 7]]&lt;/div&gt;&lt;/div&gt;&lt;svg class=&quot;fleche-de&quot; viewBox=&quot;0 0 60 40&quot; aria-hidden=&quot;true&quot;&gt;&lt;g fill=&quot;none&quot; stroke=&quot;#d99a2b&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M4 30 C16 34 34 30 48 16&quot;/&gt;&lt;path d=&quot;M38 14 L49 15 L47 26&quot;/&gt;&lt;/g&gt;&lt;/svg&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;de-virtuel&quot; type=&quot;button&quot; data-face=&quot;0&quot; aria-label=&quot;Lancer le dé&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/button&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="Chapitre 6" tags="" position="1650,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 6&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Trois rêves, une forêt&lt;/span&gt;&lt;/h1&gt;Au milieu de la soirée, Sofia s&#x27;arrêta net. Parmi toutes les pensées qui bourdonnaient dans la serre, deux voix pensaient exactement la même chose qu&#x27;elle : une forêt noire, un panier d&#x27;osier, des yeux jaunes.
+Le chat roux sauta de l&#x27;épaule de la vieille femme et vint se frotter contre ses jambes. « Toi, tu n&#x27;es pas arrivée ici par hasard, murmura-t-il. Ouvre bien les yeux. »&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Clique sur le dé pour savoir si les trois filles vont se reconnaître :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;[[Un nombre pair : poursuis au chapitre 6.-&gt;Chapitre 6]][[Un nombre impair : poursuis au chapitre 7.-&gt;Chapitre 7]]&lt;/div&gt;&lt;/div&gt;&lt;svg class=&quot;fleche-de&quot; viewBox=&quot;0 0 70 40&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M8 30 C22 36 40 32 56 17&quot; fill=&quot;none&quot; stroke=&quot;#d99a2b&quot; stroke-width=&quot;2.4&quot; stroke-linecap=&quot;round&quot; stroke-dasharray=&quot;0.1 6&quot;/&gt;&lt;path d=&quot;M50 12 L59 15 L55 24&quot; fill=&quot;none&quot; stroke=&quot;#d99a2b&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;path d=&quot;M6 24 l1.3 3.4 3.4 1.3-3.4 1.3L6 33.4l-1.3-3.4L1.3 28.7l3.4-1.3z&quot; fill=&quot;#d99a2b&quot;/&gt;&lt;/svg&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;de-virtuel&quot; type=&quot;button&quot; data-face=&quot;0&quot; aria-label=&quot;Lancer le dé&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/button&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;cote&quot;&gt;&lt;div class=&quot;illustration&quot;&gt;&lt;img src=&quot;images/chapitres/chapitre-05.jpg&quot; alt=&quot;La Nuit des dons&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="Chapitre 6" tags="" position="1650,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 6&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Trois rêves, une forêt&lt;/span&gt;&lt;/h1&gt;Au milieu de la soirée, Sofia s&#x27;arrêta net. Parmi toutes les pensées qui bourdonnaient dans la serre, deux voix pensaient exactement la même chose qu&#x27;elle : une forêt noire, un panier d&#x27;osier, des yeux jaunes.
 
 Elle se tourna vers la fille aux fleurs, puis vers la fille aux pigeons, qui venait de discuter avec le chat roux.
 
@@ -824,7 +876,7 @@ Quand elles rouvrirent les yeux, elles étaient assises par terre, au milieu d&#
 
 « Ça m&#x27;arrive parfois, dit Rose. Je me retrouve ailleurs sans savoir comment. Mais cette fois, nous avons disparu toutes les trois. »
 
-« Pourquoi nous trois ? Et pourquoi nous retrouver ici ? » murmura Sofia.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite elan&quot;&gt;[[Poursuis au chapitre 8.-&gt;Chapitre 8]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="12" name="Chapitre 7" tags="" position="1800,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 7&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le rêve aux petites mains&lt;/span&gt;&lt;/h1&gt;La Nuit des dons passa trop vite. Rose, Rosi et Sofia se croisèrent plusieurs fois, échangèrent quelques mots, mais aucune n&#x27;osa poser la question qui lui brûlait les lèvres. Au lever du jour, chacune toucha de nouveau sa carte et rentra chez elle.
+« Pourquoi nous trois ? Et pourquoi nous retrouver ici ? » murmura Sofia.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite elan&quot;&gt;[[Poursuis au chapitre 8.-&gt;Chapitre 8]]&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;cote&quot;&gt;&lt;div class=&quot;illustration&quot;&gt;&lt;img src=&quot;images/chapitres/chapitre-06.jpg&quot; alt=&quot;Trois rêves, une forêt&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="12" name="Chapitre 7" tags="" position="1800,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 7&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le rêve aux petites mains&lt;/span&gt;&lt;/h1&gt;La Nuit des dons passa trop vite. Rose, Rosi et Sofia se croisèrent plusieurs fois, échangèrent quelques mots, mais aucune n&#x27;osa poser la question qui lui brûlait les lèvres. Au lever du jour, chacune toucha de nouveau sa carte et rentra chez elle.
 
 La nuit suivante, Rose fit de nouveau ce rêve, plus net que jamais. La forêt, le panier, les yeux jaunes qui se rapprochaient. Rose eut peur. Dans le noir, deux bébés lui tenaient chacun une main.
 
@@ -834,7 +886,7 @@ Rose se réveilla en sursaut. Elle n&#x27;était plus dans sa chambre. Elle éta
 
 Elle n&#x27;eut pas besoin d&#x27;aller plus loin. Elle entendait leurs pensées : le même rêve, les mêmes mains dans le noir, un banc, une roseraie. Les trois filles se regardèrent longtemps sans rien dire. Leurs dons venaient de les réunir sans leur demander leur avis.
 
-« Et si on était sœurs ? » demanda enfin Rose.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite elan&quot;&gt;[[Poursuis au chapitre 8.-&gt;Chapitre 8]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="13" name="Chapitre 8" tags="" position="1950,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 8&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;L&#x27;article oublié&lt;/span&gt;&lt;/h1&gt;Lucía et Andrés étaient partis pour trois jours à un congrès. Le laboratoire était à elles.
+« Et si on était sœurs ? » demanda enfin Rose.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite elan&quot;&gt;[[Poursuis au chapitre 8.-&gt;Chapitre 8]]&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;cote&quot;&gt;&lt;div class=&quot;illustration&quot;&gt;&lt;img src=&quot;images/chapitres/chapitre-07.jpg&quot; alt=&quot;Le rêve aux petites mains&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="13" name="Chapitre 8" tags="" position="1950,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 8&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;L&#x27;article oublié&lt;/span&gt;&lt;/h1&gt;Lucía et Andrés étaient partis pour trois jours à un congrès. Le laboratoire était à elles.
 
 Sofia alluma son vieil ordinateur. Pendant des heures, les trois sœurs fouillèrent les articles de journaux, les registres et les archives. Rosi faisait pousser des fleurs dans les pots à crayons pour se calmer. Rose posait des questions aux pigeons de la fenêtre, mais aucun ne put l&#x27;aider.
 
@@ -852,7 +904,7 @@ Les trois filles fermèrent les yeux et essayèrent de se téléporter. Elles se
 
 Il faudrait faire le trajet comme tout le monde. Chacune envoya un message à sa famille : « Je suis partie chercher d&#x27;où je viens. Je reviendrai. » Puis elles prirent un sac, leur argent de poche et les carnets de Sofia, et se mirent en route avant l&#x27;aube.
 
-Le voyage jusqu&#x27;à la forêt française serait long. Il leur réservait trois épreuves, et c&#x27;est le dé qui allait en décider l&#x27;ordre.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Clique sur le dé pour découvrir la première épreuve des trois sœurs :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;[[1 ou 2 : poursuis au chapitre 9.-&gt;Chapitre 9]][[3 ou 4 : poursuis au chapitre 10.-&gt;Chapitre 10]][[5 ou 6 : poursuis au chapitre 11.-&gt;Chapitre 11]]&lt;/div&gt;&lt;/div&gt;&lt;svg class=&quot;fleche-de&quot; viewBox=&quot;0 0 60 40&quot; aria-hidden=&quot;true&quot;&gt;&lt;g fill=&quot;none&quot; stroke=&quot;#d99a2b&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M4 30 C16 34 34 30 48 16&quot;/&gt;&lt;path d=&quot;M38 14 L49 15 L47 26&quot;/&gt;&lt;/g&gt;&lt;/svg&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;de-virtuel&quot; type=&quot;button&quot; data-face=&quot;0&quot; aria-label=&quot;Lancer le dé&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/button&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="14" name="Chapitre 9" tags="" position="2100,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 9&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le coup de feu sur la route&lt;/span&gt;&lt;/h1&gt;Sur une route de campagne, une voiture noire était arrêtée en travers. Un homme fouillait le coffre d&#x27;une camionnette. Le conducteur, les mains levées, reculait vers le fossé.
+Le voyage jusqu&#x27;à la forêt française serait long. Il leur réservait trois épreuves, et c&#x27;est le dé qui allait en décider l&#x27;ordre.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Clique sur le dé pour découvrir la première épreuve des trois sœurs :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;[[1 ou 2 : poursuis au chapitre 9.-&gt;Chapitre 9]][[3 ou 4 : poursuis au chapitre 10.-&gt;Chapitre 10]][[5 ou 6 : poursuis au chapitre 11.-&gt;Chapitre 11]]&lt;/div&gt;&lt;/div&gt;&lt;svg class=&quot;fleche-de&quot; viewBox=&quot;0 0 70 40&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M8 30 C22 36 40 32 56 17&quot; fill=&quot;none&quot; stroke=&quot;#d99a2b&quot; stroke-width=&quot;2.4&quot; stroke-linecap=&quot;round&quot; stroke-dasharray=&quot;0.1 6&quot;/&gt;&lt;path d=&quot;M50 12 L59 15 L55 24&quot; fill=&quot;none&quot; stroke=&quot;#d99a2b&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;path d=&quot;M6 24 l1.3 3.4 3.4 1.3-3.4 1.3L6 33.4l-1.3-3.4L1.3 28.7l3.4-1.3z&quot; fill=&quot;#d99a2b&quot;/&gt;&lt;/svg&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;de-virtuel&quot; type=&quot;button&quot; data-face=&quot;0&quot; aria-label=&quot;Lancer le dé&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/button&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;cote&quot;&gt;&lt;div class=&quot;illustration&quot;&gt;&lt;img src=&quot;images/chapitres/chapitre-08.jpg&quot; alt=&quot;L&#x27;article oublié&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="14" name="Chapitre 9" tags="" position="2100,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 9&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le coup de feu sur la route&lt;/span&gt;&lt;/h1&gt;Sur une route de campagne, une voiture noire était arrêtée en travers. Un homme fouillait le coffre d&#x27;une camionnette. Le conducteur, les mains levées, reculait vers le fossé.
 
 « Ton argent, vite ! » cria l&#x27;homme.
 
@@ -864,7 +916,7 @@ Sofia se concentra sur les souvenirs du conducteur. Elle y vit un visage dur et 
 
 « Un voleur, dit-elle tout bas. Il porte une drôle de bague. »
 
-Rose regarda ses mains. Elle ne savait pas qu&#x27;elle pouvait soigner. Un don de plus, une question de plus. Les trois sœurs reprirent la route en pressant le pas.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite&quot;&gt;[[Si tu as déjà lu les chapitres 10 et 11, poursuis au chapitre 12.-&gt;Chapitre 12]][[Sinon, poursuis au chapitre 10.-&gt;Chapitre 10]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="15" name="Chapitre 10" tags="" position="2250,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 10&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;La fenêtre de la gare&lt;/span&gt;&lt;/h1&gt;Dans une petite gare, deux policiers s&#x27;approchèrent des trois sœurs.
+Rose regarda ses mains. Elle ne savait pas qu&#x27;elle pouvait soigner. Un don de plus, une question de plus. Les trois sœurs reprirent la route en pressant le pas.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite&quot;&gt;[[Si tu as déjà lu les chapitres 10 et 11, poursuis au chapitre 12.-&gt;Chapitre 12]][[Sinon, poursuis au chapitre 10.-&gt;Chapitre 10]]&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;cote&quot;&gt;&lt;div class=&quot;illustration&quot;&gt;&lt;img src=&quot;images/chapitres/chapitre-09.jpg&quot; alt=&quot;Le coup de feu sur la route&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="15" name="Chapitre 10" tags="" position="2250,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 10&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;La fenêtre de la gare&lt;/span&gt;&lt;/h1&gt;Dans une petite gare, deux policiers s&#x27;approchèrent des trois sœurs.
 
 « Vous êtes seules ? Où sont vos parents ? »
 
@@ -876,7 +928,7 @@ Rosi regarda la petite fenêtre au-dessus du radiateur. Elle était trop haute p
 
 « Par ici, dit-il à Rose. La voie de derrière mène vers le nord. »
 
-Quand les policiers revinrent, le bureau était vide. Sur la chaise, il ne restait qu&#x27;une petite fleur bleue.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite&quot;&gt;[[Si tu as déjà lu les chapitres 9 et 11, poursuis au chapitre 12.-&gt;Chapitre 12]][[Sinon, poursuis au chapitre 11.-&gt;Chapitre 11]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="16" name="Chapitre 11" tags="" position="2400,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 11&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;La fumée sur la colline&lt;/span&gt;&lt;/h1&gt;Au sommet d&#x27;une colline, une colonne de fumée grise montait vers le ciel. Des hirondelles passèrent au-dessus des trois sœurs en criant.
+Quand les policiers revinrent, le bureau était vide. Sur la chaise, il ne restait qu&#x27;une petite fleur bleue.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite&quot;&gt;[[Si tu as déjà lu les chapitres 9 et 11, poursuis au chapitre 12.-&gt;Chapitre 12]][[Sinon, poursuis au chapitre 11.-&gt;Chapitre 11]]&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;cote&quot;&gt;&lt;div class=&quot;illustration&quot;&gt;&lt;img src=&quot;images/chapitres/chapitre-10.jpg&quot; alt=&quot;La fenêtre de la gare&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="16" name="Chapitre 11" tags="" position="2400,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 11&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;La fumée sur la colline&lt;/span&gt;&lt;/h1&gt;Au sommet d&#x27;une colline, une colonne de fumée grise montait vers le ciel. Des hirondelles passèrent au-dessus des trois sœurs en criant.
 
 « Elles disent qu&#x27;il y a le feu dans une ferme, traduisit Rosi. Il y a des animaux enfermés. »
 
@@ -886,13 +938,13 @@ Quand tout fut calme, une vieille chèvre s&#x27;approcha de Rose.
 
 « Le feu n&#x27;est pas venu tout seul, dit-elle. Un homme est passé ce matin. Il a pris l&#x27;argent de la ferme, puis il a jeté son allumette dans la paille. Il portait une bague en forme de loup. »
 
-Rose frissonna. Cette bague, elle avait l&#x27;impression qu&#x27;elle n&#x27;avait pas fini d&#x27;en entendre parler.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite&quot;&gt;[[Si tu as déjà lu les chapitres 9 et 10, poursuis au chapitre 12.-&gt;Chapitre 12]][[Sinon, poursuis au chapitre 9.-&gt;Chapitre 9]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="17" name="Chapitre 12" tags="" position="2550,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 12&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;La forêt du Nord&lt;/span&gt;&lt;/h1&gt;Après des jours de voyage, les trois sœurs arrivèrent à l&#x27;orée de la grande forêt. La maison de la photo était toujours là, les volets fermés, couverte de lierre. Plus personne n&#x27;y habitait depuis longtemps.
+Rose frissonna. Cette bague, elle avait l&#x27;impression qu&#x27;elle n&#x27;avait pas fini d&#x27;en entendre parler.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite&quot;&gt;[[Si tu as déjà lu les chapitres 9 et 10, poursuis au chapitre 12.-&gt;Chapitre 12]][[Sinon, poursuis au chapitre 9.-&gt;Chapitre 9]]&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;cote&quot;&gt;&lt;div class=&quot;illustration&quot;&gt;&lt;img src=&quot;images/chapitres/chapitre-11.jpg&quot; alt=&quot;La fumée sur la colline&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="17" name="Chapitre 12" tags="" position="2550,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 12&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;La forêt du Nord&lt;/span&gt;&lt;/h1&gt;Après des jours de voyage, les trois sœurs arrivèrent à l&#x27;orée de la grande forêt. La maison de la photo était toujours là, les volets fermés, couverte de lierre. Plus personne n&#x27;y habitait depuis longtemps.
 
 Elles entrèrent sous les arbres. Le silence était si épais qu&#x27;on entendait les aiguilles de pin tomber. Rose sentit son cœur battre plus vite. Elle connaissait cet endroit. Elle ne l&#x27;avait jamais vu, mais elle le connaissait.
 
 Au pied d&#x27;un grand sapin, les restes d&#x27;un panier d&#x27;osier gisaient sous la mousse. Rose s&#x27;agenouilla. Ce panier ressemblait à celui de son rêve.
 
-Alors les loups sortirent de l&#x27;ombre. Ils étaient nombreux, gris et silencieux, et formèrent un cercle autour d&#x27;elles. Le plus grand avait le museau tout blanc.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Clique sur le dé pour découvrir comment réagissent les loups :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;[[Un nombre pair : poursuis au chapitre 13.-&gt;Chapitre 13]][[Un nombre impair : poursuis au chapitre 14.-&gt;Chapitre 14]]&lt;/div&gt;&lt;/div&gt;&lt;svg class=&quot;fleche-de&quot; viewBox=&quot;0 0 60 40&quot; aria-hidden=&quot;true&quot;&gt;&lt;g fill=&quot;none&quot; stroke=&quot;#d99a2b&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M4 30 C16 34 34 30 48 16&quot;/&gt;&lt;path d=&quot;M38 14 L49 15 L47 26&quot;/&gt;&lt;/g&gt;&lt;/svg&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;de-virtuel&quot; type=&quot;button&quot; data-face=&quot;0&quot; aria-label=&quot;Lancer le dé&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/button&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="18" name="Chapitre 13" tags="" position="2700,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 13&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le secret des loups&lt;/span&gt;&lt;/h1&gt;Les loups ne bougèrent pas. Le grand loup au museau blanc s&#x27;avança seul, renifla la main de Rose, puis celle de Rosi, puis celle de Sofia. Il s&#x27;assit devant elles.
+Alors les loups sortirent de l&#x27;ombre. Ils étaient nombreux, gris et silencieux, et formèrent un cercle autour d&#x27;elles. Le plus grand avait le museau tout blanc.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Clique sur le dé pour découvrir comment réagissent les loups :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;[[Un nombre pair : poursuis au chapitre 13.-&gt;Chapitre 13]][[Un nombre impair : poursuis au chapitre 14.-&gt;Chapitre 14]]&lt;/div&gt;&lt;/div&gt;&lt;svg class=&quot;fleche-de&quot; viewBox=&quot;0 0 70 40&quot; aria-hidden=&quot;true&quot;&gt;&lt;path d=&quot;M8 30 C22 36 40 32 56 17&quot; fill=&quot;none&quot; stroke=&quot;#d99a2b&quot; stroke-width=&quot;2.4&quot; stroke-linecap=&quot;round&quot; stroke-dasharray=&quot;0.1 6&quot;/&gt;&lt;path d=&quot;M50 12 L59 15 L55 24&quot; fill=&quot;none&quot; stroke=&quot;#d99a2b&quot; stroke-width=&quot;2&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;&lt;path d=&quot;M6 24 l1.3 3.4 3.4 1.3-3.4 1.3L6 33.4l-1.3-3.4L1.3 28.7l3.4-1.3z&quot; fill=&quot;#d99a2b&quot;/&gt;&lt;/svg&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;de-virtuel&quot; type=&quot;button&quot; data-face=&quot;0&quot; aria-label=&quot;Lancer le dé&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/button&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;cote&quot;&gt;&lt;div class=&quot;illustration&quot;&gt;&lt;img src=&quot;images/chapitres/chapitre-12.jpg&quot; alt=&quot;La forêt du Nord&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="18" name="Chapitre 13" tags="" position="2700,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 13&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le secret des loups&lt;/span&gt;&lt;/h1&gt;Les loups ne bougèrent pas. Le grand loup au museau blanc s&#x27;avança seul, renifla la main de Rose, puis celle de Rosi, puis celle de Sofia. Il s&#x27;assit devant elles.
 
 « Vous voilà enfin revenues », dit-il.
 
@@ -916,7 +968,7 @@ L&#x27;homme saisit une branche tombée au sol et l&#x27;agita pour tenir les lo
 
 Il se retourna et s&#x27;enfuit. Une partie de la meute se lança à sa poursuite tandis que le grand loup restait près des filles. Bientôt, les hurlements se perdirent dans le lointain.
 
-Quand les loups revinrent de leur poursuite, ils étaient seuls. Rose ramassa la bague dans la mousse. L&#x27;homme était parti, mais reviendrait-il un jour ? Les trois filles se serrèrent les unes contre les autres, près du grand loup.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite elan&quot;&gt;[[Poursuis au chapitre 15.-&gt;Chapitre 15]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="19" name="Chapitre 14" tags="" position="2850,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 14&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Dans la tête des loups&lt;/span&gt;&lt;/h1&gt;Les loups grondèrent. Le cercle se resserra. Rosi s&#x27;éleva d&#x27;un mètre sans le vouloir.
+Quand les loups revinrent de leur poursuite, ils étaient seuls. Rose ramassa la bague dans la mousse. L&#x27;homme était parti, mais reviendrait-il un jour ? Les trois filles se serrèrent les unes contre les autres, près du grand loup.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite elan&quot;&gt;[[Poursuis au chapitre 15.-&gt;Chapitre 15]]&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;cote&quot;&gt;&lt;div class=&quot;illustration&quot;&gt;&lt;img src=&quot;images/chapitres/chapitre-13.jpg&quot; alt=&quot;Le secret des loups&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="19" name="Chapitre 14" tags="" position="2850,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 14&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Dans la tête des loups&lt;/span&gt;&lt;/h1&gt;Les loups grondèrent. Le cercle se resserra. Rosi s&#x27;éleva d&#x27;un mètre sans le vouloir.
 
 « Attendez ! » cria Sofia.
 
@@ -938,7 +990,7 @@ Le filet s&#x27;ouvrit et le grand loup bondit hors des mailles. Les autres loup
 
 L&#x27;homme essaya de passer sous les branches, mais les corbeaux fondirent devant lui en croassant. Il se retourna et s&#x27;enfuit entre les arbres. Les oiseaux le suivirent un moment, puis revinrent sans savoir où il avait disparu.
 
-Le loup s&#x27;approcha des filles et renifla leurs mains. « Vous êtes revenues, dit-il. Cette nuit-là, nous voulions vous protéger de cet homme. »&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite elan&quot;&gt;[[Poursuis au chapitre 15.-&gt;Chapitre 15]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="20" name="Chapitre 15" tags="" position="3000,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 15&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Les secrets de la maison au lierre&lt;/span&gt;&lt;/h1&gt;Quand le calme revint, le grand loup conduisit les trois filles à la maison au lierre. Il connaissait leurs parents : ils vivaient là et possédaient eux aussi des dons, qu&#x27;ils cachaient au monde.
+Le loup s&#x27;approcha des filles et renifla leurs mains. « Vous êtes revenues, dit-il. Cette nuit-là, nous voulions vous protéger de cet homme. »&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite elan&quot;&gt;[[Poursuis au chapitre 15.-&gt;Chapitre 15]]&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;cote&quot;&gt;&lt;div class=&quot;illustration&quot;&gt;&lt;img src=&quot;images/chapitres/chapitre-14.jpg&quot; alt=&quot;Dans la tête des loups&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="20" name="Chapitre 15" tags="" position="3000,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 15&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Les secrets de la maison au lierre&lt;/span&gt;&lt;/h1&gt;Quand le calme revint, le grand loup conduisit les trois filles à la maison au lierre. Il connaissait leurs parents : ils vivaient là et possédaient eux aussi des dons, qu&#x27;ils cachaient au monde.
 
 « Ils vous aimaient très fort, dit le loup. La nuit où cet homme les a trouvés, votre mère vous a confiées à la forêt pour vous protéger. Nous sommes venus veiller sur vous, mais vous avez disparu avant que nous puissions vous approcher. »
 
@@ -954,7 +1006,7 @@ Les trois sœurs pleurèrent longtemps, serrées les unes contre les autres. Ell
 
 Dans un tiroir de la maison, Sofia découvrit un petit flacon d&#x27;encre violette. Était-ce la même que celle des cartes ? Elle le montra à ses sœurs, mais aucune ne connaissait la réponse.
 
-Elles avaient grandi loin les unes des autres, mais désormais, elles resteraient unies, même lorsqu&#x27;elles seraient loin.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite elan&quot;&gt;[[Poursuis au chapitre 16.-&gt;Chapitre 16]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="21" name="Chapitre 16" tags="" position="3150,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 16&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Une maison pour trois&lt;/span&gt;&lt;/h1&gt;Avec l&#x27;aide des loups, elles réparèrent peu à peu la maison au lierre. Rosi couvrit les murs de fleurs, Sofia installa ses carnets dans le grenier et Rose aménagea un coin pour soigner les animaux blessés.
+Elles avaient grandi loin les unes des autres, mais désormais, elles resteraient unies, même lorsqu&#x27;elles seraient loin.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;choix suite elan&quot;&gt;[[Poursuis au chapitre 16.-&gt;Chapitre 16]]&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;cote&quot;&gt;&lt;div class=&quot;illustration&quot;&gt;&lt;img src=&quot;images/chapitres/chapitre-15.jpg&quot; alt=&quot;Les secrets de la maison au lierre&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="21" name="Chapitre 16" tags="" position="3150,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 16&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Une maison pour trois&lt;/span&gt;&lt;/h1&gt;Avec l&#x27;aide des loups, elles réparèrent peu à peu la maison au lierre. Rosi couvrit les murs de fleurs, Sofia installa ses carnets dans le grenier et Rose aménagea un coin pour soigner les animaux blessés.
 
 Grace, Clara, Lucía et Andrés vinrent les voir. Devant la maison, encore un peu intimidés par la meute, ils se racontèrent quatorze années de souvenirs. Les filles leur parlèrent de leurs dons et de ce qu&#x27;elles avaient découvert. Il y avait tant de choses à partager.
 
@@ -968,7 +1020,7 @@ Rose et Sofia finirent elles aussi par y arriver. Les essais suivants ne réussi
 
 Plus tard, elles apprirent à rejoindre leurs familles à New York, en Italie et en Espagne. Chacune retournait souvent chez ceux qui l&#x27;avaient élevée : Rose chez Grace, Rosi chez Clara, Sofia chez Lucía et Andrés. Parfois, elles y allaient toutes les trois, et les familles venaient aussi les retrouver dans la maison de la forêt. Le soir, elles s&#x27;endormaient au son du vent dans les sapins, avec les loups couchés devant la porte. Ils veillaient sur elles, et jamais les trois sœurs ne revirent l&#x27;homme à la bague en forme de tête de loup.
 
-Elles avaient retrouvé une partie de leur histoire et, désormais réunies, elles continuaient à écrire la suite en famille.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;fin&quot;&gt;&lt;span class=&quot;mot-fin&quot;&gt;FIN&lt;/span&gt;&lt;div class=&quot;secondaires&quot;&gt;[[Comment est née cette histoire-&gt;Comment est née cette histoire]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata></tw-storydata>
+Elles avaient retrouvé une partie de leur histoire et, désormais réunies, elles continuaient à écrire la suite en famille.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;fin&quot;&gt;&lt;span class=&quot;mot-fin&quot;&gt;FIN&lt;/span&gt;&lt;div class=&quot;secondaires&quot;&gt;[[Comment est née cette histoire-&gt;Comment est née cette histoire]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;cote&quot;&gt;&lt;div class=&quot;illustration&quot;&gt;&lt;img src=&quot;images/chapitres/chapitre-16.jpg&quot; alt=&quot;Une maison pour trois&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
 var require,define;!function(){var e={},r={};require=function(i){var n=e[i];return n&&(r[i]=n[1].apply(void 0,n[0].map(require)),e[i]=void 0),r[i]},(define=function(r,i,n){if("function"==typeof r)return r();e[r]=[i,n]}).amd=!0}();/*!
  * https://github.com/paulmillr/es6-shim
