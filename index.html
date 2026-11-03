@@ -67,6 +67,7 @@
 
 
 
+
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta content="width=device-width, initial-scale=1" name="viewport">
 <title>Les trois sœurs</title>
@@ -125,21 +126,16 @@ tw-passage {
   margin-top: 2.5em;
 }
 .illustration { display: flex; flex-direction: column; }
-/* Chaque illustration est posée dans un passe-partout : une marge de papier crème dans un fin cadre
-   doré, comme une gravure encadrée */
-.halo {
-  display: block;
-  padding: 0.7em;
-  background: #fffdf6;
-  border: 1px solid var(--or);
-  box-shadow: 0 8px 22px -6px rgba(19, 28, 51, 0.25);
-}
+/* Comme le triptyque de la couverture : un bord d'or un peu épais collé à l'image, coins arrondis */
+.halo { display: block; }
 .illustration img {
   display: block;
   width: 100%;
   max-height: 80vh;
   object-fit: contain;
-  border: 1px solid rgba(29, 43, 79, 0.25);
+  border: 3px solid var(--or);
+  border-radius: 14px;
+  box-shadow: 0 6px 18px -6px rgba(19, 28, 51, 0.3);
 }
 .illustration .halo + .halo { margin-top: 1.2em; }
 /* Tant qu'un chapitre n'a pas d'illustration, son texte reste en une colonne centrée */
