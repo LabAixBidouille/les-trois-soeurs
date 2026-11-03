@@ -50,11 +50,13 @@ CONTEXTE = [
     "rejoignent pour former une histoire cohérente.",
     f"{AUTRICES} ont choisi d’inventer un mystère. Un défi pour une histoire à embranchements, puisque "
     "les indices doivent garder leur sens et la révélation fonctionner, quel que soit le chemin emprunté.",
-    "L’atelier ne durait que deux heures, mais nous tenions à offrir à chaque enfant un livre "
-    "complet. Le L.A.B a donc prolongé et mis en forme leur récit à l’aide d’outils numériques, "
-    "et l’intelligence artificielle a notamment permis d’aboutir à une histoire achevée et "
-    "agréable à lire. À son origine, il y a avant tout les idées, les personnages et les dessins "
-    "d’Agathe et d’Alyssa.",
+    "L’atelier ne durant que deux heures, nous tenions à offrir à chaque enfant un livre complet "
+    "pour illustrer leur travail et les rendre fiers de leurs productions. Le L.A.B a donc "
+    "prolongé et mis en forme leur récit à l’aide d’outils numériques (l’intelligence "
+    "artificielle a notamment permis d’aboutir à une histoire achevée et à un ensemble de visuels "
+    "correspondant à leurs descriptions mais uniformes tout au long de la lecture).\n\n<b>À son "
+    "origine, il y a avant tout les idées, les personnages et les dessins d’Agathe et "
+    "d’Alyssa.</b>",
 ]
 # Les mots d'Agathe sur sa fiche récit, à peine remis au propre
 CITATION = ("Les loups se rappellent et ils ne bougent pas. Elles parlent aux loups, qui leur disent "
