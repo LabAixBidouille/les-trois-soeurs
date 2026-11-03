@@ -52,6 +52,10 @@
 
 
 
+
+
+
+
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta content="width=device-width, initial-scale=1" name="viewport">
 <title>Les trois sœurs</title>
@@ -109,15 +113,25 @@ tw-passage {
   top: 1.5em;
   margin-top: 2.5em;
 }
-.illustration { display: flex; flex-direction: column; gap: 1.2em; }
+.illustration { display: flex; flex-direction: column; }
+/* Les illustrations ne sont pas posées en bloc : leurs bords se fondent dans la page, comme une
+   peinture dont la couleur s'efface vers le papier */
 .illustration img {
   display: block;
-  width: 100%;
+  width: 112%;
+  margin: 0 -6%;
   max-height: 85vh;
   object-fit: contain;
-  border-radius: 10px;
-  box-shadow: 0 6px 24px rgba(19, 28, 51, 0.25);
+  /* fondu sur les quatre côtés, sans dessiner d'ovale */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent),
+                      linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent),
+              linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+  mask-composite: intersect;
 }
+/* Deux illustrations : leurs fondus se rejoignent sur le blanc de la page */
+.illustration img + img { margin-top: 0.4em; }
 /* Tant qu'un chapitre n'a pas d'illustration, son texte reste en une colonne centrée */
 .page:not(:has(.cote)) { grid-template-columns: minmax(0, 38em); justify-content: center; }
 @media (max-width: 800px) {
@@ -172,7 +186,8 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 }
 .garde-corps {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  /* Le triptyque des trois sœurs est en paysage : il prend la plus large des deux colonnes */
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
   gap: 3em;
   align-items: center;
 }
@@ -180,10 +195,8 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 .garde-image img {
   display: inline-block;
   max-width: 100%;
-  max-height: 64vh;
+  max-height: 66vh;
   height: auto;
-  border-radius: 10px;
-  box-shadow: 0 6px 24px rgba(19, 28, 51, 0.3);
 }
 .garde-texte {
   display: flex;
@@ -799,7 +812,7 @@ document.addEventListener('keydown', function (evenement) {
   var ouvert = document.querySelector('.agrandi');
   if (ouvert && evenement.key === 'Escape') ouvert.remove();
 });
-</script><tw-passagedata pid="1" name="Bouton couverture" tags="header" position="150,0" size="100,100">(unless: (a: &quot;Page de garde&quot;, &quot;L&#x27;arbre de l&#x27;histoire&quot;, &quot;Comment est née cette histoire&quot;) contains (passage:)&#x27;s name)[&lt;div class=&quot;retour&quot;&gt;[[Couverture-&gt;Page de garde]]&lt;/div&gt;]</tw-passagedata><tw-passagedata pid="2" name="Page de garde" tags="" position="300,0" size="100,100">&lt;div class=&quot;garde&quot;&gt;&lt;div class=&quot;garde-entete&quot;&gt;&lt;span class=&quot;surtitre&quot;&gt;Une histoire dont le lecteur est le héros&lt;/span&gt;&lt;div class=&quot;grand-titre&quot;&gt;Les trois sœurs&lt;/div&gt;&lt;span class=&quot;nom-auteur&quot;&gt;Agathe et Alyssa&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;garde-corps&quot;&gt;&lt;div class=&quot;garde-image&quot;&gt;&lt;img src=&quot;images/couverture.jpg&quot; alt=&quot;Rose, les mains lumineuses, dans la forêt au crépuscule, entre un chat et un pigeon&quot;&gt;&lt;/div&gt;&lt;div class=&quot;garde-texte&quot;&gt;&lt;div class=&quot;synopsis&quot;&gt;Abandonnées bébés au cœur d’une forêt, Rose, Rosi et Sofia ont grandi sans se connaître, chacune dans un pays différent. Toutes trois possèdent des dons étranges… et font le même rêve peuplé de loups.
+</script><tw-passagedata pid="1" name="Bouton couverture" tags="header" position="150,0" size="100,100">(unless: (a: &quot;Page de garde&quot;, &quot;L&#x27;arbre de l&#x27;histoire&quot;, &quot;Comment est née cette histoire&quot;) contains (passage:)&#x27;s name)[&lt;div class=&quot;retour&quot;&gt;[[Couverture-&gt;Page de garde]]&lt;/div&gt;]</tw-passagedata><tw-passagedata pid="2" name="Page de garde" tags="" position="300,0" size="100,100">&lt;div class=&quot;garde&quot;&gt;&lt;div class=&quot;garde-entete&quot;&gt;&lt;span class=&quot;surtitre&quot;&gt;Une histoire dont le lecteur est le héros&lt;/span&gt;&lt;div class=&quot;grand-titre&quot;&gt;Les trois sœurs&lt;/div&gt;&lt;span class=&quot;nom-auteur&quot;&gt;Agathe et Alyssa&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;garde-corps&quot;&gt;&lt;div class=&quot;garde-image&quot;&gt;&lt;img src=&quot;images/couverture.jpg&quot; alt=&quot;Rose à New York, Rosi en Italie et Sofia en Espagne, chacune à sa fenêtre, les mains pleines de lumière&quot;&gt;&lt;/div&gt;&lt;div class=&quot;garde-texte&quot;&gt;&lt;div class=&quot;synopsis&quot;&gt;Abandonnées bébés au cœur d’une forêt, Rose, Rosi et Sofia ont grandi sans se connaître, chacune dans un pays différent. Toutes trois possèdent des dons étranges… et font le même rêve peuplé de loups.
 
 Un soir, une carte mystérieuse les réunit. Les trois filles se lancent alors sur les traces de leur passé, jusqu’à une maison oubliée à l’orée des bois. Mais un homme à la bague en forme de loup semble lui aussi les chercher…
 

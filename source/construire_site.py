@@ -111,15 +111,25 @@ tw-passage {
   top: 1.5em;
   margin-top: 2.5em;
 }
-.illustration { display: flex; flex-direction: column; gap: 1.2em; }
+.illustration { display: flex; flex-direction: column; }
+/* Les illustrations ne sont pas posées en bloc : leurs bords se fondent dans la page, comme une
+   peinture dont la couleur s'efface vers le papier */
 .illustration img {
   display: block;
-  width: 100%;
+  width: 112%;
+  margin: 0 -6%;
   max-height: 85vh;
   object-fit: contain;
-  border-radius: 10px;
-  box-shadow: 0 6px 24px rgba(19, 28, 51, 0.25);
+  /* fondu sur les quatre côtés, sans dessiner d'ovale */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent),
+                      linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent),
+              linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+  mask-composite: intersect;
 }
+/* Deux illustrations : leurs fondus se rejoignent sur le blanc de la page */
+.illustration img + img { margin-top: 0.4em; }
 /* Tant qu'un chapitre n'a pas d'illustration, son texte reste en une colonne centrée */
 .page:not(:has(.cote)) { grid-template-columns: minmax(0, 38em); justify-content: center; }
 @media (max-width: 800px) {
@@ -174,7 +184,8 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 }
 .garde-corps {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  /* Le triptyque des trois sœurs est en paysage : il prend la plus large des deux colonnes */
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
   gap: 3em;
   align-items: center;
 }
@@ -182,10 +193,8 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 .garde-image img {
   display: inline-block;
   max-width: 100%;
-  max-height: 64vh;
+  max-height: 66vh;
   height: auto;
-  border-radius: 10px;
-  box-shadow: 0 6px 24px rgba(19, 28, 51, 0.3);
 }
 .garde-texte {
   display: flex;
@@ -916,7 +925,7 @@ def passage_garde():
         f'<div class="grand-titre">{TITRE}</div>'
         f'<span class="nom-auteur">{AUTRICES}</span></div>'
         '<div class="garde-corps"><div class="garde-image"><img src="images/couverture.jpg" '
-        'alt="Rose, les mains lumineuses, dans la forêt au crépuscule, entre un chat et un pigeon"></div>'
+        'alt="Rose à New York, Rosi en Italie et Sofia en Espagne, chacune à sa fenêtre, les mains pleines de lumière"></div>'
         f'<div class="garde-texte"><div class="synopsis">{SYNOPSIS}</div>'
         f'<div class="commencer">{lien("Commencer l'histoire", "Prologue")}</div>'
         f'<div class="secondaires">{lien("Comment est née cette histoire", "Comment est née cette histoire")} '
