@@ -68,8 +68,8 @@ CONTEXTE = [
 CSS = """
 @font-face { font-family: "IM Fell English"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/IMFellEnglish.woff2") format("woff2"); }
 @font-face { font-family: "IM Fell English"; font-style: italic; font-weight: 400; font-display: swap; src: url("fonts/IMFellEnglish-italique.woff2") format("woff2"); }
-@font-face { font-family: "Lora"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("fonts/Lora.woff2") format("woff2"); }
-@font-face { font-family: "Lora"; font-style: italic; font-weight: 400 700; font-display: swap; src: url("fonts/Lora-italique.woff2") format("woff2"); }
+@font-face { font-family: "EB Garamond"; font-style: normal; font-weight: 400 800; font-display: swap; src: url("fonts/EBGaramond.woff2") format("woff2"); }
+@font-face { font-family: "EB Garamond"; font-style: italic; font-weight: 400 800; font-display: swap; src: url("fonts/EBGaramond-italique.woff2") format("woff2"); }
 
 /* Couleurs : le bleu violacé du ciel de nuit, l'or des mains qui brillent */
 :root {
@@ -90,8 +90,10 @@ html, body, tw-story {
   color: var(--encre);
 }
 tw-story {
-  font-family: "Lora", Georgia, serif;
-  font-size: 1.02em;
+  /* Garamond, de la même famille de livres anciens que la police des titres ; un peu plus grand,
+     car ses lettres sont plus petites que celles de Lora */
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 1.2em;
   line-height: 1.75;
   padding: 4em 1.25em 4em;
 }
@@ -121,7 +123,7 @@ tw-passage {
   box-shadow: 0 6px 24px rgba(19, 28, 51, 0.25);
 }
 /* Tant qu'un chapitre n'a pas d'illustration, son texte reste en une colonne centrée */
-.page:not(:has(.cote)) { grid-template-columns: minmax(0, 44em); justify-content: center; }
+.page:not(:has(.cote)) { grid-template-columns: minmax(0, 38em); justify-content: center; }
 @media (max-width: 800px) {
   .page { grid-template-columns: minmax(0, 1fr); gap: 1.2em; }
   /* Sur téléphone : l'illustration au-dessus du texte */

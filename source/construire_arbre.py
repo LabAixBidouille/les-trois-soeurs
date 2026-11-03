@@ -16,7 +16,7 @@ from pathlib import Path
 RACINE = Path(__file__).resolve().parent.parent
 TEXTE = RACINE / "source" / "texte.md"
 SORTIE = RACINE / "images" / "arbre.svg"
-POLICE = RACINE / "fonts" / "Lora.woff2"
+POLICE = RACINE / "fonts" / "EBGaramond.woff2"
 
 # Couleurs du livre : or des mains de Rose, or clair, bleu violacé de la nuit, vert sapin, encre
 ORANGE, JAUNE_CLAIR, VIOLET, MENTHE, ENCRE = "#c08a1e", "#f7e3b0", "#1d2b4f", "#2f4b3c", "#22263a"
@@ -145,8 +145,8 @@ def construire():
     assert renvois == dessinees, f"Renvois du texte et flèches de l'arbre différents : {renvois ^ dessinees}"
 
     police = base64.b64encode(POLICE.read_bytes()).decode()
-    svg = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{GAUCHE} 0 {LARGEUR} {HAUTEUR}" width="{LARGEUR}" height="{HAUTEUR}" font-family="Lora, serif">',
-           f'<defs><style>@font-face{{font-family:"Lora";font-weight:400 700;src:url(data:font/woff2;base64,{police}) format("woff2");}}</style>',
+    svg = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{GAUCHE} 0 {LARGEUR} {HAUTEUR}" width="{LARGEUR}" height="{HAUTEUR}" font-family="EB Garamond, serif">',
+           f'<defs><style>@font-face{{font-family:"EB Garamond";font-weight:400 800;src:url(data:font/woff2;base64,{police}) format("woff2");}}</style>',
            f'<marker id="pointe" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="{VIOLET}"/></marker></defs>']
     svg += [fleche(t, e) for _, _, t, e in FLECHES]
     svg += [icone(c) for c in ICONES]
