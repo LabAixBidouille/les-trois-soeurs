@@ -15,7 +15,7 @@ RACINE = Path(__file__).resolve().parent.parent
 TEXTE = RACINE / "source" / "texte.md"
 SORTIE = RACINE / "index.html"
 NOINDEX = '<meta name="robots" content="noindex, nofollow, noarchive">'
-# Favicon provisoire : l'empreinte de loup et les trois étoiles des cartes
+# Favicon : la patte de loup étoilée dessinée par Manon
 FAVICON = ('<link rel="icon" type="image/png" sizes="48x48" href="images/favicon-48.png">'
            '<link rel="icon" type="image/png" sizes="180x180" href="images/favicon.png">'
            '<link rel="apple-touch-icon" href="images/favicon.png">')
@@ -361,7 +361,7 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   margin-top: 0.8em;
 }
 
-/* Séparateur : l'empreinte de loup et les trois étoiles des cartes, entre deux traits */
+/* Séparateur : la patte de loup étoilée de Manon, entre deux traits dorés */
 .separateur {
   display: flex;
   align-items: center;
@@ -377,9 +377,10 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 }
 .separateur::after { background: linear-gradient(to left, transparent, var(--or)); }
 .separateur .embleme {
-  width: 3.4em;
-  height: 1.9em;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 68 38'%3E%3Cg fill='%231d2b4f'%3E%3Cellipse cx='34' cy='27' rx='7.5' ry='6.5'/%3E%3Cellipse cx='25.5' cy='17' rx='2.8' ry='3.8' transform='rotate(-20 25.5 17)'/%3E%3Cellipse cx='31' cy='12.5' rx='2.8' ry='3.9'/%3E%3Cellipse cx='37' cy='12.5' rx='2.8' ry='3.9'/%3E%3Cellipse cx='42.5' cy='17' rx='2.8' ry='3.8' transform='rotate(20 42.5 17)'/%3E%3C/g%3E%3Cg fill='%23d99a2b'%3E%3Cpath d='M9 15 l1.6 3.4 3.7.4-2.8 2.5.8 3.6L9 23l-3.3 1.9.8-3.6-2.8-2.5 3.7-.4z'/%3E%3Cpath d='M34 0 l1.3 2.7 3 .3-2.2 2 .6 2.9L34 6.4l-2.7 1.5.6-2.9-2.2-2 3-.3z'/%3E%3Cpath d='M59 15 l1.6 3.4 3.7.4-2.8 2.5.8 3.6L59 23l-3.3 1.9.8-3.6-2.8-2.5 3.7-.4z'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain;
+  /* La patte de loup étoilée dessinée par Manon, qui sert aussi de favicon */
+  width: 2.4em;
+  height: 2.4em;
+  background: url("images/embleme.png") no-repeat center / contain;
 }
 
 /* Bouton de renvoi, quand il n'y a qu'une suite possible : la même étiquette que Commencer, en plus petit */
