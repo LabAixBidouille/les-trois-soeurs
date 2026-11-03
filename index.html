@@ -39,6 +39,9 @@
 
 
 
+
+
+
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta content="width=device-width, initial-scale=1" name="viewport">
 <title>Les trois sœurs</title>
@@ -211,20 +214,22 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 }
 /* Commencer : en gras, entre deux fioritures dorées terminées par une étoile, sans cadre de bouton ;
    au survol, le texte prend une lueur dorée */
-.garde .commencer {
+.garde .commencer, .contexte .commencer {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.9em;
 }
-.garde .commencer::before, .garde .commencer::after {
+.garde .commencer::before, .garde .commencer::after,
+.contexte .commencer::before, .contexte .commencer::after {
   content: "";
   flex: 0 1 7.5em;
   height: 1.2em;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 20' preserveAspectRatio='none'%3E%3Cpath d='M24 10 C46 10 56 4 72 7 C86 10 96 14 118 10' fill='none' stroke='%23d99a2b' stroke-width='1.4' stroke-linecap='round'/%3E%3Cpath d='M7 3 l1.7 4.3 4.3 .4-3.3 2.9 1 4.3L7 12.6l-3.7 2.3 1-4.3L1 7.7l4.3-.4z' fill='%23d99a2b'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
 }
-.garde .commencer::after { transform: scaleX(-1); }
-.garde .commencer tw-link, .garde .commencer .enchantment-link {
+.garde .commencer::after, .contexte .commencer::after { transform: scaleX(-1); }
+.garde .commencer tw-link, .garde .commencer .enchantment-link,
+.contexte .commencer tw-link, .contexte .commencer .enchantment-link {
   font-family: "IM Fell English", Georgia, serif;
   font-weight: 700;
   font-size: 1.6em;
@@ -235,7 +240,8 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   white-space: nowrap;
   transition: color 0.25s ease, text-shadow 0.25s ease;
 }
-.garde .commencer tw-link:hover, .garde .commencer .enchantment-link:hover {
+.garde .commencer tw-link:hover, .garde .commencer .enchantment-link:hover,
+.contexte .commencer tw-link:hover, .contexte .commencer .enchantment-link:hover {
   color: var(--nuit);
   text-shadow: 0 0 12px rgba(217, 154, 43, 0.75);
 }
@@ -539,25 +545,103 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   .arbre-texte { position: static; }
 }
 
-/* Page de contexte : un texte court, centré, puis les fiches des autrices en miniatures cliquables ;
-   texte plus petit que celui des chapitres, ce n'est pas l'histoire */
+/* Page de contexte : les trois sœurs dessinées par les autrices, un texte court au centre, une phrase
+   de leur fiche, puis leurs fiches sur une table, en miniatures cliquables */
 .contexte {
   font-size: 0.86em;
+}
+.contexte-tete {
   text-align: center;
 }
-.contexte .lien-retour { text-align: left; }
-.contexte-texte {
-  max-width: 40em;
-  margin: 0 auto;
-}
-.contexte .secondaires { display: flex; justify-content: center; margin-top: 1.4em; }
-.miniatures {
-  margin: 2.6em auto 0;
+.portraits {
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  gap: 2.2em;
+  margin: 0 auto 0.6em;
+}
+.portraits figure { margin: 0; }
+.portraits img { display: block; height: 11em; width: auto; margin: 0 auto; }
+.portraits figcaption {
+  font-family: "IM Fell English", Georgia, serif;
+  font-style: italic;
+  font-size: 1.05em;
+  color: var(--or-fonce);
+  margin-top: 0.3em;
+}
+.contexte h1 {
+  font-size: 2.6em;
+  margin: 0.2em 0 0.1em;
+}
+.contexte-texte {
+  max-width: 36em;
+  margin: 0 auto;
+  text-align: left;
+}
+/* Lettrine dorée au début du texte */
+.lettrine {
+  float: left;
+  font-family: "IM Fell English", Georgia, serif;
+  font-size: 3.6em;
+  line-height: 0.85;
+  padding: 0.06em 0.12em 0 0;
+  color: var(--or);
+}
+.citation {
+  max-width: 30em;
+  margin: 2em auto;
+  padding: 1.1em 0;
+  border-top: 1px solid var(--or);
+  border-bottom: 1px solid var(--or);
+  text-align: center;
+  font-family: "IM Fell English", Georgia, serif;
+  font-style: italic;
+  font-size: 1.35em;
+  line-height: 1.45;
+  color: var(--nuit);
+}
+.citation .source {
+  display: block;
+  margin-top: 0.6em;
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 0.68em;
+  letter-spacing: 0.04em;
+  color: var(--gris);
+}
+.contexte .credits {
+  display: block;
+  text-align: center;
+  margin-top: 1.6em;
+}
+/* La table : un papier clair où les fiches sont posées de travers */
+.table-fiches {
+  margin: 2.8em auto 0;
+  max-width: 62em;
+  padding: 2em 1.5em 1.6em;
+  background: #f6f3ec;
+  border-radius: 14px;
+  text-align: center;
+}
+.table-fiches .titre-table {
+  display: block;
+  font-family: "IM Fell English", Georgia, serif;
+  font-style: italic;
+  font-size: 1.3em;
+  color: var(--nuit);
+  margin-bottom: 1.2em;
+}
+.miniatures {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   flex-wrap: wrap;
-  gap: 1.6em;
+  gap: 2.4em;
+}
+.miniatures figure { margin: 0; }
+.miniatures figcaption {
+  margin-top: 0.8em;
+  font-size: 0.95em;
+  color: var(--gris);
 }
 .miniature {
   display: block;
@@ -568,24 +652,30 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 }
 .miniature img {
   display: block;
-  height: 15em;
+  height: 16em;
   width: auto;
-  border-radius: 4px;
-  box-shadow: 0 2px 10px rgba(34, 38, 58, 0.18);
+  border-radius: 3px;
+  box-shadow: 0 3px 12px rgba(34, 38, 58, 0.22);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.miniature:nth-child(1) img { transform: rotate(-2deg); }
-.miniature:nth-child(3) img { transform: rotate(2deg); }
-.miniature:hover img { transform: rotate(0) scale(1.04); box-shadow: 0 0 0 2px var(--or), 0 6px 18px rgba(34, 38, 58, 0.25); }
-.legende {
+.miniatures figure:nth-child(1) img { transform: rotate(-3deg); }
+.miniatures figure:nth-child(2) img { transform: rotate(1deg); }
+.miniatures figure:nth-child(3) img { transform: rotate(3deg); }
+.miniatures .miniature:hover img { transform: rotate(0) scale(1.05); box-shadow: 0 0 0 2px var(--or), 0 8px 20px rgba(34, 38, 58, 0.28); }
+.indication {
   display: block;
   margin-top: 1.2em;
-  font-family: "IM Fell English", Georgia, serif;
+  font-size: 0.9em;
   font-style: italic;
-  font-size: 1.15em;
   color: var(--gris);
-  text-align: center;
 }
+.contexte .commencer { margin-top: 2.2em; }
+@media (max-width: 600px) {
+  .portraits { gap: 0.8em; }
+  .portraits img { height: 7.5em; }
+  .miniature img { height: 11em; }
+}
+
 /* Fiche ouverte en grand par-dessus la page ; un clic n'importe où la referme */
 .agrandi {
   position: fixed;
@@ -672,11 +762,9 @@ document.addEventListener('keydown', function (evenement) {
 </script><tw-passagedata pid="1" name="Bouton couverture" tags="header" position="150,0" size="100,100">(unless: (a: &quot;Page de garde&quot;, &quot;L&#x27;arbre de l&#x27;histoire&quot;, &quot;Comment est née cette histoire&quot;) contains (passage:)&#x27;s name)[&lt;div class=&quot;retour&quot;&gt;[[Couverture-&gt;Page de garde]]&lt;/div&gt;]</tw-passagedata><tw-passagedata pid="2" name="Page de garde" tags="" position="300,0" size="100,100">&lt;div class=&quot;garde&quot;&gt;&lt;div class=&quot;garde-entete&quot;&gt;&lt;span class=&quot;surtitre&quot;&gt;Une histoire dont le lecteur est le héros&lt;/span&gt;&lt;div class=&quot;grand-titre&quot;&gt;Les trois sœurs&lt;/div&gt;&lt;span class=&quot;nom-auteur&quot;&gt;Agathe et Alyssa&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;garde-corps&quot;&gt;&lt;div class=&quot;garde-image&quot;&gt;&lt;img src=&quot;images/couverture.jpg&quot; alt=&quot;Rose, les mains lumineuses, dans la forêt au crépuscule, entre un chat et un pigeon&quot;&gt;&lt;/div&gt;&lt;div class=&quot;garde-texte&quot;&gt;&lt;div class=&quot;synopsis&quot;&gt;Une nuit sans lune, dans une forêt où personne n&#x27;ose s&#x27;aventurer, trois bébés encerclés par les loups disparaissent sans laisser de trace.
 
 Quatorze ans plus tard, à New York, en Italie et en Espagne, trois filles parlent aux animaux, font pousser des fleurs ou entendent les pensées, sans savoir d&#x27;où leur viennent ces dons. Une carte marquée d&#x27;une empreinte de loup va les réunir. Mais sur la route qui les ramène vers la forêt, un homme à la bague étrange ne cesse de croiser leur chemin…&lt;/div&gt;&lt;div class=&quot;commencer&quot;&gt;[[Commencer l&#x27;histoire-&gt;Prologue]]&lt;/div&gt;&lt;div class=&quot;secondaires&quot;&gt;[[Comment est née cette histoire-&gt;Comment est née cette histoire]] [[L&#x27;arbre de l&#x27;histoire-&gt;L&#x27;arbre de l&#x27;histoire]]&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="3" name="Comment est née cette histoire" tags="" position="450,0" size="100,100">&lt;div class=&quot;contexte&quot;&gt;&lt;span class=&quot;lien-retour&quot;&gt;[[Couverture-&gt;Page de garde]]&lt;/span&gt;
-&lt;div class=&quot;contexte-texte&quot;&gt;&lt;h1&gt;Comment est née cette histoire&lt;/h1&gt;Agathe et Alyssa ont imaginé cette histoire en octobre 2026, pendant l&#x27;atelier « Le livre dont tu es le héros » que le L.A.B a animé dans les bibliothèques Méjanes d&#x27;Aix-en-Provence. Elles ont choisi le mystère : trois sœurs séparées bébés, des dons qu&#x27;elles ne s&#x27;expliquent pas, et des loups dont on ignore longtemps s&#x27;ils les menacent ou s&#x27;ils les protègent.
+&lt;div class=&quot;contexte-tete&quot;&gt;&lt;div class=&quot;portraits&quot;&gt;&lt;figure&gt;&lt;img src=&quot;images/portraits/rosi.png&quot; alt=&quot;Rosi, dessinée par Agathe ou Alyssa&quot;&gt;&lt;figcaption&gt;Rosi&lt;/figcaption&gt;&lt;/figure&gt;&lt;figure&gt;&lt;img src=&quot;images/portraits/sofia.png&quot; alt=&quot;Sofia, dessinée par Agathe&quot;&gt;&lt;figcaption&gt;Sofia&lt;/figcaption&gt;&lt;/figure&gt;&lt;figure&gt;&lt;img src=&quot;images/portraits/rose.png&quot; alt=&quot;Rose, dessinée par Alyssa&quot;&gt;&lt;figcaption&gt;Rose&lt;/figcaption&gt;&lt;/figure&gt;&lt;/div&gt;&lt;h1&gt;Comment est née cette histoire&lt;/h1&gt;&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;contexte-texte&quot;&gt;&lt;span class=&quot;lettrine&quot;&gt;E&lt;/span&gt;n octobre 2026, le L.A.B a animé l&#x27;atelier « Le livre dont tu es le héros » dans les bibliothèques Méjanes d&#x27;Aix-en-Provence. Les enfants y inventaient une histoire qui change selon les choix du lecteur, et découvraient au passage, sans écran, ce qui fait tenir un programme informatique : chaque lancer de dé est une condition, chaque choix ouvre une branche, et il faut que tous les chemins mènent quelque part.
 
-Écrire une histoire dont le lecteur est le héros, c&#x27;est déjà penser comme un programme : chaque lancer de dé est une condition, chaque choix ouvre une branche, et tous les chemins doivent mener à une fin. Pour en faire un livre achevé, le L.A.B a prolongé leur récit et l&#x27;a mis en forme, en s&#x27;aidant d&#x27;outils numériques, dont l&#x27;intelligence artificielle. Ce travail ne retire rien au leur : tout part de leurs idées et de leur imaginaire.
-
-&lt;span class=&quot;credits&quot;&gt;Une histoire d&#x27;Agathe et Alyssa. Réalisation du livre : L.A.B, Laboratoire d&#x27;Aix-périmentation et de Bidouille.&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;miniatures&quot;&gt;&lt;button class=&quot;miniature&quot; type=&quot;button&quot; aria-label=&quot;Agrandir la fiche personnage de Sofia, par Agathe&quot;&gt;&lt;img src=&quot;images/fiches/fiche_personnage_sofia.jpg&quot; alt=&quot;la fiche personnage de Sofia, par Agathe&quot;&gt;&lt;/button&gt;&lt;button class=&quot;miniature&quot; type=&quot;button&quot; aria-label=&quot;Agrandir la fiche récit, par Agathe&quot;&gt;&lt;img src=&quot;images/fiches/fiche_recit.jpg&quot; alt=&quot;la fiche récit, par Agathe&quot;&gt;&lt;/button&gt;&lt;button class=&quot;miniature&quot; type=&quot;button&quot; aria-label=&quot;Agrandir la fiche personnage de Rose, par Alyssa&quot;&gt;&lt;img src=&quot;images/fiches/fiche_personnage_rose.jpg&quot; alt=&quot;la fiche personnage de Rose, par Alyssa&quot;&gt;&lt;/button&gt;&lt;/div&gt;&lt;span class=&quot;legende&quot;&gt;Les fiches remplies par Agathe et Alyssa pendant l&#x27;atelier&lt;/span&gt;&lt;div class=&quot;secondaires&quot;&gt;[[Commencer le livre-&gt;Prologue]]&lt;/div&gt;
+Agathe et Alyssa ont choisi le genre du mystère, un pari exigeant pour une histoire à embranchements : un indice doit rester un indice quel que soit le chemin du lecteur, et la révélation doit tomber juste quel que soit le résultat du dé.&lt;div class=&quot;citation&quot;&gt;« Les loups se rappellent et ils ne bougent pas. Elles parlent aux loups, qui leur disent qu&#x27;ils étaient gentils et qu&#x27;ils les protégeaient d&#x27;un homme qui les cherchait. »&lt;span class=&quot;source&quot;&gt;Agathe, sur sa fiche récit&lt;/span&gt;&lt;/div&gt;Pour en faire un livre achevé, le L.A.B a prolongé leur récit et l&#x27;a mis en forme, en s&#x27;aidant d&#x27;outils numériques, dont l&#x27;intelligence artificielle. Ce travail ne retire rien au leur : tout part de leurs idées, de leurs personnages et de leurs dessins.&lt;/div&gt;&lt;div class=&quot;table-fiches&quot;&gt;&lt;span class=&quot;titre-table&quot;&gt;Les fiches remplies pendant l&#x27;atelier&lt;/span&gt;&lt;div class=&quot;miniatures&quot;&gt;&lt;figure&gt;&lt;button class=&quot;miniature&quot; type=&quot;button&quot; aria-label=&quot;Agrandir la fiche personnage de Sofia, par Agathe&quot;&gt;&lt;img src=&quot;images/fiches/fiche_personnage_sofia.jpg&quot; alt=&quot;la fiche personnage de Sofia, par Agathe&quot;&gt;&lt;/button&gt;&lt;figcaption&gt;Sofia, par Agathe&lt;/figcaption&gt;&lt;/figure&gt;&lt;figure&gt;&lt;button class=&quot;miniature&quot; type=&quot;button&quot; aria-label=&quot;Agrandir la fiche récit, par Agathe&quot;&gt;&lt;img src=&quot;images/fiches/fiche_recit.jpg&quot; alt=&quot;la fiche récit, par Agathe&quot;&gt;&lt;/button&gt;&lt;figcaption&gt;Le récit, par Agathe&lt;/figcaption&gt;&lt;/figure&gt;&lt;figure&gt;&lt;button class=&quot;miniature&quot; type=&quot;button&quot; aria-label=&quot;Agrandir la fiche personnage de Rose, par Alyssa&quot;&gt;&lt;img src=&quot;images/fiches/fiche_personnage_rose.jpg&quot; alt=&quot;la fiche personnage de Rose, par Alyssa&quot;&gt;&lt;/button&gt;&lt;figcaption&gt;Rose, par Alyssa&lt;/figcaption&gt;&lt;/figure&gt;&lt;/div&gt;&lt;span class=&quot;indication&quot;&gt;Clique sur une fiche pour l&#x27;agrandir.&lt;/span&gt;&lt;/div&gt;&lt;span class=&quot;credits&quot;&gt;Une histoire d&#x27;Agathe et Alyssa. Réalisation du livre : L.A.B, Laboratoire d&#x27;Aix-périmentation et de Bidouille.&lt;/span&gt;&lt;div class=&quot;commencer&quot;&gt;[[Commencer le livre-&gt;Prologue]]&lt;/div&gt;
 &lt;/div&gt;</tw-passagedata><tw-passagedata pid="4" name="L&#x27;arbre de l&#x27;histoire" tags="" position="600,0" size="100,100">&lt;div class=&quot;arbre&quot;&gt;&lt;div class=&quot;arbre-texte&quot;&gt;&lt;h1&gt;Les trois sœurs&lt;/h1&gt;&lt;span class=&quot;arbre-sous-titre&quot;&gt;Tous les chemins de l&#x27;histoire imaginée par Agathe et Alyssa&lt;/span&gt;&lt;div class=&quot;intro-arbre&quot;&gt;Un arbre de décision est un schéma qui montre toutes les suites possibles d&#x27;une histoire, ou d&#x27;un programme informatique. Chaque case est une étape, ici un chapitre, et chaque flèche part d&#x27;une condition : le résultat du dé, ou ce que le lecteur a déjà lu. En suivant les flèches, on vérifie qu&#x27;aucun chemin ne mène nulle part : c&#x27;est grâce à cet outil que chaque parcours de //Les trois sœurs// conduit bien à la fin. Les trois épreuves de la route forment une boucle : on en sort seulement quand on les a toutes vécues.&lt;/div&gt;&lt;div class=&quot;lien-retour couverture-arbre&quot;&gt;[[Couverture-&gt;Page de garde]]&lt;/div&gt;&lt;/div&gt;&lt;img src=&quot;images/arbre.svg&quot; alt=&quot;L&#x27;arbre de toutes les branches de l&#x27;histoire&quot;&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="5" name="Prologue" tags="" position="750,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Prologue&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;La nuit des loups&lt;/span&gt;&lt;/h1&gt;C&#x27;était une nuit sans lune, au fond d&#x27;une forêt où personne n&#x27;osait s&#x27;aventurer. Sous un grand sapin, trois bébés dormaient dans un panier d&#x27;osier : trois petites filles d&#x27;un an, serrées les unes contre les autres. Quelqu&#x27;un les avait laissées là, enveloppées dans une seule couverture, et n&#x27;était pas revenu.
 
 Vers minuit, les branches craquèrent tout près du panier. Des yeux jaunes s&#x27;allumèrent entre les troncs, puis d&#x27;autres encore. Les loups approchaient sans bruit.

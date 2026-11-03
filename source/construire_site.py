@@ -34,16 +34,21 @@ SYNOPSIS = (
 )
 
 CONTEXTE = [
-    "Agathe et Alyssa ont imaginé cette histoire en octobre 2026, pendant l'atelier « Le livre dont "
-    "tu es le héros » que le L.A.B a animé dans les bibliothèques Méjanes d'Aix-en-Provence. Elles ont "
-    "choisi le mystère : trois sœurs séparées bébés, des dons qu'elles ne s'expliquent pas, et des loups "
-    "dont on ignore longtemps s'ils les menacent ou s'ils les protègent.",
-    "Écrire une histoire dont le lecteur est le héros, c'est déjà penser comme un programme : chaque "
-    "lancer de dé est une condition, chaque choix ouvre une branche, et tous les chemins doivent mener "
-    "à une fin. Pour en faire un livre achevé, le L.A.B a prolongé leur récit et l'a mis en forme, en "
-    "s'aidant d'outils numériques, dont l'intelligence artificielle. Ce travail ne retire rien au leur : "
-    "tout part de leurs idées et de leur imaginaire.",
+    "En octobre 2026, le L.A.B a animé l'atelier « Le livre dont tu es le héros » dans les "
+    "bibliothèques Méjanes d'Aix-en-Provence. Les enfants y inventaient une histoire qui change selon "
+    "les choix du lecteur, et découvraient au passage, sans écran, ce qui fait tenir un programme "
+    "informatique : chaque lancer de dé est une condition, chaque choix ouvre une branche, et il faut "
+    "que tous les chemins mènent quelque part.",
+    "Agathe et Alyssa ont choisi le genre du mystère, un pari exigeant pour une histoire à "
+    "embranchements : un indice doit rester un indice quel que soit le chemin du lecteur, et la "
+    "révélation doit tomber juste quel que soit le résultat du dé.",
+    "Pour en faire un livre achevé, le L.A.B a prolongé leur récit et l'a mis en forme, en s'aidant "
+    "d'outils numériques, dont l'intelligence artificielle. Ce travail ne retire rien au leur : tout "
+    "part de leurs idées, de leurs personnages et de leurs dessins.",
 ]
+# Les mots d'Agathe sur sa fiche récit, à peine remis au propre
+CITATION = ("Les loups se rappellent et ils ne bougent pas. Elles parlent aux loups, qui leur disent "
+            "qu'ils étaient gentils et qu'ils les protégeaient d'un homme qui les cherchait.")
 
 CSS = """
 @font-face { font-family: "IM Fell English"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/IMFellEnglish.woff2") format("woff2"); }
@@ -209,20 +214,22 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 }
 /* Commencer : en gras, entre deux fioritures dorées terminées par une étoile, sans cadre de bouton ;
    au survol, le texte prend une lueur dorée */
-.garde .commencer {
+.garde .commencer, .contexte .commencer {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.9em;
 }
-.garde .commencer::before, .garde .commencer::after {
+.garde .commencer::before, .garde .commencer::after,
+.contexte .commencer::before, .contexte .commencer::after {
   content: "";
   flex: 0 1 7.5em;
   height: 1.2em;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 20' preserveAspectRatio='none'%3E%3Cpath d='M24 10 C46 10 56 4 72 7 C86 10 96 14 118 10' fill='none' stroke='%23d99a2b' stroke-width='1.4' stroke-linecap='round'/%3E%3Cpath d='M7 3 l1.7 4.3 4.3 .4-3.3 2.9 1 4.3L7 12.6l-3.7 2.3 1-4.3L1 7.7l4.3-.4z' fill='%23d99a2b'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
 }
-.garde .commencer::after { transform: scaleX(-1); }
-.garde .commencer tw-link, .garde .commencer .enchantment-link {
+.garde .commencer::after, .contexte .commencer::after { transform: scaleX(-1); }
+.garde .commencer tw-link, .garde .commencer .enchantment-link,
+.contexte .commencer tw-link, .contexte .commencer .enchantment-link {
   font-family: "IM Fell English", Georgia, serif;
   font-weight: 700;
   font-size: 1.6em;
@@ -233,7 +240,8 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   white-space: nowrap;
   transition: color 0.25s ease, text-shadow 0.25s ease;
 }
-.garde .commencer tw-link:hover, .garde .commencer .enchantment-link:hover {
+.garde .commencer tw-link:hover, .garde .commencer .enchantment-link:hover,
+.contexte .commencer tw-link:hover, .contexte .commencer .enchantment-link:hover {
   color: var(--nuit);
   text-shadow: 0 0 12px rgba(217, 154, 43, 0.75);
 }
@@ -537,25 +545,103 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   .arbre-texte { position: static; }
 }
 
-/* Page de contexte : un texte court, centré, puis les fiches des autrices en miniatures cliquables ;
-   texte plus petit que celui des chapitres, ce n'est pas l'histoire */
+/* Page de contexte : les trois sœurs dessinées par les autrices, un texte court au centre, une phrase
+   de leur fiche, puis leurs fiches sur une table, en miniatures cliquables */
 .contexte {
   font-size: 0.86em;
+}
+.contexte-tete {
   text-align: center;
 }
-.contexte .lien-retour { text-align: left; }
-.contexte-texte {
-  max-width: 40em;
-  margin: 0 auto;
-}
-.contexte .secondaires { display: flex; justify-content: center; margin-top: 1.4em; }
-.miniatures {
-  margin: 2.6em auto 0;
+.portraits {
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  gap: 2.2em;
+  margin: 0 auto 0.6em;
+}
+.portraits figure { margin: 0; }
+.portraits img { display: block; height: 11em; width: auto; margin: 0 auto; }
+.portraits figcaption {
+  font-family: "IM Fell English", Georgia, serif;
+  font-style: italic;
+  font-size: 1.05em;
+  color: var(--or-fonce);
+  margin-top: 0.3em;
+}
+.contexte h1 {
+  font-size: 2.6em;
+  margin: 0.2em 0 0.1em;
+}
+.contexte-texte {
+  max-width: 36em;
+  margin: 0 auto;
+  text-align: left;
+}
+/* Lettrine dorée au début du texte */
+.lettrine {
+  float: left;
+  font-family: "IM Fell English", Georgia, serif;
+  font-size: 3.6em;
+  line-height: 0.85;
+  padding: 0.06em 0.12em 0 0;
+  color: var(--or);
+}
+.citation {
+  max-width: 30em;
+  margin: 2em auto;
+  padding: 1.1em 0;
+  border-top: 1px solid var(--or);
+  border-bottom: 1px solid var(--or);
+  text-align: center;
+  font-family: "IM Fell English", Georgia, serif;
+  font-style: italic;
+  font-size: 1.35em;
+  line-height: 1.45;
+  color: var(--nuit);
+}
+.citation .source {
+  display: block;
+  margin-top: 0.6em;
+  font-family: "EB Garamond", Georgia, serif;
+  font-size: 0.68em;
+  letter-spacing: 0.04em;
+  color: var(--gris);
+}
+.contexte .credits {
+  display: block;
+  text-align: center;
+  margin-top: 1.6em;
+}
+/* La table : un papier clair où les fiches sont posées de travers */
+.table-fiches {
+  margin: 2.8em auto 0;
+  max-width: 62em;
+  padding: 2em 1.5em 1.6em;
+  background: #f6f3ec;
+  border-radius: 14px;
+  text-align: center;
+}
+.table-fiches .titre-table {
+  display: block;
+  font-family: "IM Fell English", Georgia, serif;
+  font-style: italic;
+  font-size: 1.3em;
+  color: var(--nuit);
+  margin-bottom: 1.2em;
+}
+.miniatures {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   flex-wrap: wrap;
-  gap: 1.6em;
+  gap: 2.4em;
+}
+.miniatures figure { margin: 0; }
+.miniatures figcaption {
+  margin-top: 0.8em;
+  font-size: 0.95em;
+  color: var(--gris);
 }
 .miniature {
   display: block;
@@ -566,24 +652,30 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 }
 .miniature img {
   display: block;
-  height: 15em;
+  height: 16em;
   width: auto;
-  border-radius: 4px;
-  box-shadow: 0 2px 10px rgba(34, 38, 58, 0.18);
+  border-radius: 3px;
+  box-shadow: 0 3px 12px rgba(34, 38, 58, 0.22);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.miniature:nth-child(1) img { transform: rotate(-2deg); }
-.miniature:nth-child(3) img { transform: rotate(2deg); }
-.miniature:hover img { transform: rotate(0) scale(1.04); box-shadow: 0 0 0 2px var(--or), 0 6px 18px rgba(34, 38, 58, 0.25); }
-.legende {
+.miniatures figure:nth-child(1) img { transform: rotate(-3deg); }
+.miniatures figure:nth-child(2) img { transform: rotate(1deg); }
+.miniatures figure:nth-child(3) img { transform: rotate(3deg); }
+.miniatures .miniature:hover img { transform: rotate(0) scale(1.05); box-shadow: 0 0 0 2px var(--or), 0 8px 20px rgba(34, 38, 58, 0.28); }
+.indication {
   display: block;
   margin-top: 1.2em;
-  font-family: "IM Fell English", Georgia, serif;
+  font-size: 0.9em;
   font-style: italic;
-  font-size: 1.15em;
   color: var(--gris);
-  text-align: center;
 }
+.contexte .commencer { margin-top: 2.2em; }
+@media (max-width: 600px) {
+  .portraits { gap: 0.8em; }
+  .portraits img { height: 7.5em; }
+  .miniature img { height: 11em; }
+}
+
 /* Fiche ouverte en grand par-dessus la page ; un clic n'importe où la referme */
 .agrandi {
   position: fixed;
@@ -784,24 +876,39 @@ def passage_garde():
     )
 
 
-def miniature(fichier, description):
-    return (f'<button class="miniature" type="button" aria-label="Agrandir {description}">'
-            f'<img src="images/fiches/{fichier}" alt="{description}"></button>')
+def miniature(fichier, legende, description):
+    return (f'<figure><button class="miniature" type="button" aria-label="Agrandir {description}">'
+            f'<img src="images/fiches/{fichier}" alt="{description}"></button>'
+            f'<figcaption>{legende}</figcaption></figure>')
+
+
+def portrait(fichier, nom, autrice):
+    return (f'<figure><img src="images/portraits/{fichier}" alt="{nom}, dessinée par {autrice}">'
+            f'<figcaption>{nom}</figcaption></figure>')
 
 
 def passage_contexte():
     return (
         '<div class="contexte"><span class="lien-retour">[[Couverture->Page de garde]]</span>\n'
-        '<div class="contexte-texte"><h1>Comment est née cette histoire</h1>'
-        + "\n\n".join(CONTEXTE)
-        + f'\n\n<span class="credits">Une histoire d\'{AUTRICES}. Réalisation du livre : L.A.B, '
-        "Laboratoire d'Aix-périmentation et de Bidouille.</span></div>"
-        + '<div class="miniatures">'
-        + miniature("fiche_personnage_sofia.jpg", "la fiche personnage de Sofia, par Agathe")
-        + miniature("fiche_recit.jpg", "la fiche récit, par Agathe")
-        + miniature("fiche_personnage_rose.jpg", "la fiche personnage de Rose, par Alyssa")
-        + '</div><span class="legende">Les fiches remplies par Agathe et Alyssa pendant l\'atelier</span>'
-        + f'<div class="secondaires">{lien("Commencer le livre", "Prologue")}</div>\n</div>'
+        '<div class="contexte-tete"><div class="portraits">'
+        + portrait("rosi.png", "Rosi", "Agathe ou Alyssa")
+        + portrait("sofia.png", "Sofia", "Agathe")
+        + portrait("rose.png", "Rose", "Alyssa")
+        + f'</div><h1>Comment est née cette histoire</h1>{SEPARATEUR}</div>'
+        '<div class="contexte-texte">'
+        # Lettrine dorée sur la première lettre ; Harlowe ne fait pas de <p>, d'où le span
+        + f'<span class="lettrine">{CONTEXTE[0][0]}</span>{CONTEXTE[0][1:]}\n\n{CONTEXTE[1]}'
+        + f'<div class="citation">« {CITATION} »<span class="source">Agathe, sur sa fiche récit</span></div>'
+        + CONTEXTE[2]
+        + '</div><div class="table-fiches"><span class="titre-table">Les fiches remplies pendant l\'atelier</span>'
+        '<div class="miniatures">'
+        + miniature("fiche_personnage_sofia.jpg", "Sofia, par Agathe", "la fiche personnage de Sofia, par Agathe")
+        + miniature("fiche_recit.jpg", "Le récit, par Agathe", "la fiche récit, par Agathe")
+        + miniature("fiche_personnage_rose.jpg", "Rose, par Alyssa", "la fiche personnage de Rose, par Alyssa")
+        + '</div><span class="indication">Clique sur une fiche pour l\'agrandir.</span></div>'
+        + f'<span class="credits">Une histoire d\'{AUTRICES}. Réalisation du livre : L.A.B, '
+        "Laboratoire d'Aix-périmentation et de Bidouille.</span>"
+        + f'<div class="commencer">{lien("Commencer le livre", "Prologue")}</div>\n</div>'
     )
 
 
