@@ -28,6 +28,8 @@
 
 
 
+
+
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta content="width=device-width, initial-scale=1" name="viewport">
 <title>Les trois sœurs</title>
@@ -42,11 +44,10 @@
 @font-face { font-family: "Lora"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("fonts/Lora.woff2") format("woff2"); }
 @font-face { font-family: "Lora"; font-style: italic; font-weight: 400 700; font-display: swap; src: url("fonts/Lora-italique.woff2") format("woff2"); }
 
-/* Couleurs : le violet de l'encre des cartes et du ciel de nuit, l'or des mains qui brillent,
-   la rouille du pantalon de Rose */
+/* Couleurs : le bleu violacé du ciel de nuit, l'or des mains qui brillent */
 :root {
-  --nuit: #4a2d7a;
-  --nuit-fonce: #321d57;
+  --nuit: #1d2b4f;
+  --nuit-fonce: #131c33;
   --or-fonce: #a8740f;
   --foret: #2f4b3c;
   --or: #d99a2b;
@@ -90,7 +91,7 @@ tw-passage {
   max-height: 85vh;
   object-fit: contain;
   border-radius: 10px;
-  box-shadow: 0 6px 24px rgba(50, 29, 87, 0.25);
+  box-shadow: 0 6px 24px rgba(19, 28, 51, 0.25);
 }
 /* Tant qu'un chapitre n'a pas d'illustration, son texte reste en une colonne centrée */
 .page:not(:has(.cote)) { grid-template-columns: minmax(0, 44em); justify-content: center; }
@@ -157,7 +158,7 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   max-height: 64vh;
   height: auto;
   border-radius: 10px;
-  box-shadow: 0 6px 24px rgba(50, 29, 87, 0.3);
+  box-shadow: 0 6px 24px rgba(19, 28, 51, 0.3);
 }
 .garde-texte {
   display: flex;
@@ -197,23 +198,38 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   font-size: 1.05em;
   line-height: 1.65;
 }
-.garde .commencer tw-link, .garde .commencer .enchantment-link {
+/* Bouton Commencer : une étiquette de vieux livre, cernée d'un double filet doré, sans aplat ;
+   au survol, elle se remplit de nuit et l'or s'allume */
+.garde .commencer tw-link, .garde .commencer .enchantment-link,
+.elan tw-link, .elan .enchantment-link {
   display: inline-block;
   font-family: "IM Fell English", Georgia, serif;
-  font-size: 1.3em;
-  letter-spacing: 0.02em;
-  color: #ffffff;
-  background-color: var(--nuit);
-  border: none;
-  border-radius: 999px;
-  padding: 0.4em 1.5em 0.45em;
-  box-shadow: 0 0 0 2px var(--papier), 0 0 0 4px var(--or);
-  transition: box-shadow 0.2s ease, background-color 0.2s ease;
+  font-weight: 400;
+  font-size: 1.4em;
+  letter-spacing: 0.03em;
+  color: var(--nuit);
+  background-color: transparent;
+  border: 1px solid var(--or);
+  border-radius: 2px;
+  outline: 1px solid var(--or);
+  outline-offset: 3px;
+  padding: 0.3em 1.3em 0.35em;
+  transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
 }
-.garde .commencer tw-link:hover, .garde .commencer .enchantment-link:hover {
+.garde .commencer tw-link::before, .garde .commencer tw-link::after,
+.elan tw-link::before, .elan tw-link::after {
+  content: "✦";
+  font-size: 0.55em;
+  color: var(--or);
+  vertical-align: middle;
+}
+.garde .commencer tw-link::before, .elan tw-link::before { margin-right: 0.9em; }
+.garde .commencer tw-link::after, .elan tw-link::after { margin-left: 0.9em; }
+.garde .commencer tw-link:hover, .garde .commencer .enchantment-link:hover,
+.elan tw-link:hover, .elan .enchantment-link:hover {
   color: var(--or-clair);
-  background-color: var(--nuit-fonce);
-  box-shadow: 0 0 0 2px var(--papier), 0 0 0 4px var(--or), 0 0 18px 4px rgba(217, 154, 43, 0.55);
+  background-color: var(--nuit);
+  box-shadow: 0 0 16px 3px rgba(217, 154, 43, 0.4);
 }
 .garde .secondaires {
   margin-top: 4px;
@@ -278,7 +294,7 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 .choix tw-link, .choix .enchantment-link {
   color: var(--nuit);
   font-weight: 700;
-  border-bottom: 1.5px solid rgba(74, 45, 122, 0.3);
+  border-bottom: 1.5px solid rgba(29, 43, 79, 0.3);
 }
 .choix tw-link:hover, .choix .enchantment-link:hover {
   color: var(--or-fonce);
@@ -307,36 +323,17 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 .separateur .embleme {
   width: 3.4em;
   height: 1.9em;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 68 38'%3E%3Cg fill='%234a2d7a'%3E%3Cellipse cx='34' cy='27' rx='7.5' ry='6.5'/%3E%3Cellipse cx='25.5' cy='17' rx='2.8' ry='3.8' transform='rotate(-20 25.5 17)'/%3E%3Cellipse cx='31' cy='12.5' rx='2.8' ry='3.9'/%3E%3Cellipse cx='37' cy='12.5' rx='2.8' ry='3.9'/%3E%3Cellipse cx='42.5' cy='17' rx='2.8' ry='3.8' transform='rotate(20 42.5 17)'/%3E%3C/g%3E%3Cg fill='%23d99a2b'%3E%3Cpath d='M9 15 l1.6 3.4 3.7.4-2.8 2.5.8 3.6L9 23l-3.3 1.9.8-3.6-2.8-2.5 3.7-.4z'/%3E%3Cpath d='M34 0 l1.3 2.7 3 .3-2.2 2 .6 2.9L34 6.4l-2.7 1.5.6-2.9-2.2-2 3-.3z'/%3E%3Cpath d='M59 15 l1.6 3.4 3.7.4-2.8 2.5.8 3.6L59 23l-3.3 1.9.8-3.6-2.8-2.5 3.7-.4z'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 68 38'%3E%3Cg fill='%231d2b4f'%3E%3Cellipse cx='34' cy='27' rx='7.5' ry='6.5'/%3E%3Cellipse cx='25.5' cy='17' rx='2.8' ry='3.8' transform='rotate(-20 25.5 17)'/%3E%3Cellipse cx='31' cy='12.5' rx='2.8' ry='3.9'/%3E%3Cellipse cx='37' cy='12.5' rx='2.8' ry='3.9'/%3E%3Cellipse cx='42.5' cy='17' rx='2.8' ry='3.8' transform='rotate(20 42.5 17)'/%3E%3C/g%3E%3Cg fill='%23d99a2b'%3E%3Cpath d='M9 15 l1.6 3.4 3.7.4-2.8 2.5.8 3.6L9 23l-3.3 1.9.8-3.6-2.8-2.5 3.7-.4z'/%3E%3Cpath d='M34 0 l1.3 2.7 3 .3-2.2 2 .6 2.9L34 6.4l-2.7 1.5.6-2.9-2.2-2 3-.3z'/%3E%3Cpath d='M59 15 l1.6 3.4 3.7.4-2.8 2.5.8 3.6L59 23l-3.3 1.9.8-3.6-2.8-2.5 3.7-.4z'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain;
 }
 .garde .separateur { margin: 0; }
 
-/* Bouton de renvoi, quand il n'y a qu'une suite possible */
+/* Bouton de renvoi, quand il n'y a qu'une suite possible : la même étiquette que Commencer, en plus petit */
 .elan {
   align-items: center;
   margin-top: 2.2em;
 }
-.elan tw-link, .elan .enchantment-link {
-  display: inline-block;
-  font-family: "IM Fell English", Georgia, serif;
-  font-weight: 400;
-  font-size: 1.2em;
-  letter-spacing: 0.02em;
-  color: #ffffff;
-  background-color: var(--nuit);
-  border: none;
-  border-radius: 999px;
-  padding: 0.4em 1.4em 0.45em;
-  box-shadow: 0 3px 0 var(--or);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-/* Au survol : un liseré blanc puis doré apparaît, comme la lueur des mains de Rose */
-.elan tw-link:hover, .elan .enchantment-link:hover {
-  color: var(--or-clair);
-  background-color: var(--nuit-fonce);
-  transform: translateY(-1px);
-  box-shadow: 0 0 0 3px #ffffff, 0 0 0 5px var(--or), 0 0 18px 6px rgba(217, 154, 43, 0.45);
-}
+/* plus spécifique que les liens de choix, qui sont en gras et soulignés */
+.choix.elan tw-link, .choix.elan .enchantment-link { font-size: 1.15em; font-weight: 400; border-bottom: 1px solid var(--or); }
 
 /* Dé à lancer sur le site : à droite du bloc consigne et choix, face blanche, contour bleu nuit,
    points dorés ; il montre une face au repos et ne choisit jamais à la place du lecteur */
