@@ -112,24 +112,33 @@ tw-passage {
   margin-top: 2.5em;
 }
 .illustration { display: flex; flex-direction: column; }
-/* Les illustrations ne sont pas posées en bloc : leurs bords se fondent dans la page, comme une
-   peinture dont la couleur s'efface vers le papier */
+/* Les illustrations ne sont pas posées en bloc : leurs bords se fondent dans un halo de nuit, qui
+   lui-même s'efface dans le blanc de la page */
+.halo { position: relative; display: block; isolation: isolate; }
+.halo::before {
+  content: "";
+  position: absolute;
+  inset: -1.5% -2%;
+  z-index: -1;
+  border-radius: 30px;
+  background: var(--nuit-fonce);
+  filter: blur(12px);
+}
 .illustration img {
   display: block;
-  width: 112%;
-  margin: 0 -6%;
+  width: 100%;
   max-height: 85vh;
   object-fit: contain;
   /* fondu sur les quatre côtés, sans dessiner d'ovale */
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent),
-                      linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent),
+                      linear-gradient(to bottom, transparent, #000 9%, #000 91%, transparent);
   -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent),
-              linear-gradient(to bottom, transparent, #000 14%, #000 86%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent),
+              linear-gradient(to bottom, transparent, #000 9%, #000 91%, transparent);
   mask-composite: intersect;
 }
-/* Deux illustrations : leurs fondus se rejoignent sur le blanc de la page */
-.illustration img + img { margin-top: 0.4em; }
+/* Deux illustrations : un peu d'air entre leurs halos */
+.illustration .halo + .halo { margin-top: 1.4em; }
 /* Tant qu'un chapitre n'a pas d'illustration, son texte reste en une colonne centrée */
 .page:not(:has(.cote)) { grid-template-columns: minmax(0, 38em); justify-content: center; }
 @media (max-width: 800px) {
@@ -908,7 +917,8 @@ def passage_chapitre(ch):
     cote = ""
     if images:
         cote = ('<div class="cote"><div class="illustration">'
-                + "".join(f'<img src="{i}" alt="{ch["titre"]}">' for i in images) + '</div></div>')
+                + "".join(f'<span class="halo"><img src="{i}" alt="{ch["titre"]}"></span>' for i in images)
+                + '</div></div>')
     return f'<div class="page">{texte}{cote}</div>'
 
 
