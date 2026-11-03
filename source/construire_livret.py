@@ -67,7 +67,8 @@ p {{ margin: 0 0 0.55em; orphans: 2; widows: 2; }}
 /* Titres */
 .numero {{ display: block; font-family: "IM Fell English"; font-style: italic; font-size: 12pt; color: #a8740f; margin-bottom: 0.5mm; }}
 h1 {{ font-family: "IM Fell English"; font-weight: 400; font-size: 19pt; line-height: 1.05; color: #1d2b4f; margin: 0 0 4mm; }}
-.illus img {{ display: block; width: 100%; max-height: 64mm; object-fit: contain; margin: 0 auto 4mm;
+/* L'image remplit tout son cadre doré (recadrée au besoin), sans bande vide */
+.illus img {{ display: block; width: 100%; height: 62mm; object-fit: cover; margin: 0 auto 4mm;
   border: 0.8mm solid #d99a2b; border-radius: 3.5mm; }}
 
 /* Séparateur, choix, fin */
