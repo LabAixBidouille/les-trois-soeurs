@@ -184,7 +184,7 @@ def document(pages, blanches=0):
     couverture = (
         '<section class="couverture sans-numero">'
         '<div class="surtitre">Une histoire dont le lecteur est le héros</div>'
-        f'<div class="titre-livre">{e(TITRE)}</div><div class="autrices">{e(AUTRICES)}</div>'
+        f'<div class="titre-livre">{e(TITRE)}</div>'
         f'<img src="{(RACINE / "images/couverture.jpg").as_uri()}" alt="">'
         '<div class="resume">' + "".join(f"<p>{e(p)}</p>" for p in SYNOPSIS.split("\n\n")) + "</div></section>"
     )
@@ -194,7 +194,7 @@ def document(pages, blanches=0):
     contexte = (
         '<section class="page-seule contexte"><h2>Comment est née cette histoire</h2>'
         + "".join(f"<p>{italique(p).replace('&lt;b&gt;', '<b>').replace('&lt;/b&gt;', '</b>')}</p>" for p in paragraphes)
-        + '<p class="credits">Une histoire librement inspirée du récit d’Agathe et d’Alyssa.<br>Réalisation du livre : '
+        + '<p class="credits">Une histoire librement inspirée du récit de deux jeunes autrices.<br>Réalisation du livre : '
           "Laboratoire d’Aix-périmentation et de Bidouille.</p></section>"
         '<section class="page-seule contexte"><h2>Les fiches de l’atelier</h2><div class="fiches">'
         f'<img src="{(fiches / "fiche_recit.jpg").as_uri()}" alt="">'
@@ -205,7 +205,7 @@ def document(pages, blanches=0):
     chapitres = "".join(chapitre(ch, pages) for ch in lire_chapitres())
     vides = '<section class="page-seule sans-numero">&nbsp;</section>' * blanches
     dos = ('<section class="page-seule sans-numero"><div class="dos">'
-           f"<p><b>{e(TITRE)}</b>, une histoire librement inspirée du récit imaginé par Agathe et Alyssa pendant l’atelier "
+           f"<p><b>{e(TITRE)}</b>, une histoire librement inspirée du récit imaginé par deux jeunes autrices pendant l’atelier "
            "« La quête du curry, une histoire dont tu es le héros », dans les bibliothèques Méjanes "
            "d’Aix-en-Provence, en octobre 2026.</p><p>Réalisation du livre : Laboratoire d’Aix-périmentation et de Bidouille.</p>"
            "</div></section>")
