@@ -18,8 +18,8 @@ TEXTE = RACINE / "source" / "texte.md"
 SORTIE = RACINE / "images" / "arbre.svg"
 POLICE = RACINE / "fonts" / "Lora.woff2"
 
-# Couleurs du livre : or des mains de Rose, or clair, violet de l'encre des cartes, encre
-ORANGE, JAUNE_CLAIR, VIOLET, MENTHE, ENCRE = "#c08a1e", "#f7e3b0", "#4a2d7a", "#4a2d7a", "#2a2238"
+# Couleurs du livre : or des mains de Rose, or clair, bleu violacé de la nuit, vert sapin, encre
+ORANGE, JAUNE_CLAIR, VIOLET, MENTHE, ENCRE = "#c08a1e", "#f7e3b0", "#1d2b4f", "#2f4b3c", "#22263a"
 # Cadre resserré sur le dessin
 GAUCHE, LARGEUR, HAUTEUR = 110, 900, 1910
 L_CASE, H_CASE = 230, 66
