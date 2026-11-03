@@ -21,7 +21,8 @@ FAVICON = ('<link rel="icon" type="image/png" sizes="48x48" href="images/favicon
            '<link rel="apple-touch-icon" href="images/favicon.png">')
 
 TITRE = "Les trois sœurs"
-AUTRICES = "Agathe et Alyssa"
+# Les prénoms des autrices ne sont pas affichés tant que leur orthographe n'est pas confirmée
+AUTRICES = "deux jeunes autrices"
 
 # Résumé écrit par Manon le 03/11/2026
 SYNOPSIS = (
@@ -48,17 +49,17 @@ CONTEXTE = [
     "manière de décomposer un problème et d’organiser les étapes pour le résoudre. Ils ont formulé des "
     "règles de type « si… alors… », créé des embranchements et réfléchi à la façon dont les chemins se "
     "rejoignent pour former une histoire cohérente.",
-    f"{AUTRICES} ont choisi d’inventer un mystère. Un défi pour une histoire à embranchements, puisque "
+    "Les deux autrices ont choisi d’inventer un mystère. Un défi pour une histoire à embranchements, puisque "
     "les indices doivent garder leur sens et la révélation fonctionner, quel que soit le chemin emprunté.",
     "L’atelier ne durant que deux heures, nous tenions à offrir à chaque enfant un livre complet "
     "pour illustrer leur travail et les rendre fiers de leurs productions. Le L.A.B a donc "
     "prolongé et mis en forme leur récit à l’aide d’outils numériques (l’intelligence "
     "artificielle a notamment permis d’aboutir à une histoire achevée et à un ensemble de visuels "
     "correspondant à leurs descriptions mais uniformes tout au long de la lecture).\n\n<b>À son "
-    "origine, il y a avant tout les idées, les personnages et les dessins d’Agathe et "
-    "d’Alyssa.</b>",
+    "origine, il y a avant tout les idées, les personnages et les dessins de ses deux jeunes "
+    "autrices.</b>",
 ]
-# Les mots d'Agathe sur sa fiche récit, à peine remis au propre
+# Les mots de la fiche récit, à peine remis au propre
 CITATION = ("Les loups se rappellent et ils ne bougent pas. Elles parlent aux loups, qui leur disent "
             "qu'ils étaient gentils et qu'ils les protégeaient d'un homme qui les cherchait.")
 
@@ -866,7 +867,7 @@ def passage_garde():
         '<div class="garde"><div class="garde-entete">'
         '<span class="surtitre">Une histoire dont le lecteur est le héros</span>'
         f'<div class="grand-titre">{TITRE}</div>'
-        f'<span class="nom-auteur">{AUTRICES}</span></div>'
+        '</div>'
         '<div class="garde-corps"><div class="garde-image"><img src="images/couverture.jpg" '
         'alt="Rose à New York, Rosi en Italie et Sofia en Espagne, chacune à sa fenêtre, les mains pleines de lumière"></div>'
         f'<div class="garde-texte"><div class="synopsis">{SYNOPSIS}</div>'
@@ -892,22 +893,22 @@ def passage_contexte():
     return (
         '<div class="contexte"><span class="lien-retour">[[Couverture->Page de garde]]</span>\n'
         '<div class="contexte-tete"><div class="portraits">'
-        + portrait("rosi.png", "Rosi", "Agathe ou Alyssa")
-        + portrait("sofia.png", "Sofia", "Agathe")
-        + portrait("rose.png", "Rose", "Alyssa")
+        + portrait("rosi.png", "Rosi", "les autrices")
+        + portrait("sofia.png", "Sofia", "les autrices")
+        + portrait("rose.png", "Rose", "les autrices")
         + f'</div><h1>Comment est née cette histoire</h1>{SEPARATEUR}</div>'
         '<div class="contexte-texte">'
         + f'{CONTEXTE[0]}\n\n'
         + "\n\n".join(CONTEXTE[1:4])
-        + f'<div class="citation">« {CITATION} »<span class="source">Agathe, sur sa fiche récit</span></div>'
+        + f'<div class="citation">« {CITATION} »<span class="source">Extrait de la fiche récit</span></div>'
         + CONTEXTE[4]
         + '</div><div class="table-fiches"><span class="titre-table">Les fiches de l’atelier</span>'
         '<div class="miniatures">'
-        + miniature("fiche_recit.jpg", "Le récit", "la fiche récit, par Agathe")
-        + miniature("fiche_personnage_rose.jpg", "Une fiche personnage", "la fiche personnage de Rose, par Alyssa")
+        + miniature("fiche_recit.jpg", "Le récit", "la fiche récit")
+        + miniature("fiche_personnage_rose.jpg", "Une fiche personnage", "la fiche personnage de Rose")
         + miniature("fiche_situation_1.jpg", "Une fiche à embranchement", "la fiche situation n° 1, avec ses choix au dé")
         + '</div></div>'
-        + '<span class="credits">Une histoire librement inspirée du récit d’Agathe et d’Alyssa.\nRéalisation du livre : '
+        + '<span class="credits">Une histoire librement inspirée du récit de deux jeunes autrices.\nRéalisation du livre : '
         "Laboratoire d’Aix-périmentation et de Bidouille.</span>"
         + f'<div class="commencer">{lien("Commencer le livre", "Prologue")}</div>\n</div>'
     )
@@ -918,7 +919,7 @@ def passage_arbre():
     return (
         f'<div class="arbre"><span class="lien-retour">{lien("Couverture", "Page de garde")}</span>'
         f'<div class="arbre-tete"><h1>{TITRE}</h1>'
-        f'<span class="arbre-sous-titre">Tous les chemins de l\'histoire imaginée par {AUTRICES}</span></div>'
+        '<span class="arbre-sous-titre">Tous les chemins de l\'histoire</span></div>'
         '<img src="images/arbre.svg" alt="L\'arbre de toutes les branches de l\'histoire"></div>'
     )
 
