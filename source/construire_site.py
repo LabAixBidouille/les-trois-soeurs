@@ -71,11 +71,12 @@ CSS = """
 @font-face { font-family: "Lora"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("fonts/Lora.woff2") format("woff2"); }
 @font-face { font-family: "Lora"; font-style: italic; font-weight: 400 700; font-display: swap; src: url("fonts/Lora-italique.woff2") format("woff2"); }
 
-/* Couleurs de l'illustration : bleu de nuit du ciel, vert des sapins, or des mains qui brillent,
-   rouille du pantalon de Rose, orange du couchant */
+/* Couleurs : le violet de l'encre des cartes et du ciel de nuit, l'or des mains qui brillent,
+   la rouille du pantalon de Rose */
 :root {
-  --nuit: #1d2b4f;
-  --nuit-fonce: #131c33;
+  --nuit: #4a2d7a;
+  --nuit-fonce: #321d57;
+  --or-fonce: #a8740f;
   --foret: #2f4b3c;
   --or: #d99a2b;
   --or-clair: #f7e3b0;
@@ -118,7 +119,7 @@ tw-passage {
   max-height: 85vh;
   object-fit: contain;
   border-radius: 10px;
-  box-shadow: 0 6px 24px rgba(19, 28, 51, 0.25);
+  box-shadow: 0 6px 24px rgba(50, 29, 87, 0.25);
 }
 /* Tant qu'un chapitre n'a pas d'illustration, son texte reste en une colonne centrée */
 .page:not(:has(.cote)) { grid-template-columns: minmax(0, 44em); justify-content: center; }
@@ -144,7 +145,7 @@ tw-story { overflow: clip; }
   font-family: "IM Fell English", Georgia, serif;
   font-style: italic;
   font-size: 1.3em;
-  color: var(--or);
+  color: var(--or-fonce);
   letter-spacing: 0.04em;
   margin-bottom: 0.2em;
 }
@@ -185,7 +186,7 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   max-height: 64vh;
   height: auto;
   border-radius: 10px;
-  box-shadow: 0 6px 24px rgba(19, 28, 51, 0.3);
+  box-shadow: 0 6px 24px rgba(50, 29, 87, 0.3);
 }
 .garde-texte {
   display: flex;
@@ -217,7 +218,7 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   font-family: "IM Fell English", Georgia, serif;
   font-style: italic;
   font-size: clamp(1.3em, 3.6vh, 1.8em);
-  color: var(--rouille);
+  color: var(--or-fonce);
 }
 .garde .synopsis {
   margin: 0 auto;
@@ -278,7 +279,7 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 }
 .retour tw-link::before, .lien-retour tw-link::before { content: "← "; }
 .retour tw-link:hover, .retour .enchantment-link:hover,
-.lien-retour tw-link:hover, .lien-retour .enchantment-link:hover { color: var(--rouille); }
+.lien-retour tw-link:hover, .lien-retour .enchantment-link:hover { color: var(--or-fonce); }
 .contexte .lien-retour { display: block; margin-bottom: 1em; }
 
 /* Le lancer de dé */
@@ -306,11 +307,11 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 .choix tw-link, .choix .enchantment-link {
   color: var(--nuit);
   font-weight: 700;
-  border-bottom: 1.5px solid rgba(29, 43, 79, 0.3);
+  border-bottom: 1.5px solid rgba(74, 45, 122, 0.3);
 }
 .choix tw-link:hover, .choix .enchantment-link:hover {
-  color: var(--rouille);
-  border-bottom-color: var(--rouille);
+  color: var(--or-fonce);
+  border-bottom-color: var(--or-fonce);
 }
 .elan > *::before { content: none; }
 .suite {
@@ -335,7 +336,7 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 .separateur .embleme {
   width: 3.4em;
   height: 1.9em;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 68 38'%3E%3Cg fill='%231d2b4f'%3E%3Cellipse cx='34' cy='27' rx='7.5' ry='6.5'/%3E%3Cellipse cx='25.5' cy='17' rx='2.8' ry='3.8' transform='rotate(-20 25.5 17)'/%3E%3Cellipse cx='31' cy='12.5' rx='2.8' ry='3.9'/%3E%3Cellipse cx='37' cy='12.5' rx='2.8' ry='3.9'/%3E%3Cellipse cx='42.5' cy='17' rx='2.8' ry='3.8' transform='rotate(20 42.5 17)'/%3E%3C/g%3E%3Cg fill='%23d99a2b'%3E%3Cpath d='M9 15 l1.6 3.4 3.7.4-2.8 2.5.8 3.6L9 23l-3.3 1.9.8-3.6-2.8-2.5 3.7-.4z'/%3E%3Cpath d='M34 0 l1.3 2.7 3 .3-2.2 2 .6 2.9L34 6.4l-2.7 1.5.6-2.9-2.2-2 3-.3z'/%3E%3Cpath d='M59 15 l1.6 3.4 3.7.4-2.8 2.5.8 3.6L59 23l-3.3 1.9.8-3.6-2.8-2.5 3.7-.4z'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 68 38'%3E%3Cg fill='%234a2d7a'%3E%3Cellipse cx='34' cy='27' rx='7.5' ry='6.5'/%3E%3Cellipse cx='25.5' cy='17' rx='2.8' ry='3.8' transform='rotate(-20 25.5 17)'/%3E%3Cellipse cx='31' cy='12.5' rx='2.8' ry='3.9'/%3E%3Cellipse cx='37' cy='12.5' rx='2.8' ry='3.9'/%3E%3Cellipse cx='42.5' cy='17' rx='2.8' ry='3.8' transform='rotate(20 42.5 17)'/%3E%3C/g%3E%3Cg fill='%23d99a2b'%3E%3Cpath d='M9 15 l1.6 3.4 3.7.4-2.8 2.5.8 3.6L9 23l-3.3 1.9.8-3.6-2.8-2.5 3.7-.4z'/%3E%3Cpath d='M34 0 l1.3 2.7 3 .3-2.2 2 .6 2.9L34 6.4l-2.7 1.5.6-2.9-2.2-2 3-.3z'/%3E%3Cpath d='M59 15 l1.6 3.4 3.7.4-2.8 2.5.8 3.6L59 23l-3.3 1.9.8-3.6-2.8-2.5 3.7-.4z'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain;
 }
 .garde .separateur { margin: 0; }
 
@@ -351,17 +352,17 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   font-size: 1.2em;
   letter-spacing: 0.02em;
   color: #ffffff;
-  background-color: var(--rouille);
+  background-color: var(--nuit);
   border: none;
   border-radius: 999px;
   padding: 0.4em 1.4em 0.45em;
-  box-shadow: 0 3px 0 var(--nuit);
+  box-shadow: 0 3px 0 var(--or);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 /* Au survol : un liseré blanc puis doré apparaît, comme la lueur des mains de Rose */
 .elan tw-link:hover, .elan .enchantment-link:hover {
-  color: #ffffff;
-  background-color: var(--rouille);
+  color: var(--or-clair);
+  background-color: var(--nuit-fonce);
   transform: translateY(-1px);
   box-shadow: 0 0 0 3px #ffffff, 0 0 0 5px var(--or), 0 0 18px 6px rgba(217, 154, 43, 0.45);
 }
@@ -409,7 +410,7 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   width: 0.8em;
   height: 0.8em;
   border-radius: 50%;
-  background: var(--rouille);
+  background: var(--or);
   place-self: center;
   visibility: hidden;
 }
@@ -425,7 +426,7 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   font-family: "IM Fell English", Georgia, serif;
   font-size: 2.8em;
   line-height: 1;
-  color: var(--rouille);
+  color: var(--or);
 }
 .de-virtuel[data-face="1"] i:nth-child(5),
 .de-virtuel[data-face="2"] i:is(:nth-child(1), :nth-child(9)),
@@ -474,7 +475,7 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   font-family: "IM Fell English", Georgia, serif;
   font-style: italic;
   font-size: 1.4em;
-  color: var(--rouille);
+  color: var(--or-fonce);
 }
 
 /* Page « Comment est née cette histoire » */
@@ -572,7 +573,7 @@ tw-link, .enchantment-link {
   font-weight: 700;
   text-decoration: none;
 }
-tw-link:hover, .enchantment-link:hover { color: var(--rouille); }
+tw-link:hover, .enchantment-link:hover { color: var(--or-fonce); }
 
 @media (max-width: 600px) {
   tw-story { font-size: 0.98em; }
@@ -612,7 +613,7 @@ SEPARATEUR = '<div class="separateur"><span class="embleme"></span></div>'
 
 
 DE_VIRTUEL = (
-    '<svg class="fleche-de" viewBox="0 0 60 40" aria-hidden="true"><g fill="none" stroke="#b9441c" '
+    '<svg class="fleche-de" viewBox="0 0 60 40" aria-hidden="true"><g fill="none" stroke="#d99a2b" '
     'stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'
     '<path d="M4 30 C16 34 34 30 48 16"/><path d="M38 14 L49 15 L47 26"/></g></svg>'
     '<div class="lancer"><button class="de-virtuel" type="button" data-face="0" '

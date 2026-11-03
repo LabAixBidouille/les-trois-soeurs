@@ -26,6 +26,8 @@
 
 
 
+
+
 <meta name="robots" content="noindex, nofollow, noarchive">
 <meta content="width=device-width, initial-scale=1" name="viewport">
 <title>Les trois sœurs</title>
@@ -40,11 +42,12 @@
 @font-face { font-family: "Lora"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("fonts/Lora.woff2") format("woff2"); }
 @font-face { font-family: "Lora"; font-style: italic; font-weight: 400 700; font-display: swap; src: url("fonts/Lora-italique.woff2") format("woff2"); }
 
-/* Couleurs de l'illustration : bleu de nuit du ciel, vert des sapins, or des mains qui brillent,
-   rouille du pantalon de Rose, orange du couchant */
+/* Couleurs : le violet de l'encre des cartes et du ciel de nuit, l'or des mains qui brillent,
+   la rouille du pantalon de Rose */
 :root {
-  --nuit: #1d2b4f;
-  --nuit-fonce: #131c33;
+  --nuit: #4a2d7a;
+  --nuit-fonce: #321d57;
+  --or-fonce: #a8740f;
   --foret: #2f4b3c;
   --or: #d99a2b;
   --or-clair: #f7e3b0;
@@ -87,7 +90,7 @@ tw-passage {
   max-height: 85vh;
   object-fit: contain;
   border-radius: 10px;
-  box-shadow: 0 6px 24px rgba(19, 28, 51, 0.25);
+  box-shadow: 0 6px 24px rgba(50, 29, 87, 0.25);
 }
 /* Tant qu'un chapitre n'a pas d'illustration, son texte reste en une colonne centrée */
 .page:not(:has(.cote)) { grid-template-columns: minmax(0, 44em); justify-content: center; }
@@ -113,7 +116,7 @@ tw-story { overflow: clip; }
   font-family: "IM Fell English", Georgia, serif;
   font-style: italic;
   font-size: 1.3em;
-  color: var(--or);
+  color: var(--or-fonce);
   letter-spacing: 0.04em;
   margin-bottom: 0.2em;
 }
@@ -154,7 +157,7 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   max-height: 64vh;
   height: auto;
   border-radius: 10px;
-  box-shadow: 0 6px 24px rgba(19, 28, 51, 0.3);
+  box-shadow: 0 6px 24px rgba(50, 29, 87, 0.3);
 }
 .garde-texte {
   display: flex;
@@ -186,7 +189,7 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   font-family: "IM Fell English", Georgia, serif;
   font-style: italic;
   font-size: clamp(1.3em, 3.6vh, 1.8em);
-  color: var(--rouille);
+  color: var(--or-fonce);
 }
 .garde .synopsis {
   margin: 0 auto;
@@ -247,7 +250,7 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 }
 .retour tw-link::before, .lien-retour tw-link::before { content: "← "; }
 .retour tw-link:hover, .retour .enchantment-link:hover,
-.lien-retour tw-link:hover, .lien-retour .enchantment-link:hover { color: var(--rouille); }
+.lien-retour tw-link:hover, .lien-retour .enchantment-link:hover { color: var(--or-fonce); }
 .contexte .lien-retour { display: block; margin-bottom: 1em; }
 
 /* Le lancer de dé */
@@ -275,11 +278,11 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 .choix tw-link, .choix .enchantment-link {
   color: var(--nuit);
   font-weight: 700;
-  border-bottom: 1.5px solid rgba(29, 43, 79, 0.3);
+  border-bottom: 1.5px solid rgba(74, 45, 122, 0.3);
 }
 .choix tw-link:hover, .choix .enchantment-link:hover {
-  color: var(--rouille);
-  border-bottom-color: var(--rouille);
+  color: var(--or-fonce);
+  border-bottom-color: var(--or-fonce);
 }
 .elan > *::before { content: none; }
 .suite {
@@ -304,7 +307,7 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 .separateur .embleme {
   width: 3.4em;
   height: 1.9em;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 68 38'%3E%3Cg fill='%231d2b4f'%3E%3Cellipse cx='34' cy='27' rx='7.5' ry='6.5'/%3E%3Cellipse cx='25.5' cy='17' rx='2.8' ry='3.8' transform='rotate(-20 25.5 17)'/%3E%3Cellipse cx='31' cy='12.5' rx='2.8' ry='3.9'/%3E%3Cellipse cx='37' cy='12.5' rx='2.8' ry='3.9'/%3E%3Cellipse cx='42.5' cy='17' rx='2.8' ry='3.8' transform='rotate(20 42.5 17)'/%3E%3C/g%3E%3Cg fill='%23d99a2b'%3E%3Cpath d='M9 15 l1.6 3.4 3.7.4-2.8 2.5.8 3.6L9 23l-3.3 1.9.8-3.6-2.8-2.5 3.7-.4z'/%3E%3Cpath d='M34 0 l1.3 2.7 3 .3-2.2 2 .6 2.9L34 6.4l-2.7 1.5.6-2.9-2.2-2 3-.3z'/%3E%3Cpath d='M59 15 l1.6 3.4 3.7.4-2.8 2.5.8 3.6L59 23l-3.3 1.9.8-3.6-2.8-2.5 3.7-.4z'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 68 38'%3E%3Cg fill='%234a2d7a'%3E%3Cellipse cx='34' cy='27' rx='7.5' ry='6.5'/%3E%3Cellipse cx='25.5' cy='17' rx='2.8' ry='3.8' transform='rotate(-20 25.5 17)'/%3E%3Cellipse cx='31' cy='12.5' rx='2.8' ry='3.9'/%3E%3Cellipse cx='37' cy='12.5' rx='2.8' ry='3.9'/%3E%3Cellipse cx='42.5' cy='17' rx='2.8' ry='3.8' transform='rotate(20 42.5 17)'/%3E%3C/g%3E%3Cg fill='%23d99a2b'%3E%3Cpath d='M9 15 l1.6 3.4 3.7.4-2.8 2.5.8 3.6L9 23l-3.3 1.9.8-3.6-2.8-2.5 3.7-.4z'/%3E%3Cpath d='M34 0 l1.3 2.7 3 .3-2.2 2 .6 2.9L34 6.4l-2.7 1.5.6-2.9-2.2-2 3-.3z'/%3E%3Cpath d='M59 15 l1.6 3.4 3.7.4-2.8 2.5.8 3.6L59 23l-3.3 1.9.8-3.6-2.8-2.5 3.7-.4z'/%3E%3C/g%3E%3C/svg%3E") no-repeat center / contain;
 }
 .garde .separateur { margin: 0; }
 
@@ -320,17 +323,17 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   font-size: 1.2em;
   letter-spacing: 0.02em;
   color: #ffffff;
-  background-color: var(--rouille);
+  background-color: var(--nuit);
   border: none;
   border-radius: 999px;
   padding: 0.4em 1.4em 0.45em;
-  box-shadow: 0 3px 0 var(--nuit);
+  box-shadow: 0 3px 0 var(--or);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 /* Au survol : un liseré blanc puis doré apparaît, comme la lueur des mains de Rose */
 .elan tw-link:hover, .elan .enchantment-link:hover {
-  color: #ffffff;
-  background-color: var(--rouille);
+  color: var(--or-clair);
+  background-color: var(--nuit-fonce);
   transform: translateY(-1px);
   box-shadow: 0 0 0 3px #ffffff, 0 0 0 5px var(--or), 0 0 18px 6px rgba(217, 154, 43, 0.45);
 }
@@ -378,7 +381,7 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   width: 0.8em;
   height: 0.8em;
   border-radius: 50%;
-  background: var(--rouille);
+  background: var(--or);
   place-self: center;
   visibility: hidden;
 }
@@ -394,7 +397,7 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   font-family: "IM Fell English", Georgia, serif;
   font-size: 2.8em;
   line-height: 1;
-  color: var(--rouille);
+  color: var(--or);
 }
 .de-virtuel[data-face="1"] i:nth-child(5),
 .de-virtuel[data-face="2"] i:is(:nth-child(1), :nth-child(9)),
@@ -443,7 +446,7 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   font-family: "IM Fell English", Georgia, serif;
   font-style: italic;
   font-size: 1.4em;
-  color: var(--rouille);
+  color: var(--or-fonce);
 }
 
 /* Page « Comment est née cette histoire » */
@@ -541,7 +544,7 @@ tw-link, .enchantment-link {
   font-weight: 700;
   text-decoration: none;
 }
-tw-link:hover, .enchantment-link:hover { color: var(--rouille); }
+tw-link:hover, .enchantment-link:hover { color: var(--or-fonce); }
 
 @media (max-width: 600px) {
   tw-story { font-size: 0.98em; }
@@ -637,7 +640,7 @@ Une vieille femme s&#x27;avança au milieu de la serre. Elle portait un long man
 
 Rose remarqua deux filles de son âge, un peu à l&#x27;écart. L&#x27;une avait des fleurs prises dans les cheveux. L&#x27;autre tenait un carnet et fronçait les sourcils, comme si elle écoutait quelque chose de très loin. Rose eut l&#x27;étrange impression de les avoir déjà vues. Peut-être dans un rêve ?
 
-Le chat roux sauta de l&#x27;épaule de la vieille femme et vint se frotter contre ses jambes. « Toi, tu n&#x27;es pas arrivée ici par hasard, murmura-t-il. Ouvre bien les yeux. »&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Clique sur le dé pour savoir si les trois filles vont se reconnaître :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;[[Un nombre pair : poursuis au chapitre 6.-&gt;Chapitre 6]][[Un nombre impair : poursuis au chapitre 7.-&gt;Chapitre 7]]&lt;/div&gt;&lt;/div&gt;&lt;svg class=&quot;fleche-de&quot; viewBox=&quot;0 0 60 40&quot; aria-hidden=&quot;true&quot;&gt;&lt;g fill=&quot;none&quot; stroke=&quot;#b9441c&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M4 30 C16 34 34 30 48 16&quot;/&gt;&lt;path d=&quot;M38 14 L49 15 L47 26&quot;/&gt;&lt;/g&gt;&lt;/svg&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;de-virtuel&quot; type=&quot;button&quot; data-face=&quot;0&quot; aria-label=&quot;Lancer le dé&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/button&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="Chapitre 6" tags="" position="1650,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 6&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Trois rêves, une forêt&lt;/span&gt;&lt;/h1&gt;Au milieu de la soirée, Sofia s&#x27;arrêta net. Parmi toutes les pensées qui bourdonnaient dans la serre, deux voix pensaient exactement la même chose qu&#x27;elle : une forêt noire, un panier d&#x27;osier, des yeux jaunes.
+Le chat roux sauta de l&#x27;épaule de la vieille femme et vint se frotter contre ses jambes. « Toi, tu n&#x27;es pas arrivée ici par hasard, murmura-t-il. Ouvre bien les yeux. »&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Clique sur le dé pour savoir si les trois filles vont se reconnaître :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;[[Un nombre pair : poursuis au chapitre 6.-&gt;Chapitre 6]][[Un nombre impair : poursuis au chapitre 7.-&gt;Chapitre 7]]&lt;/div&gt;&lt;/div&gt;&lt;svg class=&quot;fleche-de&quot; viewBox=&quot;0 0 60 40&quot; aria-hidden=&quot;true&quot;&gt;&lt;g fill=&quot;none&quot; stroke=&quot;#d99a2b&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M4 30 C16 34 34 30 48 16&quot;/&gt;&lt;path d=&quot;M38 14 L49 15 L47 26&quot;/&gt;&lt;/g&gt;&lt;/svg&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;de-virtuel&quot; type=&quot;button&quot; data-face=&quot;0&quot; aria-label=&quot;Lancer le dé&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/button&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="11" name="Chapitre 6" tags="" position="1650,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 6&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Trois rêves, une forêt&lt;/span&gt;&lt;/h1&gt;Au milieu de la soirée, Sofia s&#x27;arrêta net. Parmi toutes les pensées qui bourdonnaient dans la serre, deux voix pensaient exactement la même chose qu&#x27;elle : une forêt noire, un panier d&#x27;osier, des yeux jaunes.
 
 Elle se tourna vers la fille aux fleurs, puis vers la fille aux pigeons, qui venait de discuter avec le chat roux.
 
@@ -683,7 +686,7 @@ Les trois filles fermèrent les yeux et essayèrent de se téléporter. Elles se
 
 Il faudrait faire le trajet comme tout le monde. Chacune envoya un message à sa famille : « Je suis partie chercher d&#x27;où je viens. Je reviendrai. » Puis elles prirent un sac, leur argent de poche et les carnets de Sofia, et se mirent en route avant l&#x27;aube.
 
-Le voyage jusqu&#x27;à la forêt française serait long. Il leur réservait trois épreuves, et c&#x27;est le dé qui allait en décider l&#x27;ordre.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Clique sur le dé pour découvrir la première épreuve des trois sœurs :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;[[1 ou 2 : poursuis au chapitre 9.-&gt;Chapitre 9]][[3 ou 4 : poursuis au chapitre 10.-&gt;Chapitre 10]][[5 ou 6 : poursuis au chapitre 11.-&gt;Chapitre 11]]&lt;/div&gt;&lt;/div&gt;&lt;svg class=&quot;fleche-de&quot; viewBox=&quot;0 0 60 40&quot; aria-hidden=&quot;true&quot;&gt;&lt;g fill=&quot;none&quot; stroke=&quot;#b9441c&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M4 30 C16 34 34 30 48 16&quot;/&gt;&lt;path d=&quot;M38 14 L49 15 L47 26&quot;/&gt;&lt;/g&gt;&lt;/svg&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;de-virtuel&quot; type=&quot;button&quot; data-face=&quot;0&quot; aria-label=&quot;Lancer le dé&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/button&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="14" name="Chapitre 9" tags="" position="2100,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 9&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le coup de feu sur la route&lt;/span&gt;&lt;/h1&gt;Sur une route de campagne, une voiture noire était arrêtée en travers. Un homme fouillait le coffre d&#x27;une camionnette. Le conducteur, les mains levées, reculait vers le fossé.
+Le voyage jusqu&#x27;à la forêt française serait long. Il leur réservait trois épreuves, et c&#x27;est le dé qui allait en décider l&#x27;ordre.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Clique sur le dé pour découvrir la première épreuve des trois sœurs :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;[[1 ou 2 : poursuis au chapitre 9.-&gt;Chapitre 9]][[3 ou 4 : poursuis au chapitre 10.-&gt;Chapitre 10]][[5 ou 6 : poursuis au chapitre 11.-&gt;Chapitre 11]]&lt;/div&gt;&lt;/div&gt;&lt;svg class=&quot;fleche-de&quot; viewBox=&quot;0 0 60 40&quot; aria-hidden=&quot;true&quot;&gt;&lt;g fill=&quot;none&quot; stroke=&quot;#d99a2b&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M4 30 C16 34 34 30 48 16&quot;/&gt;&lt;path d=&quot;M38 14 L49 15 L47 26&quot;/&gt;&lt;/g&gt;&lt;/svg&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;de-virtuel&quot; type=&quot;button&quot; data-face=&quot;0&quot; aria-label=&quot;Lancer le dé&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/button&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="14" name="Chapitre 9" tags="" position="2100,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 9&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le coup de feu sur la route&lt;/span&gt;&lt;/h1&gt;Sur une route de campagne, une voiture noire était arrêtée en travers. Un homme fouillait le coffre d&#x27;une camionnette. Le conducteur, les mains levées, reculait vers le fossé.
 
 « Ton argent, vite ! » cria l&#x27;homme.
 
@@ -723,7 +726,7 @@ Elles entrèrent sous les arbres. Le silence était si épais qu&#x27;on entenda
 
 Au pied d&#x27;un grand sapin, les restes d&#x27;un panier d&#x27;osier gisaient sous la mousse. Rose s&#x27;agenouilla. Ce panier ressemblait à celui de son rêve.
 
-Alors les loups sortirent de l&#x27;ombre. Ils étaient nombreux, gris et silencieux, et formèrent un cercle autour d&#x27;elles. Le plus grand avait le museau tout blanc.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Clique sur le dé pour découvrir comment réagissent les loups :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;[[Un nombre pair : poursuis au chapitre 13.-&gt;Chapitre 13]][[Un nombre impair : poursuis au chapitre 14.-&gt;Chapitre 14]]&lt;/div&gt;&lt;/div&gt;&lt;svg class=&quot;fleche-de&quot; viewBox=&quot;0 0 60 40&quot; aria-hidden=&quot;true&quot;&gt;&lt;g fill=&quot;none&quot; stroke=&quot;#b9441c&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M4 30 C16 34 34 30 48 16&quot;/&gt;&lt;path d=&quot;M38 14 L49 15 L47 26&quot;/&gt;&lt;/g&gt;&lt;/svg&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;de-virtuel&quot; type=&quot;button&quot; data-face=&quot;0&quot; aria-label=&quot;Lancer le dé&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/button&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="18" name="Chapitre 13" tags="" position="2700,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 13&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le secret des loups&lt;/span&gt;&lt;/h1&gt;Les loups ne bougèrent pas. Le grand loup au museau blanc s&#x27;avança seul, renifla la main de Rose, puis celle de Rosi, puis celle de Sofia. Il s&#x27;assit devant elles.
+Alors les loups sortirent de l&#x27;ombre. Ils étaient nombreux, gris et silencieux, et formèrent un cercle autour d&#x27;elles. Le plus grand avait le museau tout blanc.&lt;div class=&quot;separateur&quot;&gt;&lt;span class=&quot;embleme&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;de&quot;&gt;&lt;div class=&quot;de-texte&quot;&gt;&lt;span class=&quot;consigne&quot;&gt;Clique sur le dé pour découvrir comment réagissent les loups :&lt;/span&gt;&lt;div class=&quot;choix&quot;&gt;[[Un nombre pair : poursuis au chapitre 13.-&gt;Chapitre 13]][[Un nombre impair : poursuis au chapitre 14.-&gt;Chapitre 14]]&lt;/div&gt;&lt;/div&gt;&lt;svg class=&quot;fleche-de&quot; viewBox=&quot;0 0 60 40&quot; aria-hidden=&quot;true&quot;&gt;&lt;g fill=&quot;none&quot; stroke=&quot;#d99a2b&quot; stroke-width=&quot;3&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;path d=&quot;M4 30 C16 34 34 30 48 16&quot;/&gt;&lt;path d=&quot;M38 14 L49 15 L47 26&quot;/&gt;&lt;/g&gt;&lt;/svg&gt;&lt;div class=&quot;lancer&quot;&gt;&lt;button class=&quot;de-virtuel&quot; type=&quot;button&quot; data-face=&quot;0&quot; aria-label=&quot;Lancer le dé&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/button&gt;&lt;span class=&quot;resultat&quot; aria-live=&quot;polite&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</tw-passagedata><tw-passagedata pid="18" name="Chapitre 13" tags="" position="2700,0" size="100,100">&lt;div class=&quot;page&quot;&gt;&lt;div class=&quot;texte&quot;&gt;&lt;h1 class=&quot;chapitre&quot;&gt;&lt;span class=&quot;numero&quot;&gt;Chapitre 13&lt;/span&gt;&lt;span class=&quot;titre&quot;&gt;Le secret des loups&lt;/span&gt;&lt;/h1&gt;Les loups ne bougèrent pas. Le grand loup au museau blanc s&#x27;avança seul, renifla la main de Rose, puis celle de Rosi, puis celle de Sofia. Il s&#x27;assit devant elles.
 
 « Vous voilà enfin revenues », dit-il.
 
