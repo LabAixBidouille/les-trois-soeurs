@@ -23,14 +23,16 @@ FAVICON = ('<link rel="icon" type="image/png" sizes="48x48" href="images/favicon
 TITRE = "Les trois sœurs"
 AUTRICES = "Agathe et Alyssa"
 
-# Résumé provisoire, à remplacer par celui de Manon
+# Résumé écrit par Manon le 03/11/2026
 SYNOPSIS = (
-    "Une nuit sans lune, dans une forêt où personne n'ose s'aventurer, trois bébés encerclés par "
-    "les loups disparaissent sans laisser de trace.\n\n"
-    "Quatorze ans plus tard, à New York, en Italie et en Espagne, trois filles parlent aux animaux, "
-    "font pousser des fleurs ou entendent les pensées, sans savoir d'où leur viennent ces dons. "
-    "Une carte marquée d'une empreinte de loup va les réunir. Mais sur la route qui les ramène vers "
-    "la forêt, un homme à la bague étrange ne cesse de croiser leur chemin…"
+    "Abandonnées bébés au cœur d’une forêt, Rose, Rosi et Sofia ont grandi sans se connaître, chacune "
+    "dans un pays différent. Toutes trois possèdent des dons étranges… et font le même rêve peuplé de "
+    "loups.\n\n"
+    "Un soir, une carte mystérieuse les réunit. Les trois filles se lancent alors sur les traces de leur "
+    "passé, jusqu’à une maison oubliée à l’orée des bois. Mais un homme à la bague en forme de loup "
+    "semble lui aussi les chercher…\n\n"
+    "Qui sont-elles vraiment ? Que s’est-il passé la nuit de leur disparition ? Lance le dé et découvre "
+    "leur histoire !"
 )
 
 # Texte écrit par Manon le 03/11/2026, modèle commun aux livres de l'atelier : seuls les noms changent
@@ -572,16 +574,7 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
 .contexte-texte {
   max-width: 36em;
   margin: 0 auto;
-  text-align: left;
-}
-/* Lettrine dorée au début du texte */
-.lettrine {
-  float: left;
-  font-family: "IM Fell English", Georgia, serif;
-  font-size: 3.6em;
-  line-height: 0.85;
-  padding: 0.06em 0.12em 0 0;
-  color: var(--or);
+  text-align: center;
 }
 .citation {
   max-width: 30em;
@@ -892,8 +885,7 @@ def passage_contexte():
         + portrait("rose.png", "Rose", "Alyssa")
         + f'</div><h1>Comment est née cette histoire</h1>{SEPARATEUR}</div>'
         '<div class="contexte-texte">'
-        # Lettrine dorée sur la première lettre ; Harlowe ne fait pas de <p>, d'où le span
-        + f'<span class="lettrine">{CONTEXTE[0][0]}</span>{CONTEXTE[0][1:]}\n\n'
+        + f'{CONTEXTE[0]}\n\n'
         + "\n\n".join(CONTEXTE[1:4])
         + f'<div class="citation">« {CITATION} »<span class="source">Agathe, sur sa fiche récit</span></div>'
         + CONTEXTE[4]
