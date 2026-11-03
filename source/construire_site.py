@@ -34,35 +34,15 @@ SYNOPSIS = (
 )
 
 CONTEXTE = [
-    "En octobre 2026, pendant les vacances d'automne, le L.A.B a animé l'atelier « Le livre dont tu "
-    "es le héros » dans le réseau des bibliothèques Méjanes d'Aix-en-Provence. Des enfants y ont "
-    "inventé une histoire qui change selon les choix du lecteur, en l'écrivant situation par "
-    "situation sur des fiches où chaque lancer de dé renvoie vers une autre situation. L'atelier est "
-    "issu du projet européen Robots Meet Arts : derrière le récit, il s'agit de découvrir sans écran "
-    "les notions qui structurent un programme informatique. Chaque lancer de dé est une condition, "
-    "qui décide de la suite de l'histoire. Chaque choix ouvre un embranchement, et un chemin qui "
-    "ramène à une situation déjà écrite forme une boucle.",
-    "Écrire une telle histoire demande un travail créatif considérable. Il faut inventer un "
-    "personnage et une quête, mais aussi penser l'histoire comme un réseau : prévoir à chaque étape "
-    "plusieurs suites possibles, numéroter les situations, s'assurer que chaque chemin mène quelque "
-    "part, et faire tenir tous ces fils ensemble sans perdre le sens du récit.",
-    "Agathe et Alyssa ont relevé ce défi à deux. Elles ont imaginé trois sœurs abandonnées bébés "
-    "dans une forêt, qui se téléportent chacune dans un pays différent quand les loups approchent : "
-    "Rose à New York, Rosi en Italie et Sofia en Espagne. C'est à elles que l'on doit leurs dons, "
-    "parler aux animaux, faire pousser des fleurs, voler ou lire dans les pensées, la rencontre où "
-    "Sofia entend les pensées de ses sœurs, le laboratoire où un ordinateur révèle d'où elles "
-    "viennent, le voleur qui tire sur un homme que Rose soigne, l'évasion et l'incendie de la route, "
-    "et ces loups qui ne venaient pas dévorer les bébés, mais les protéger d'un homme qui les "
-    "cherchait.",
-    "Pour leur histoire, Agathe et Alyssa ont choisi le mystère. Avec //Les trois sœurs//, elles "
-    "vous présentent un récit où chaque épreuve apporte un indice, et où l'on ne découvre qu'à la "
-    "fin qui est vraiment le voleur croisé sur la route.",
-    "Pour offrir à chaque enfant un livre achevé, dont il ou elle puisse être fier ou fière et avec "
-    "lequel continuer à jouer, le L.A.B a prolongé chaque histoire à partir des idées de celles et "
-    "ceux qui l'ont imaginée, puis l'a mise en forme, en s'aidant d'outils numériques, dont "
-    "l'intelligence artificielle. Ce travail ne retire rien à celui des enfants : il s'appuie "
-    "entièrement sur la créativité, l'imaginaire et les récits de celles et ceux qui ont participé "
-    "à l'atelier.",
+    "Agathe et Alyssa ont imaginé cette histoire en octobre 2026, pendant l'atelier « Le livre dont "
+    "tu es le héros » que le L.A.B a animé dans les bibliothèques Méjanes d'Aix-en-Provence. Elles ont "
+    "choisi le mystère : trois sœurs séparées bébés, des dons qu'elles ne s'expliquent pas, et des loups "
+    "dont on ignore longtemps s'ils les menacent ou s'ils les protègent.",
+    "Écrire une histoire dont le lecteur est le héros, c'est déjà penser comme un programme : chaque "
+    "lancer de dé est une condition, chaque choix ouvre une branche, et tous les chemins doivent mener "
+    "à une fin. Pour en faire un livre achevé, le L.A.B a prolongé leur récit et l'a mis en forme, en "
+    "s'aidant d'outils numériques, dont l'intelligence artificielle. Ce travail ne retire rien au leur : "
+    "tout part de leurs idées et de leur imaginaire.",
 ]
 
 CSS = """
@@ -557,42 +537,73 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   .arbre-texte { position: static; }
 }
 
-/* Page de contexte : le texte à gauche, les fiches des autrices à droite ; texte plus petit que
-   celui des chapitres, ce n'est pas l'histoire */
+/* Page de contexte : un texte court, centré, puis les fiches des autrices en miniatures cliquables ;
+   texte plus petit que celui des chapitres, ce n'est pas l'histoire */
 .contexte {
   font-size: 0.86em;
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-  gap: 3em;
-  align-items: start;
+  text-align: center;
 }
-.visuels {
-  margin-top: 4em;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 1em;
+.contexte .lien-retour { text-align: left; }
+.contexte-texte {
+  max-width: 40em;
+  margin: 0 auto;
 }
-.visuels .pleine, .visuels .legende { grid-column: 1 / -1; }
-.visuels img {
+.contexte .secondaires { display: flex; justify-content: center; margin-top: 1.4em; }
+.miniatures {
+  margin: 2.6em auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1.6em;
+}
+.miniature {
   display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 6px;
-  box-shadow: 0 2px 10px rgba(34, 38, 58, 0.15);
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: zoom-in;
 }
-.visuels img:nth-child(2) { transform: rotate(-1.5deg); }
-.visuels img:nth-child(3) { transform: rotate(1.5deg); }
+.miniature img {
+  display: block;
+  height: 15em;
+  width: auto;
+  border-radius: 4px;
+  box-shadow: 0 2px 10px rgba(34, 38, 58, 0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.miniature:nth-child(1) img { transform: rotate(-2deg); }
+.miniature:nth-child(3) img { transform: rotate(2deg); }
+.miniature:hover img { transform: rotate(0) scale(1.04); box-shadow: 0 0 0 2px var(--or), 0 6px 18px rgba(34, 38, 58, 0.25); }
 .legende {
   display: block;
+  margin-top: 1.2em;
   font-family: "IM Fell English", Georgia, serif;
   font-style: italic;
   font-size: 1.15em;
   color: var(--gris);
   text-align: center;
 }
-@media (max-width: 800px) {
-  .contexte { grid-template-columns: minmax(0, 1fr); gap: 1em; }
-  .visuels { margin-top: 0; }
+/* Fiche ouverte en grand par-dessus la page ; un clic n'importe où la referme */
+.agrandi {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2vh 2vw;
+  background: rgba(19, 28, 51, 0.82);
+  cursor: zoom-out;
+}
+.agrandi img {
+  max-width: 100%;
+  max-height: 96vh;
+  border-radius: 4px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+@media (max-width: 600px) {
+  .miniature img { height: 11em; }
 }
 
 /* Liens dans le texte */
@@ -669,6 +680,25 @@ document.addEventListener('click', function (evenement) {
       resultat.textContent = 'Le dé affiche ' + face + '.';
     }
   }, 75);
+});
+
+// Page de contexte : une miniature s'ouvre en grand, un clic referme
+document.addEventListener('click', function (evenement) {
+  var ouvert = document.querySelector('.agrandi');
+  if (ouvert) { ouvert.remove(); return; }
+  var miniature = evenement.target.closest('.miniature');
+  if (!miniature) return;
+  var fond = document.createElement('div');
+  fond.className = 'agrandi';
+  var image = document.createElement('img');
+  image.src = miniature.querySelector('img').src;
+  image.alt = miniature.querySelector('img').alt;
+  fond.appendChild(image);
+  document.body.appendChild(fond);
+});
+document.addEventListener('keydown', function (evenement) {
+  var ouvert = document.querySelector('.agrandi');
+  if (ouvert && evenement.key === 'Escape') ouvert.remove();
 });
 """
 
@@ -754,18 +784,24 @@ def passage_garde():
     )
 
 
+def miniature(fichier, description):
+    return (f'<button class="miniature" type="button" aria-label="Agrandir {description}">'
+            f'<img src="images/fiches/{fichier}" alt="{description}"></button>')
+
+
 def passage_contexte():
     return (
-        '<div class="contexte"><div class="contexte-texte"><span class="lien-retour">[[Couverture->Page de garde]]</span>\n<h1>Comment est née cette histoire</h1>'
+        '<div class="contexte"><span class="lien-retour">[[Couverture->Page de garde]]</span>\n'
+        '<div class="contexte-texte"><h1>Comment est née cette histoire</h1>'
         + "\n\n".join(CONTEXTE)
         + f'\n\n<span class="credits">Une histoire d\'{AUTRICES}. Réalisation du livre : L.A.B, '
-        "Laboratoire d'Aix-périmentation et de Bidouille.</span>\n\n"
-        + f'<div class="secondaires">{lien("Commencer le livre", "Prologue")}</div></div>'
-        + '<div class="visuels">'
-        '<img class="pleine" src="images/fiches/fiche_recit.jpg" alt="La fiche récit remplie par Agathe">'
-        '<img src="images/fiches/fiche_personnage_sofia.jpg" alt="La fiche personnage de Sofia, par Agathe">'
-        '<img src="images/fiches/fiche_personnage_rose.jpg" alt="La fiche personnage de Rose, par Alyssa">'
-        '<span class="legende">Les fiches remplies par Agathe et Alyssa pendant l\'atelier</span></div>\n</div>'
+        "Laboratoire d'Aix-périmentation et de Bidouille.</span></div>"
+        + '<div class="miniatures">'
+        + miniature("fiche_personnage_sofia.jpg", "la fiche personnage de Sofia, par Agathe")
+        + miniature("fiche_recit.jpg", "la fiche récit, par Agathe")
+        + miniature("fiche_personnage_rose.jpg", "la fiche personnage de Rose, par Alyssa")
+        + '</div><span class="legende">Les fiches remplies par Agathe et Alyssa pendant l\'atelier</span>'
+        + f'<div class="secondaires">{lien("Commencer le livre", "Prologue")}</div>\n</div>'
     )
 
 
@@ -809,6 +845,16 @@ def construire():
     ]
     for ch in lire_chapitres():
         passages.append((ch["nom"], "", passage_chapitre(ch)))
+
+    # Espaces insécables de la typographie française : un guillemet ou un deux-points ne se retrouve
+    # jamais seul en début de ligne
+    insecables = [("« ", "«\u00a0"), (" »", "\u00a0»"), (" :", "\u00a0:"), (" ?", "\u00a0?"),
+                  (" !", "\u00a0!"), (" ;", "\u00a0;")]
+    for i, (nom, tags, contenu) in enumerate(passages):
+        if tags != "header":
+            for avant, apres in insecables:
+                contenu = contenu.replace(avant, apres)
+            passages[i] = (nom, tags, contenu)
 
     noms = {p[0] for p in passages}
     for nom, _, contenu in passages:
