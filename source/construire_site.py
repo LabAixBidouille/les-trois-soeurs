@@ -557,8 +557,10 @@ tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
   .arbre-texte { position: static; }
 }
 
-/* Page de contexte : le texte à gauche, les fiches des autrices à droite */
+/* Page de contexte : le texte à gauche, les fiches des autrices à droite ; texte plus petit que
+   celui des chapitres, ce n'est pas l'histoire */
 .contexte {
+  font-size: 0.86em;
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   gap: 3em;
