@@ -57,7 +57,11 @@ p {{ margin: 0 0 0.55em; orphans: 2; widows: 2; }}
 .marque {{ font-size: 1pt; color: #ffffff; }}
 
 /* Couverture */
-.couverture {{ text-align: center; }}
+/* Page de garde : une page sans marge, contenu centré dans toute la hauteur (même blanc en haut et en bas) */
+@page couverture {{ margin: 0; @bottom-center {{ content: none; }} }}
+.couverture {{ page: couverture; height: 185.5mm; overflow: hidden; padding: 3.2mm 12mm 0; text-align: center;
+  display: flex; flex-direction: column; justify-content: center;
+  /* les 3.2 mm en haut compensent la place réservée aux jambages de la dernière ligne : le blanc est le même en haut et en bas */ }}
 .couverture .surtitre {{ font-family: "IM Fell English"; font-style: italic; font-size: 10.5pt; color: #5d6475; }}
 .couverture .titre-livre {{ font-family: "IM Fell English"; font-size: 31pt; line-height: 0.95; letter-spacing: -0.3pt; color: #1d2b4f; margin: 1.5mm 0 1mm; }}
 .couverture .autrices {{ font-family: "IM Fell English"; font-style: italic; font-size: 15pt; color: #a8740f; }}
