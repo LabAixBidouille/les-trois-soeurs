@@ -2,7 +2,7 @@
 """Dessine le dé à fabriquer des « Trois sœurs » sur une page A5, dans un PDF à part.
 
 Patron de cube en croix, faces de 29 mm : deux faces opposées font toujours 7. Comme la carte du site,
-chaque face est blanche, bordée d'un fil d'or, avec des points dorés. Les traits pleins bleu nuit se
+chaque face est blanche, bordée d'un fil d'or ; les points sont des pattes de loup étoilées. Les traits pleins bleu nuit se
 découpent, les pointillés dorés se plient, les languettes crème se collent.
 
 Produit Impression/LesTroisSoeurs_De.pdf, pour accompagner le livret. Nécessite Google Chrome.
@@ -18,6 +18,7 @@ from construire_site import AUTRICES, TITRE  # noqa: E402
 
 RACINE = Path(__file__).resolve().parent.parent
 SORTIE = RACINE.parent / "Impression" / "LesTroisSoeurs_De.pdf"
+PATTE = (RACINE / "images" / "embleme.png").as_uri()
 
 FACE = 29          # côté d'une face, en mm
 LANGUETTE = 7      # profondeur des languettes, en mm
@@ -71,8 +72,11 @@ def patron():
         # Le fil d'or à l'intérieur de chaque face, comme sur la carte du site
         dessin.append(f'<rect x="{x + 2.2}" y="{y + 2.2}" width="{FACE - 4.4}" height="{FACE - 4.4}" rx="1.6" '
                       f'fill="none" stroke="{OR}" stroke-width="0.5"/>')
+        # La patte de loup étoilée de Manon à la place de chaque point, centrée sur sa position
+        taille = 7.5 if valeur < 6 else 6.4
         for px, py in POINTS[valeur]:
-            dessin.append(f'<circle cx="{x + px * FACE:.2f}" cy="{y + py * FACE:.2f}" r="2.5" fill="url(#point)"/>')
+            dessin.append(f'<image href="{PATTE}" x="{x + px * FACE - taille / 2:.2f}" y="{y + py * FACE - taille / 2:.2f}" '
+                          f'width="{taille}" height="{taille}"/>')
     # Contour découpé en trait plein, puis pliures en pointillés par-dessus
     contour = [(1, 0), (2, 0), (2, 1), (3, 1), (3, 2), (2, 2), (2, 4), (1, 4), (1, 2), (0, 2), (0, 1), (1, 1)]
     trace = " ".join(f"{ox + c * FACE},{oy + li * FACE}" for c, li in contour)
