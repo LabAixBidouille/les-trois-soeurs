@@ -113,6 +113,8 @@ ul.choix li::before {{ content: "✦"; color: #d99a2b; display: inline-block; wi
 .arbre {{ page: arbre; height: 168mm; display: flex; flex-direction: column; align-items: center; }}
 .arbre h2 {{ margin-bottom: 2mm; }}
 .arbre img {{ flex: 1; min-height: 0; width: 100%; object-fit: contain; }}
+
+.illus.seconde {{ margin: 4mm 0 2mm; break-inside: avoid; }}
 """
 
 def _separateur():
@@ -168,6 +170,10 @@ def chapitre(ch, pages):
         else:
             corps.append(f"<p>{e(p)}</p>")
     morceaux += corps
+    # Deuxième image du chapitre, comme sur le site : à la fin du texte, avant les choix
+    seconde = RACINE / "images" / "chapitres" / f"{illustration(ch['nom'])}b.jpg"
+    if seconde.exists():
+        morceaux.append(f'<div class="illus seconde"><img src="{seconde.as_uri()}" alt=""></div>')
 
     # Le bouton du prologue n'existe que sur le site : dans le livret, on tourne simplement la page
     # Dans un livre, inutile d'écrire « Poursuis au chapitre suivant » : on tourne simplement la page.
