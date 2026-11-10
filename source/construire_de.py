@@ -102,8 +102,8 @@ def centrer_verticalement(pdf):
     image, on mesure la zone imprimée, puis on la déplace du demi-écart."""
     import subprocess
     from pypdf import PdfReader, PdfWriter, Transformation
-    lecteur, ecrivain = PdfReader(str(pdf)), PdfWriter()
-    for n, page in enumerate(lecteur.pages, start=1):
+    ecrivain = PdfWriter(clone_from=str(pdf))   # pypdf 7 : on transforme les pages déjà rattachées à l'écrivain
+    for n, page in enumerate(ecrivain.pages, start=1):
         ppm = subprocess.run(["pdftoppm", "-r", "50", "-gray", "-f", str(n), "-l", str(n), str(pdf)],
                              capture_output=True, check=True).stdout
         # en-tête P5 : « P5\nlargeur hauteur\n255\n » puis un octet par pixel
@@ -115,7 +115,6 @@ def centrer_verticalement(pdf):
             haut, bas = lignes[0], hauteur - 1 - lignes[-1]
             decalage = (bas - haut) / 2 * 72 / 50          # en points, vers le bas si le contenu est trop haut
             page.add_transformation(Transformation().translate(0, -decalage))
-        ecrivain.add_page(page)
     with open(pdf, "wb") as f:
         ecrivain.write(f)
 
