@@ -22,7 +22,7 @@ FAVICON = ('<link rel="icon" type="image/png" sizes="48x48" href="images/favicon
 
 TITRE = "Les trois sœurs"
 # Les prénoms des autrices ne sont pas affichés tant que leur orthographe n'est pas confirmée
-AUTRICES = "deux jeunes autrices"
+AUTRICES = "trois jeunes autrices"
 
 # Résumé écrit par Manon le 03/11/2026
 SYNOPSIS = (
@@ -49,7 +49,7 @@ CONTEXTE = [
     "manière de décomposer un problème et d’organiser les étapes pour le résoudre. Ils ont formulé des "
     "règles de type « si… alors… », créé des embranchements et réfléchi à la façon dont les chemins se "
     "rejoignent pour former une histoire cohérente.",
-    "Les deux autrices ont choisi d’inventer un mystère. Un défi pour une histoire à embranchements, puisque "
+    "Les trois autrices ont choisi d’inventer un mystère. Un défi pour une histoire à embranchements, puisque "
     "les indices doivent garder leur sens et la révélation fonctionner, quel que soit le chemin emprunté.",
     "L’atelier ne durant que deux heures, nous tenions à offrir à chaque enfant un livre complet "
     "pour illustrer leur travail et les rendre fiers de leurs productions. Le L.A.B a donc "
@@ -909,7 +909,7 @@ def passage_contexte():
         + miniature("fiche_personnage_rose.jpg", "Une fiche personnage", "la fiche personnage de Rose")
         + miniature("fiche_situation_1.jpg", "Une fiche à embranchement", "la fiche situation n° 1, avec ses choix au dé")
         + '</div></div>'
-        + '<span class="credits">Une histoire librement inspirée du récit de deux jeunes autrices.\nRéalisation du livre : '
+        + '<span class="credits">Une histoire librement inspirée du récit de trois jeunes autrices.\nRéalisation du livre : '
         "Laboratoire d’Aix-périmentation et de Bidouille.</span>"
         + f'<div class="commencer">{lien("Commencer le livre", "Prologue")}</div>\n</div>'
     )

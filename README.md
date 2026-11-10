@@ -1,6 +1,6 @@
 # Les trois sœurs
 
-Une histoire dont le lecteur est le héros, imaginée par deux jeunes autrices pendant l'atelier « Le livre dont tu es le héros » du L.A.B, dans le réseau des bibliothèques Méjanes (Aix-en-Provence), en octobre 2026.
+Une histoire dont le lecteur est le héros, imaginée par trois jeunes autrices pendant l'atelier « Le livre dont tu es le héros » du L.A.B, à la bibliothèque Li Campaneto (bibliothèques Méjanes, Aix-en-Provence), en octobre 2026.
 
 ## Modifier le livre
 
