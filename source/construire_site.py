@@ -22,7 +22,7 @@ FAVICON = ('<link rel="icon" type="image/png" sizes="48x48" href="images/favicon
 
 TITRE = "Les trois sœurs"
 # Les prénoms des autrices ne sont pas affichés tant que leur orthographe n'est pas confirmée
-AUTRICES = "trois jeunes autrices"
+AUTRICES = "Agathe, Aliya et Teresa"
 
 # Résumé écrit par Manon le 03/11/2026
 SYNOPSIS = (
@@ -49,15 +49,15 @@ CONTEXTE = [
     "manière de décomposer un problème et d’organiser les étapes pour le résoudre. Ils ont formulé des "
     "règles de type « si… alors… », créé des embranchements et réfléchi à la façon dont les chemins se "
     "rejoignent pour former une histoire cohérente.",
-    "Les trois autrices ont choisi d’inventer un mystère. Un défi pour une histoire à embranchements, puisque "
+    "Agathe, Aliya et Teresa ont choisi d’inventer un mystère. Un défi pour une histoire à embranchements, puisque "
     "les indices doivent garder leur sens et la révélation fonctionner, quel que soit le chemin emprunté.",
     "L’atelier ne durant que deux heures, nous tenions à offrir à chaque enfant un livre complet "
     "pour illustrer leur travail et les rendre fiers de leurs productions. Le L.A.B a donc "
     "prolongé et mis en forme leur récit à l’aide d’outils numériques (l’intelligence "
     "artificielle a notamment permis d’aboutir à une histoire achevée et à un ensemble de visuels "
     "correspondant à leurs descriptions mais uniformes tout au long de la lecture).\n\n<b>À son "
-    "origine, il y a avant tout les idées, les personnages et les dessins de ses deux jeunes "
-    "autrices.</b>",
+    "origine, il y a avant tout les idées, les personnages et les dessins d’Agathe, "
+    "d’Aliya et de Teresa.</b>",
 ]
 # Les mots de la fiche récit, à peine remis au propre
 CITATION = ("Les loups se rappellent et ils ne bougent pas. Elles parlent aux loups, qui leur disent "
@@ -868,6 +868,7 @@ def passage_garde():
         '<div class="garde"><div class="garde-entete">'
         '<span class="surtitre">Une histoire dont le lecteur est le héros</span>'
         f'<div class="grand-titre">{TITRE}</div>'
+        f'<span class="nom-auteur">{AUTRICES}</span>'
         '</div>'
         '<div class="garde-corps"><div class="garde-image"><img src="images/couverture.jpg" '
         'alt="Rose à New York, Rosi en Italie et Sofia en Espagne, chacune à sa fenêtre, les mains pleines de lumière"></div>'
@@ -909,7 +910,7 @@ def passage_contexte():
         + miniature("fiche_personnage_rose.jpg", "Une fiche personnage", "la fiche personnage de Rose")
         + miniature("fiche_situation_1.jpg", "Une fiche à embranchement", "la fiche situation n° 1, avec ses choix au dé")
         + '</div></div>'
-        + '<span class="credits">Une histoire librement inspirée du récit de trois jeunes autrices.\nRéalisation du livre : '
+        + '<span class="credits">Une histoire librement inspirée du récit d’Agathe, d’Aliya et de Teresa.\nRéalisation du livre : '
         "Laboratoire d’Aix-périmentation et de Bidouille.</span>"
         + f'<div class="commencer">{lien("Commencer le livre", "Prologue")}</div>\n</div>'
     )
