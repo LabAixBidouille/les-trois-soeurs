@@ -872,7 +872,7 @@ def passage_garde():
         '</div>'
         '<div class="garde-corps"><div class="garde-image"><img src="images/couverture.jpg" '
         'alt="Rose à New York, Rosi en Italie et Sofia en Espagne, chacune à sa fenêtre, les mains pleines de lumière"></div>'
-        f'<div class="garde-texte"><div class="synopsis">{SYNOPSIS}</div>'
+        f'<div class="garde-texte"><div class="synopsis">{SYNOPSIS.replace("Lance le dé", "Touche la carte")}</div>'
         f'<div class="commencer">{lien("Commencer l'histoire", "Prologue")}</div>'
         f'<div class="secondaires">{lien("Comment est née cette histoire", "Comment est née cette histoire")} '
         f'{lien("L\'arbre de l\'histoire", "L\'arbre de l\'histoire")}</div>'
