@@ -210,7 +210,7 @@ def document(pages, blanches=0):
         '.cv-resume p { font-size: 12pt; line-height: 1.5; }</style>'
         f'<section class="cv sans-numero"><img class="cv-fond" src="{(RACINE / "images/couverture-livret-pleine.png").as_uri()}" alt="">'
         '<div class="cv-entete"><div class="surtitre">Une histoire dont le lecteur est le héros</div><div class="titre">' + e(TITRE) + '</div>'
-        '<div class="auteur">une histoire par ' + e(AUTRICES) + '</div></div>'
+        '<div class="auteur">' + e(AUTRICES) + '</div></div>'
         '</section><section class="page-seule sans-numero"><div class="cv-resume">'
         + "".join(f"<p>{e(p)}</p>" for p in SYNOPSIS.split("\n\n")) + '' + "</div></section>"
     )
