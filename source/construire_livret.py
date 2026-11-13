@@ -202,7 +202,7 @@ def document(pages, blanches=0):
         # Couverture : l'image de Manon en pleine page (ciel étoilé prolongé au format A5), le titre dans les étoiles
         '<style>.cv { page: couverture; position: relative; height: 185.5mm; overflow: hidden; background: #0e1530; }'
         '.cv .cv-fond { position: absolute; inset: 0; width: 100%; height: 100%; }'
-        '.cv .cv-entete { position: absolute; left: 0; right: 0; top: 16mm; text-align: center; padding: 0 8mm; }'
+        '.cv .cv-entete { position: absolute; left: 0; right: 0; top: 16mm; text-align: center; padding: 0 8mm; text-shadow: 0 0 1.5mm #0b1128, 0 0 3mm #0b1128; }'
         '.cv .surtitre { font-family: "EB Garamond"; font-style: italic; font-size: 12pt; color: #e8c88a; }'
         '.cv .titre { font-family: "EB Garamond"; font-weight: 500; font-size: 46pt; line-height: 0.95; letter-spacing: -0.5pt; color: #fff7e6; margin: 2mm 0 3mm; }'
         '.cv .auteur { font-family: "EB Garamond"; font-weight: 600; font-size: 10pt; letter-spacing: 1.6pt; text-transform: uppercase; color: #f2b45a; }'
