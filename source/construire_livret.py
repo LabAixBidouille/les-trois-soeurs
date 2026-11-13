@@ -53,6 +53,10 @@ html {{ font-family: "EB Garamond", serif; font-size: 12pt; line-height: 1.38; c
 body {{ margin: 0; }}
 p {{ margin: 0 0 0.55em; orphans: 2; widows: 2; }}
 .page-seule {{ break-before: page; }}
+/* Illustration de chapitre en pleine page, à fond perdu et sans texte (tournée en paysage au besoin) */
+@page plein {{ margin: 0; @bottom-center {{ content: none; }} }}
+.pleine-image {{ page: plein; break-before: page; position: relative; height: 185.5mm; overflow: hidden; }}
+.pleine-image img {{ position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }}
 .sans-numero {{ page: sans-numero; }}
 .marque {{ font-size: 1pt; color: #ffffff; }}
 
@@ -148,9 +152,13 @@ def avec_page(texte, pages):
 def chapitre(ch, pages):
     cle = 0 if ch["nom"] == "Prologue" else int(ch["nom"].split()[-1])
     classe = "page-seule" + (" serre" if cle in SERRES else "") + (" serre2" if cle in SERRES2 else "")
-    morceaux = [f'<section class="{classe}"><span class="marque">@@CH{cle}@@</span>']
     image = RACINE / "images" / "chapitres" / f"{illustration(ch['nom'])}.jpg"
-    if image.exists():
+    if cle in ACTIVES:
+        # L'illustration passe en pleine page avant le chapitre (c'est la page des renvois)
+        morceaux = [f'<section class="pleine-image"><span class="marque">@@CH{cle}@@</span><img src="{image_pleine(ch).as_uri()}" alt=""></section>', f'<section class="{classe}">']
+    else:
+        morceaux = [f'<section class="{classe}"><span class="marque">@@CH{cle}@@</span>']
+    if image.exists() and cle not in ACTIVES:
         morceaux.append(f'<div class="illus"><img src="{image.as_uri()}" alt=""></div>')
     morceaux.append(f'<span class="numero">{e(ch["numero"])}</span><h1>{e(ch["titre"])}</h1>')
 
@@ -201,6 +209,8 @@ def chapitre(ch, pages):
 
 
 def document(pages, blanches=0):
+    global BLANCHES
+    BLANCHES = blanches
     # Couverture pleine page dans le style du livre, le résumé seul sur la page suivante
     couverture = (
         # Couverture : l'image de Manon en pleine page (ciel étoilé prolongé au format A5), le titre dans les étoiles
@@ -284,6 +294,35 @@ def queues_courtes(pdf, pages):
         if len(lignes) <= SEUIL_QUEUE:
             courtes.add(cle)
     return courtes
+
+
+# Illustrations de chapitre en pleine page (tournées en paysage au besoin) : on en ajoute, dans l'ordre de
+# PLEINES, juste assez pour que le livret tombe sur un multiple de 4 sans page blanche. L'illustration n'est
+# alors plus répétée dans le texte du chapitre.
+PLEINES = [12, 13, 8, 3, 15]
+ACTIVES = []
+BLANCHES = 0
+
+
+def image_pleine(ch):
+    return RACINE / "images" / "pleines" / f"{illustration(ch['nom'])}.jpg"
+
+
+def composer_avec_pleines(dossier):
+    essais = []
+    for n in range(len(PLEINES) + 1):
+        ACTIVES[:] = PLEINES[:n]
+        SERRES.clear()
+        SERRES2.clear()
+        pdf, pages = composer(dossier)
+        essais.append((BLANCHES, n))
+        if BLANCHES == 0:
+            return pdf, pages
+    _, n = min(essais)
+    ACTIVES[:] = PLEINES[:n]
+    SERRES.clear()
+    SERRES2.clear()
+    return composer(dossier)
 
 
 def composer(dossier):
@@ -378,7 +417,8 @@ def imposer(lecture, traits, sortie, bord_long):
 def construire():
     IMPRESSION.mkdir(exist_ok=True)
     with tempfile.TemporaryDirectory() as dossier:
-        pdf, pages = composer(dossier)
+        pdf, pages = composer_avec_pleines(dossier)
+        print("Illustrations en pleine page :", ", ".join(str(c) for c in ACTIVES) or "aucune")
         lecture = IMPRESSION / f"{NOM}_Livret_lecture.pdf"
         lecture.write_bytes(pdf.read_bytes())
         traits = traits_de_coupe(dossier)
