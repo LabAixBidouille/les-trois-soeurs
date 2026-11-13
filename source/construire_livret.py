@@ -75,10 +75,14 @@ h1 {{ font-family: "IM Fell English"; font-weight: 400; font-size: 19pt; line-he
 .illus img {{ display: block; width: 100%; height: 62mm; object-fit: cover; margin: 0 auto 4mm;
   border: 0.8mm solid #d99a2b; border-radius: 3.5mm; }}
 
-.serre2 .illus img {{ height: 30mm; }}
-.serre .illus img {{ height: 40mm; }}
+/* Resserrement : l'image rapetisse en gardant ses proportions (même cadrage), le texte reste à 12 pt */
+.serre .illus img {{ height: 40mm; width: 64.5%; }}
 .serre .separateur {{ margin: 2mm 0 2mm; }}
 .serre .elan {{ margin-top: 1.5mm; }}
+/* Dernier cran : image plus petite et interligne un peu plus serré */
+.serre2 .illus img {{ height: 30mm; width: 48.4%; }}
+.serre2 {{ line-height: 1.3; }}
+.serre2 p {{ margin-bottom: 0.4em; }}
 
 /* Séparateur, choix, fin */
 .separateur {{ display: flex; align-items: center; justify-content: center; gap: 3mm; margin: 4mm 0 3mm; break-after: avoid; }}
@@ -238,7 +242,7 @@ def document(pages, blanches=0):
            "(bibliothèques Méjanes, Aix-en-Provence), en octobre 2026.</p><p>Réalisation du livre : Laboratoire d’Aix-périmentation et de Bidouille.</p>"
            "</div></section>")
     return (f'<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>{CSS}</style></head>'
-            f"<body>{couverture}{contexte}{chapitres}{arbre}{vides}{dos}</body></html>")
+            f"<body>{couverture}{chapitres}{arbre}{contexte}{vides}{dos}</body></html>")
 
 
 def imprimer(source_html, pdf):
