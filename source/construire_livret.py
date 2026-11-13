@@ -52,6 +52,11 @@ CSS = f"""
 html {{ font-family: "EB Garamond", serif; font-size: 12pt; line-height: 1.38; color: #22263a; }}
 body {{ margin: 0; }}
 p {{ margin: 0 0 0.55em; orphans: 2; widows: 2; }}
+/* Quatrième de couverture : le QR code vers le site du livre */
+.qr {{ text-align: center; margin: 0 0 9mm; }}
+.qr img {{ display: block; width: 24mm; height: 24mm; margin: 0 auto 2mm; }}
+.qr p {{ margin: 0; font-size: 9.5pt; }}
+.qr .adresse {{ font-size: 7.5pt; opacity: 0.7; }}
 .page-seule {{ break-before: page; }}
 /* Illustration de chapitre en pleine page, à fond perdu et sans texte (tournée en paysage au besoin) */
 @page plein {{ margin: 0; @bottom-center {{ content: none; }} }}
@@ -79,14 +84,16 @@ h1 {{ font-family: "IM Fell English"; font-weight: 400; font-size: 19pt; line-he
 .illus img {{ display: block; width: 100%; height: 62mm; object-fit: cover; margin: 0 auto 4mm;
   border: 0.8mm solid #d99a2b; border-radius: 3.5mm; }}
 
-/* Resserrement : l'image rapetisse en gardant ses proportions (même cadrage), le texte reste à 12 pt */
-.serre .illus img {{ height: 40mm; width: 64.5%; }}
+/* Chapitres resserrés : seul le texte se resserre (interligne, espaces entre paragraphes), jamais sous 11 pt ;
+   les images gardent toutes la même taille */
+.serre {{ line-height: 1.32; }}
+.serre p {{ margin-bottom: 0.45em; }}
 .serre .separateur {{ margin: 2mm 0 2mm; }}
 .serre .elan {{ margin-top: 1.5mm; }}
-/* Dernier cran : image plus petite et interligne un peu plus serré */
-.serre2 .illus img {{ height: 30mm; width: 48.4%; }}
-.serre2 {{ line-height: 1.3; }}
-.serre2 p {{ margin-bottom: 0.4em; }}
+/* Second cran : si resserrer ne suffit pas, le chapitre est aéré (plus d'interligne et d'espace entre
+   paragraphes) pour que davantage de lignes passent sur sa dernière page, qui se remplit */
+.serre2 {{ line-height: 1.5; }}
+.serre2 p {{ margin-bottom: 0.9em; }}
 
 /* Séparateur, choix, fin */
 .separateur {{ display: flex; align-items: center; justify-content: center; gap: 3mm; margin: 4mm 0 3mm; break-after: avoid; }}
@@ -149,6 +156,9 @@ def avec_page(texte, pages):
 
 
 
+# Chapitres dont la seconde illustration passe en pleine page (elle restait seule en haut d'une page)
+SECONDES_PLEINES = {1}
+
 def chapitre(ch, pages):
     cle = 0 if ch["nom"] == "Prologue" else int(ch["nom"].split()[-1])
     classe = "page-seule" + (" serre" if cle in SERRES else "") + (" serre2" if cle in SERRES2 else "")
@@ -184,7 +194,11 @@ def chapitre(ch, pages):
     morceaux += corps
     # Deuxième image du chapitre, comme sur le site : à la fin du texte, avant les choix
     seconde = RACINE / "images" / "chapitres" / f"{illustration(ch['nom'])}b.jpg"
-    if seconde.exists():
+    if seconde.exists() and cle in SECONDES_PLEINES:
+        # Seconde illustration qui tomberait seule sur sa page : elle passe en pleine page, tournée, après le texte
+        pleine = RACINE / "images" / "pleines" / f"{illustration(ch['nom'])}b.jpg"
+        apres = f'<section class="pleine-image"><img src="{pleine.as_uri()}" alt=""></section>'
+    elif seconde.exists():
         morceaux.append(f'<div class="illus seconde"><img src="{seconde.as_uri()}" alt=""></div>')
 
     # Le bouton du prologue n'existe que sur le site : dans le livret, on tourne simplement la page
@@ -205,6 +219,10 @@ def chapitre(ch, pages):
     if consigne or choix or fin:
         morceaux.append(f'<div class="suite">{"".join(suite)}</div>')
     morceaux.append("</section>")
+    # La seconde illustration en pleine page vient après le chapitre refermé (sinon une section vide
+    # ouvrait une page blanche)
+    if seconde.exists() and cle in SECONDES_PLEINES:
+        morceaux.append(apres)
     return "".join(morceaux)
 
 
@@ -236,17 +254,13 @@ def document(pages, blanches=0):
         + "".join(f"<p>{italique(p).replace('&lt;b&gt;', '<b>').replace('&lt;/b&gt;', '</b>')}</p>" for p in paragraphes)
         + '<p class="credits">Une histoire librement inspirée du récit d’Agathe, d’Aliya et de Teresa.<br>Réalisation du livre : '
           "Laboratoire d’Aix-périmentation et de Bidouille.</p></section>"
-        '<section class="page-seule contexte"><h2>Les fiches de l’atelier</h2><div class="fiches">'
-        f'<img src="{(fiches / "fiche_recit.jpg").as_uri()}" alt="">'
-        f'<img src="{(fiches / "fiche_personnage_rose.jpg").as_uri()}" alt="">'
-        f'<img class="pleine" src="{(fiches / "fiche_situation_1.jpg").as_uri()}" alt="">'
-        "</div></section>"
     )
     chapitres = "".join(chapitre(ch, pages) for ch in lire_chapitres())
     arbre = ('<section class="page-seule contexte arbre sans-numero"><h2>L’arbre de l’histoire</h2>'
              f'<img src="{(RACINE / "images/arbre.svg").as_uri()}" alt=""></section>')
     vides = '<section class="page-seule sans-numero">&nbsp;</section>' * blanches
     dos = ('<section class="page-seule sans-numero"><div class="dos">'
+           f'<div class="qr"><img src="{(RACINE / "images" / "qr.svg").as_uri()}" alt=""><p>Lis cette histoire en ligne</p><p class="adresse">labaixbidouille.github.io/les-trois-soeurs</p></div>'
            f"<p><b>{e(TITRE)}</b>, une histoire librement inspirée du récit imaginé par Agathe, Aliya et Teresa pendant l’atelier "
            "« La quête du curry, une histoire dont tu es le héros », à la bibliothèque Li Campaneto "
            "(bibliothèques Méjanes, Aix-en-Provence), en octobre 2026.</p><p>Réalisation du livre : Laboratoire d’Aix-périmentation et de Bidouille.</p>"
@@ -299,7 +313,7 @@ def queues_courtes(pdf, pages):
 # Illustrations de chapitre en pleine page (tournées en paysage au besoin) : on en ajoute, dans l'ordre de
 # PLEINES, juste assez pour que le livret tombe sur un multiple de 4 sans page blanche. L'illustration n'est
 # alors plus répétée dans le texte du chapitre.
-PLEINES = [12, 13, 8, 3, 15]
+PLEINES = [12, 13, 8, 3, 15, 5, 10, 6, 14, 1, 9]
 ACTIVES = []
 BLANCHES = 0
 
