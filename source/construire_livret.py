@@ -199,9 +199,18 @@ def chapitre(ch, pages):
 def document(pages, blanches=0):
     # Couverture pleine page dans le style du livre, le résumé seul sur la page suivante
     couverture = (
-        '<style>.cv { page: couverture; position: relative; height: 185.5mm; overflow: hidden; }.cv .cv-entete { position: absolute; left: 0; right: 0; text-align: center; padding: 0 8mm; z-index: 2; }.cv .cv-image { position: absolute; left: 0; right: 0; bottom: 0; overflow: hidden; }.cv .cv-image img { display: block; height: 100%; width: auto; position: absolute; top: 0; margin: 0; border: 0; border-radius: 0; }.cv-resume { display: flex; flex-direction: column; justify-content: center; height: 156mm; text-align: center; }.cv { background: linear-gradient(to bottom, #121a33 0%, #1d2b4f 40%, #24345e 100%); }.cv .cv-entete { top: 0; height: 77mm; display: flex; flex-direction: column; justify-content: center; }.cv .surtitre { font-family: "EB Garamond"; font-style: italic; font-size: 12pt; color: #e8c88a; }.cv .titre { font-family: "EB Garamond"; font-weight: 500; font-size: 46pt; line-height: 0.95; letter-spacing: -0.5pt; color: #fff7e6; margin: 2mm 0 3mm; }.cv .auteur { font-family: "EB Garamond"; font-weight: 600; font-size: 10pt; letter-spacing: 1.6pt; text-transform: uppercase; color: #f2b45a; }.cv .cv-image { height: 112mm; } .cv .cv-image img { left: -22mm; }.cv-resume p { font-size: 12pt; line-height: 1.5; }</style>'
-        '<section class="cv sans-numero"><div class="cv-entete"><div class="surtitre">Une histoire dont le lecteur est le héros</div><div class="titre">' + e(TITRE) + '</div><div class="auteur">une histoire par ' + e(AUTRICES) + '</div></div>'
-        f'<div class="cv-image"><img src="{(RACINE / "images/couverture-livret.png").as_uri()}" alt=""></div>'
+        # Couverture : l'image de Manon en pleine page (ciel étoilé prolongé au format A5), le titre dans les étoiles
+        '<style>.cv { page: couverture; position: relative; height: 185.5mm; overflow: hidden; background: #0e1530; }'
+        '.cv .cv-fond { position: absolute; inset: 0; width: 100%; height: 100%; }'
+        '.cv .cv-entete { position: absolute; left: 0; right: 0; top: 16mm; text-align: center; padding: 0 8mm; }'
+        '.cv .surtitre { font-family: "EB Garamond"; font-style: italic; font-size: 12pt; color: #e8c88a; }'
+        '.cv .titre { font-family: "EB Garamond"; font-weight: 500; font-size: 46pt; line-height: 0.95; letter-spacing: -0.5pt; color: #fff7e6; margin: 2mm 0 3mm; }'
+        '.cv .auteur { font-family: "EB Garamond"; font-weight: 600; font-size: 10pt; letter-spacing: 1.6pt; text-transform: uppercase; color: #f2b45a; }'
+        '.cv-resume { display: flex; flex-direction: column; justify-content: center; height: 156mm; text-align: center; }'
+        '.cv-resume p { font-size: 12pt; line-height: 1.5; }</style>'
+        f'<section class="cv sans-numero"><img class="cv-fond" src="{(RACINE / "images/couverture-livret-pleine.png").as_uri()}" alt="">'
+        '<div class="cv-entete"><div class="surtitre">Une histoire dont le lecteur est le héros</div><div class="titre">' + e(TITRE) + '</div>'
+        '<div class="auteur">une histoire par ' + e(AUTRICES) + '</div></div>'
         '</section><section class="page-seule sans-numero"><div class="cv-resume">'
         + "".join(f"<p>{e(p)}</p>" for p in SYNOPSIS.split("\n\n")) + '' + "</div></section>"
     )
