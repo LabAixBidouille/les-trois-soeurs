@@ -163,7 +163,7 @@ tw-story { overflow: clip; }
 
 /* Page de garde */
 /* La couverture tient dans l'écran : marges réduites et tailles qui suivent la hauteur de l'écran */
-tw-story:has(.garde) { padding-top: 1em; padding-bottom: 1em; }
+tw-story:has(.garde) { padding-top: 0.4em; padding-bottom: 0.4em; }
 .garde {
   min-height: calc(100vh - 2.2em);
   display: flex;
